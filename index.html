@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <title>snwbl digital</title>
+
+    <meta name="description" content="snwbl digital provides a consistent, high-quality online presence for small businesses in Randburg and Sandton. We handle the video production, editing, and daily posting so you can handle your brand.">
+    <meta name="keywords" content="digital marketing agency, social media management, short form video editing, web design, Randburg, Sandton, Gauteng, local business marketing">
+    <meta name="author" content="Sami Elnaamani">
+    <meta name="robots" content="index, follow">
+    
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.snwbldigital.com/">
+    <meta property="og:title" content="snwbl digital | attention is your currency.">
+    <meta property="og:description" content="End-to-end digital infrastructure, cinematic video production, and daily social media management for local businesses.">
+    <meta property="og:image" content="https://www.snwbldigital.com/snwbl-preview.jpg"> <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "snwbl digital",
+      "image": "https://www.snwbldigital.com/snwbl Logo Black.png",
+      "@id": "",
+      "url": "https://www.snwbldigital.com",
+      "telephone": "",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Randburg",
+        "addressRegion": "Gauteng",
+        "addressCountry": "ZA"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": -26.0936,
+        "longitude": 28.0066
+      },
+      "priceRange": "ZAR",
+      "description": "snwbl digital provides a consistent, high-quality online presence for small businesses through cinematic on-site production, dynamic editing, and automated posting."
+    }
+    </script>
+
+    <style>
+        :root {
+            --gr-obsidian: #0d0d0d; 
+            --gr-bone: #ffffff; 
+            --gr-sage: #8da399;
+            --glass-bg: rgba(255, 255, 255, 0.6);
+            --glass-border: rgba(13, 13, 13, 0.1);
+            --tracking-massive: 0.4em; 
+            --tracking-standard: 0.1em; 
+        }
+
+        /* --- CUSTOM HIGHLIGHTING --- */
+        ::-moz-selection {
+            background-color: var(--gr-sage);
+            color: var(--gr-bone);
+        }
+        ::selection {
+            background-color: var(--gr-sage);
+            color: var(--gr-bone);
+        }
+
+        /* --- FORCED DEFAULT CURSOR --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-transform: lowercase;
+            font-family: "Helvetica Neue", Helvetica, "Inter", sans-serif;
+            scroll-behavior: smooth;
+            cursor: default !important; 
+        }
+
+        /* --- AMBIENT BACKGROUND & BODY --- */
+        body {
+            background-color: var(--gr-bone);
+            color: var(--gr-obsidian);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            position: relative;
+            animation: frostedLoad 1.2s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        @keyframes frostedLoad {
+            0% { 
+                opacity: 0; 
+                filter: blur(15px); 
+            }
+            100% { 
+                opacity: 1; 
+                filter: none; 
+            }
+        }
+
+        /* This creates the living, breathing background effect */
+        body::before {
+            content: "";
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 50% 50%, rgba(141, 163, 153, 0.06), transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(13, 13, 13, 0.03), transparent 40%);
+            z-index: -1;
+            animation: ambientDrift 25s ease-in-out infinite alternate;
+            pointer-events: none;
+        }
+
+        @keyframes ambientDrift {
+            0% { transform: rotate(0deg) scale(1); }
+            100% { transform: rotate(3deg) scale(1.05); }
+        }
+
+        body.modal-open {
+            overflow: hidden;
+        }
+
+        /* --- CINEMATIC ENTRANCE ANIMATIONS --- */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-up {
+            animation: fadeUp 1.2s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+            opacity: 0; /* Prevents flashing before animation starts */
+        }
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+
+        /* --- HERO & LOGO INTEGRATION --- */
+        .hero-container {
+            width: 100%;
+            min-height: 100dvh; 
+            /* Changed to fluid padding: squishes top/bottom space on smaller screens */
+            padding: clamp(30px, 5vh, 80px) 80px; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center; 
+            align-items: flex-start; 
+            border-bottom: 1px solid var(--glass-border);
+            position: relative;
+        }
+
+        .header-logo {
+            width: clamp(120px, 15vw, 200px); 
+            height: auto;
+            opacity: 0.95;
+            /* Fluid bottom margin */
+            margin-bottom: clamp(20px, 4vh, 60px); 
+            filter: drop-shadow(0 10px 20px rgba(13, 13, 13, 0.05)); 
+            -webkit-user-select: none; /* Safari */
+            -ms-user-select: none; /* IE 10 and IE 11 */
+            user-select: none; /* Standard syntax */
+        }
+
+        .hero-text-block {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .edge-text {
+            display: flex;
+            justify-content: space-between; 
+            font-size: clamp(3rem, 10vw, 11rem); 
+            font-weight: 400;
+            line-height: 0.95;
+            margin: 0;
+            letter-spacing: -0.04em;
+            width: 100%;
+            -webkit-user-select: none; /* Safari */
+            -ms-user-select: none; /* IE 10 and IE 11 */
+            user-select: none; /* Standard syntax */
+        }
+
+        .hero-sub {
+            /* Fluid margins scale down dynamically on laptop screens */
+            margin-top: clamp(20px, 4vh, 50px); 
+            font-size: 18px;
+            letter-spacing: 0.02em;
+            max-width: 650px;
+            line-height: 1.6;
+            margin-bottom: clamp(30px, 5vh, 50px); 
+            font-weight: 300;
+        }
+
+        button {
+            border: none;
+            background: transparent;
+            font-family: inherit;
+            
+        }
+
+        .cta-trigger {
+            display: inline-block;
+            padding: 18px 40px;
+            background: var(--gr-obsidian);
+            border: 1px solid var(--gr-obsidian);
+            text-decoration: none;
+            color: var(--gr-bone);
+            font-size: 12px;
+            letter-spacing: var(--tracking-massive);
+            font-weight: 500;
+            transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+            text-align: center;
+            -webkit-user-select: none; /* Safari */
+            -ms-user-select: none; /* IE 10 and IE 11 */
+            user-select: none; /* Standard syntax */
+        }
+
+        .cta-trigger:hover {
+            background: transparent;
+            color: var(--gr-obsidian);
+            transform: translateY(-2px); 
+            box-shadow: 0 10px 20px rgba(13, 13, 13, 0.1);
+        }
+
+        .cta-trigger.secondary {
+            background: transparent;
+            color: var(--gr-obsidian);
+        }
+
+        .cta-trigger.secondary:hover {
+            background: var(--gr-sage);
+            border-color: var(--gr-sage);
+            color: var(--gr-bone);
+        }
+
+        /* --- PARTNERS SECTION --- */
+        .partners-section {
+            padding: 60px 80px;
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .partners-label {
+            font-size: 12px;
+            letter-spacing: var(--tracking-massive);
+            color: var(--gr-sage);
+            font-weight: 500;
+            margin-bottom: 40px;
+            -webkit-user-select: none; /* Safari */
+            -ms-user-select: none; /* IE 10 and IE 11 */
+            user-select: none; /* Standard syntax */
+        }
+
+        .partners-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 40px 70px;
+            max-width: 900px;
+            -webkit-user-select: none; /* Safari */
+            -ms-user-select: none; /* IE 10 and IE 11 */
+            user-select: none; /* Standard syntax */
+        }
+
+        .partner-item {
+            opacity: 0.4;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            
+        }
+
+        .partner-item:hover {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        /* Forces actual logos to be beautifully minimal and uniform */
+        .partner-item img {
+            max-height: 60px; 
+            min-height: 40px;
+            width: auto;
+            filter: grayscale(100%) contrast(120%); 
+        }
+
+        /* --- UPDATED STICKY HEADERS --- */
+        .content-section {
+            position: relative; /* Acts as the bounding box for the sticky headers */
+        }
+
+        .section-header {
+            font-size: 11px;
+            letter-spacing: var(--tracking-massive);
+            padding: 25px 80px;
+            border-bottom: 1px solid var(--glass-border);
+            background: rgba(255, 255, 255, 0.85); /* Updated to Snow White */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            display: flex;
+            justify-content: space-between;
+            font-weight: 500;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            transition: color 0.3s ease, background-color 0.3s ease, border-bottom-color 0.3s ease;
+            -webkit-user-select: none; /* Safari */
+            -ms-user-select: none; /* IE 10 and IE 11 */
+            user-select: none; /* Standard syntax */
+        }
+
+        .section-header span:last-child {
+            color: var(--gr-sage);
+        }
+
+        /* Dark inversion class triggered by JS on mobile */
+        .section-header.inverted {
+            color: var(--gr-bone);
+            background-color: transparent; /* Allows black tier to show through */
+            border-bottom-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .feature-block {
+            padding: 80px;
+            border-bottom: 1px solid var(--glass-border);
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 50px;
+            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .feature-block:hover { 
+            background: rgba(255, 255, 255, 0.5); 
+            transform: translateY(-3px);
+            box-shadow: 0 30px 60px rgba(13, 13, 13, 0.03);
+            position: relative;
+            z-index: 2;
+        }
+
+        .feature-id {
+            font-size: 12px;
+            letter-spacing: var(--tracking-massive);
+            color: var(--gr-sage);
+            font-weight: 500;
+            padding-top: 10px;
+        }
+
+        .feature-title {
+            font-size: 32px;
+            letter-spacing: -0.02em;
+            margin-bottom: 20px;
+            display: block;
+            font-weight: 400;
+        }
+
+        .feature-desc {
+            font-size: 18px;
+            line-height: 1.6;
+            font-weight: 300;
+            max-width: 800px;
+        }
+
+        .tier-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            background: var(--glass-border);
+            gap: 1px;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .tier-card {
+            background: var(--gr-bone);
+            padding: 80px 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .tier-card:hover {
+            background: #ffffff;
+            transform: scale(1.01);
+            box-shadow: 0 40px 80px rgba(13, 13, 13, 0.05);
+            z-index: 3;
+        }
+
+        .tier-card.featured {
+            background: var(--gr-obsidian);
+            color: var(--gr-bone);
+        }
+
+        .tier-card.featured:hover {
+            background: #1a1a1a;
+            box-shadow: 0 40px 80px rgba(13, 13, 13, 0.15);
+        }
+
+        .tier-label {
+            opacity: 0.6;
+            font-size: 11px;
+            letter-spacing: var(--tracking-massive);
+            margin-bottom: 30px;
+            display: block;
+        }
+
+        .price {
+            font-size: 64px;
+            font-weight: 300;
+            margin-bottom: 40px;
+            letter-spacing: -0.03em;
+        }
+
+        .tier-features {
+            list-style: none;
+            margin-bottom: 50px;
+        }
+
+        .tier-features li {
+            font-size: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            font-weight: 300;
+        }
+
+        .tier-features li::before {
+            content: "";
+            width: 8px; height: 8px;
+            background: var(--gr-sage);
+            margin-right: 15px;
+            border-radius: 50%; 
+        }
+
+        .contact-section {
+            padding: 100px 80px;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .contact-form {
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            margin: 0 auto;
+            gap: 30px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .form-label {
+            font-size: 11px;
+            letter-spacing: var(--tracking-standard);
+            opacity: 0.7;
+        }
+
+        .form-input {
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.4); /* Updated for pure white */
+            border: 1px solid var(--glass-border);
+            color: var(--gr-obsidian);
+            font-family: inherit;
+            font-size: 15px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            border-color: var(--gr-sage);
+            background: #ffffff;
+            box-shadow: 0 10px 20px rgba(141, 163, 153, 0.1);
+        }
+
+        textarea.form-input {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        #form-message {
+            font-size: 12px;
+            letter-spacing: var(--tracking-standard);
+            color: var(--gr-sage);
+            display: none;
+        }
+
+        /* --- SUBTLE CUSTOM SCOPE BLOCK --- */
+        .custom-scope-block {
+            padding: 40px 80px;
+            background: transparent;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--glass-border); 
+        }
+
+        .scope-text {
+            font-size: 11px;
+            letter-spacing: 0.05em;
+            color: var(--gr-sage);
+            font-weight: 400;
+        }
+
+        .scope-link {
+            font-size: 10px;
+            letter-spacing: var(--tracking-massive);
+            color: var(--gr-obsidian);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(13, 13, 13, 0.2);
+            padding-bottom: 4px;
+            transition: all 0.3s ease;
+            display: inline-block; 
+            transform: translateZ(0); 
+        }
+
+        .scope-link:hover {
+            color: var(--gr-sage);
+            border-bottom-color: var(--gr-sage);
+        }
+
+        /* --- COMPACT & DETAILED MODAL CSS --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(13, 13, 13, 0.5); 
+            backdrop-filter: blur(20px); 
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 2000;
+            display: none; 
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: var(--gr-bone);
+            padding: 60px 50px; 
+            max-width: 650px; 
+            width: 90%;
+            max-height: 85vh; 
+            overflow-y: auto; 
+            position: relative;
+            border: 1px solid rgba(13, 13, 13, 0.05); 
+            box-shadow: 0 50px 100px rgba(13, 13, 13, 0.3); 
+            border-radius: 2px; 
+            transform: scale(0.95) translateY(30px); 
+            transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1); 
+        }
+
+        .modal-content::-webkit-scrollbar {
+            width: 4px;
+        }
+        .modal-content::-webkit-scrollbar-thumb {
+            background: var(--glass-border);
+            border-radius: 10px;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1) translateY(0); 
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 25px;
+            right: 30px;
+            font-size: 28px;
+            font-weight: 300;
+            opacity: 0.4;
+            transition: opacity 0.3s ease;
+            text-decoration: none;
+            color: var(--gr-obsidian);
+        }
+
+        .modal-close:hover {
+            opacity: 1;
+        }
+
+        .modal-title {
+            font-size: 28px; 
+            margin-bottom: 25px;
+            letter-spacing: -0.02em;
+        }
+
+        .modal-body {
+            font-size: 14px; 
+            line-height: 1.7;
+            opacity: 0.85;
+            margin-bottom: 40px;
+        }
+
+        .modal-body strong {
+            font-weight: 500;
+            color: var(--gr-obsidian);
+        }
+
+        .modal-body p {
+            margin-bottom: 15px;
+        }
+
+        /* --- MODAL TABLE CSS --- */
+        .modal-body table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+        }
+
+        .modal-body tr {
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .modal-body tr:last-child {
+            border-bottom: none;
+        }
+
+        .modal-body td {
+            padding: 20px 0;
+            vertical-align: top;
+        }
+
+        .modal-body td:first-child {
+            width: 30%;
+            padding-right: 20px;
+            color: var(--gr-sage);
+            font-weight: 500;
+            letter-spacing: 0.05em;
+        }
+
+        .footer-cta {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 15px 30px;
+            border: 1px solid var(--gr-obsidian);
+            text-decoration: none;
+            color: var(--gr-obsidian);
+            font-size: 9px;
+            letter-spacing: 0.4em;
+            transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .footer-cta:hover {
+            background: var(--gr-sage);
+            border-color: var(--gr-sage);
+            color: var(--gr-bone);
+            transform: translateY(-2px); 
+            box-shadow: 0 10px 20px rgba(13, 13, 13, 0.1);
+        }
+
+        footer {
+            padding: 80px 80px 60px 80px; 
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .social-block {
+            display: flex;
+            gap: 40px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            padding: 15px 30px;
+            border: 1px solid var(--glass-border);
+            transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .social-block:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(13, 13, 13, 0.05);
+        }
+
+        .social-link svg {
+            width: 16px; height: 16px;
+            fill: var(--gr-obsidian);
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover svg { 
+            transform: translateY(-2px); 
+            fill: var(--gr-sage);
+        }
+
+        .legal-block {
+            font-size: 9px;
+            letter-spacing: 0.45em;
+            line-height: 2.2;
+            -webkit-user-select: none; /* Safari */
+            -ms-user-select: none; /* IE 10 and IE 11 */
+            user-select: none; /* Standard syntax */
+        }
+
+@media (max-width: 1024px) {
+            .section-header { padding: 20px 30px; } 
+            .hero-container { 
+                padding: clamp(30px, 5vh, 60px) 30px; /* Updated mobile padding */
+                min-height: 100dvh; 
+                justify-content: center;
+            }
+            .header-logo { 
+                width: clamp(100px, 30vw, 150px); 
+                margin-bottom: 30px; 
+            }
+            .edge-text { font-size: clamp(2.8rem, 11vw, 5rem); } /* Adjusted scaling for mobile */
+            .partners-section { padding: 50px 30px; }
+            .partners-grid { gap: 30px 40px; }
+            .partner-item img { max-height: 30px; }
+            .feature-block { grid-template-columns: 1fr; gap: 20px; }
+            .tier-grid { grid-template-columns: 1fr; }
+            .custom-scope-block { flex-direction: column; padding: 40px 30px; gap: 20px; text-align: center; }
+            .contact-section { padding: 80px 30px; }
+            footer { flex-direction: column; align-items: flex-start; gap: 80px; padding: 80px 30px; }
+            .modal-content { padding: 40px 25px; }
+            .modal-body td:first-child { width: 40%; }
+        }
+    </style>
+</head>
+<body>
+
+    <main>
+        <div class="hero-container animate-up">
+            <img src="snwbl Logo Black.png" alt="snwbl digital logo" class="header-logo">
+            <div class="hero-text-block">
+                <h1 class="edge-text"><span>attention</span> <span>is</span></h1>
+                <h1 class="edge-text"><span>your</span> <span>currency.</span></h1>
+            </div>
+            <p class="hero-sub">
+                snwbl digital provides a consistent, high-quality online presence for small businesses. we handle the content, so you can handle your brand.
+            </p>
+            <a href="#investment" class="cta-trigger">view retainers</a>
+        </div>
+
+        <div class="partners-section animate-up delay-1">
+            <div class="partners-label">trusted by</div>
+            <div class="partners-grid">
+                <div class="partner-item"><img src="The Treat Kyalami PNG Black.png" alt="trusted partner"></div>
+                <div class="partner-item"><img src="AD FULL Black PNG.png" alt="arcadia designz"></div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div id="architecture" class="section-header animate-up delay-2">
+                <span>01 / the process</span>
+                <span>[ how we support you ]</span>
+            </div>
+            
+            <div class="feature-block animate-up delay-3">
+                <div class="feature-id">001 / capture</div>
+                <div class="feature-text">
+                    <span class="feature-title">on-site production</span>
+                    <p class="feature-desc">we step into your business weekly to capture clean, scroll-stopping footage. we handle the visual framing to ensure a professional, modern aesthetic that represents your brand accurately.</p>
+                </div>
+            </div>
+
+            <div class="feature-block animate-up delay-3">
+                <div class="feature-id">002 / construct</div>
+                <div class="feature-text">
+                    <span class="feature-title">dynamic editing</span>
+                    <p class="feature-desc">raw footage is transformed into engaging 15-90 second assets. we utilise modern retention tactics, clear audio, and crisp editing to ensure your business stands out locally.</p>
+                </div>
+            </div>
+
+            <div class="feature-block animate-up delay-3">
+                <div class="feature-id">003 / deploy</div>
+                <div class="feature-text">
+                    <span class="feature-title">consistent posting</span>
+                    <p class="feature-desc">we take the burden of social media off your shoulders. from writing captions to researching hashtags and scheduling posts, we keep your digital footprint active and growing.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <div id="investment" class="section-header">
+                <span>02 / retainers</span>
+                <span>[ select your tier ]</span>
+            </div>
+
+            <div class="tier-grid">
+                <div class="tier-card">
+                    <div>
+                        <span class="tier-label">01 / presence</span>
+                        <div class="price"><span style="text-transform: uppercase;">R</span>4,500<span style="font-size: 18px; color: var(--gr-sage);"> / mo</span></div>
+                        <ul class="tier-features">
+                            <li>4x monthly shoot days</li>
+                            <li>15 ig posts & 15 ig stories / mo</li>
+                            <li>2 tiktoks/reels / week</li>
+                            <li>platforms: instagram & tiktok</li>
+                        </ul>
+                    </div>
+                    <button class="cta-trigger secondary" onclick="openModal('presence')">learn more</button>
+                </div>
+
+                <div class="tier-card featured">
+                    <div>
+                        <span class="tier-label" style="color: var(--gr-sage);">02 / momentum (recommended)</span>
+                        <div class="price"><span style="text-transform: uppercase;">R</span>8,500<span style="font-size: 18px; color: var(--gr-sage);"> / mo</span></div>
+                        <ul class="tier-features">
+                            <li>4x monthly shoot days</li>
+                            <li>30 posts & 30 stories / mo</li>
+                            <li>4 tiktoks/reels / week</li>
+                            <li>platforms: instagram, tiktok & facebook</li>
+                            <li>community management & paid ads</li>
+                        </ul>
+                    </div>
+                    <button class="cta-trigger" style="background: var(--gr-bone); color: var(--gr-obsidian); border-color: var(--gr-bone);" onclick="openModal('momentum')">learn more</button>
+                </div>
+
+                <div class="tier-card">
+                    <div>
+                        <span class="tier-label">03 / ecosystem</span>
+                        <div class="price"><span style="text-transform: uppercase;">R</span>15,000<span style="font-size: 18px; color: var(--gr-sage);"> / mo</span></div>
+                        <ul class="tier-features">
+                            <li>everything in momentum tier</li>
+                            <li>platforms: instagram, tiktok & facebook</li>
+                            <li>custom website design</li>
+                            <li>ongoing web maintenance</li>
+                            <li>brand identity updates</li>
+                        </ul>
+                    </div>
+                    <button class="cta-trigger secondary" onclick="openModal('ecosystem')">learn more</button>
+                </div>
+            </div>
+            
+            <div class="custom-scope-block">
+                <span class="scope-text">* require something unique? custom scopes and exclusive packages available upon request.</span>
+                <a href="tel:+27736391117" class="scope-link">book a discovery call</a>
+            </div>
+        </div> 
+
+        <div class="content-section">
+        <div id="contact" class="section-header">
+                <span>03 / initiate</span>
+                <span>[ project inquiry ]</span>
+            </div>
+
+           <div class="contact-section">
+                <p style="font-size: 11px; letter-spacing: 0.1em; color: var(--gr-sage); text-align: center; margin-bottom: 40px; text-transform: lowercase;">* please note: on-site production is strictly limited to businesses within a 20km radius of sandton, gauteng.</p>
+                <form class="contact-form" id="agencyForm" action="https://formspree.io/f/xeedwbwd" method="POST">
+                    <div class="form-group">
+                        <label class="form-label" for="name">your name</label>
+                        <input class="form-input" type="text" id="name" name="name" required placeholder="john doe">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="business">business name</label>
+                        <input class="form-input" type="text" id="business" name="business" required placeholder="e.g. john doe café">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="email">email address</label>
+                        <input class="form-input" type="email" id="email" name="email" required placeholder="john@example.com">
+                    </div>
+                     <div class="form-group">
+                        <label class="form-label" for="location">business location</label>
+                        <input class="form-input" type="text" id="location" name="location" required placeholder="e.g. sandton, gauteng">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="message">project details</label>
+                        <textarea class="form-input" id="message" name="message" required placeholder="please share details about your current digital presence, business goals, and any specific inquiries..."></textarea>
+                    </div>
+                    <button type="submit" class="cta-trigger">submit inquiry</button>
+                    <div id="form-message">inquiry received. we will be in touch shortly.</div>
+                    <div id="form-error" style="display:none; color: red; font-size: 11px; margin-top: 10px; text-align: center;">there was an error sending your message. please try again.</div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <div class="modal-overlay" id="tierModal" onclick="closeModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <span class="modal-close" onclick="closeModal(event, true)">×</span>
+            <h3 class="modal-title" id="modalTitle">tier title</h3>
+            <div class="modal-body" id="modalBody">
+                </div>
+            <a href="#contact" class="cta-trigger" onclick="closeModal(event, true)">secure this package</a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="legal-block">
+            <a href="terms.html" class="footer-cta">terms & conditions</a>
+        </div>
+
+        <div class="social-block">
+            <a href="https://www.linkedin.com/company/snwbldigital/" class="social-link"><svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+            <a href="https://www.facebook.com/snwbldigital" class="social-link"><svg viewBox="0 0 24 24"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/></svg></a>
+            <a href="https://www.tiktok.com/@snwbldigital?_r=1&_t=ZS-96pKU1hGBHw" class="social-link"><svg viewBox="0 0 24 24"><path d="M19.589 6.686a4.793 4.793 0 0 1-3.77-4.245V2h-3.445v13.672a2.896 2.896 0 0 1-5.201 1.743l-.002-.001.002.001a2.895 2.895 0 0 1 3.183-4.51v-3.5a6.329 6.329 0 0 0-5.394 10.692 6.33 6.33 0 0 0 10.857-4.424V8.687a8.182 8.182 0 0 0 4.773 1.526V6.79a4.831 4.831 0 0 1-1.003-.104z"/></svg></a>
+            <a href="https://www.instagram.com/snwbldigital/?utm_source=ig_web_button_share_sheet" class="social-link"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+        </div>
+
+        <div class="legal-block">
+            <div>snwbl digital</div>
+            <div>© 2026 all rights reserved.</div>
+        </div>
+    </footer>
+
+    <script>
+        // TABLE FORMATTED MODAL DATA
+        const tierData = {
+            presence: {
+                title: "01 / presence",
+                body: `
+                    <p>perfect for businesses that need a consistent, professional digital presence but cannot afford massive marketing firm retainers. we handle the creation and posting, so you can handle your business.</p>
+                    <table>
+                        <tr>
+                            <td>capture</td>
+                            <td>4x monthly shoot days (once a week). we will spend hours on-location capturing clean, high-quality footage for the upcoming days.</td>
+                        </tr>
+                        <tr>
+                            <td>deliverables</td>
+                            <td>we edit your footage into modern clips designed for platforms like instagram reels and tiktok.</td>
+                        </tr>
+                        <tr>
+                            <td>deployment</td>
+                            <td>we deploy 15 static/carousel posts and 15 stories to your instagram per month, plus 2 dedicated tiktoks/reels per week.</td>
+                        </tr>
+                        <tr>
+                            <td>platforms</td>
+                            <td>instagram and tiktok.</td>
+                        </tr>
+                        <tr>
+                            <td>the goal</td>
+                            <td>to relieve the stress of content creation from the business owner while keeping your brand consistently visible to your local audience.</td>
+                        </tr>
+                    </table>
+                `
+            },
+            momentum: {
+                title: "02 / momentum (recommended)",
+                body: `
+                    <p>a proactive, hands-off approach to managing your social presence. we increase the volume and handle the community interaction, acting as your dedicated digital partner.</p>
+                    <table>
+                        <tr>
+                            <td>capture</td>
+                            <td>4x monthly shoot days (once a week). we dedicate hours on-location to build a robust library of engaging content.</td>
+                        </tr>
+                        <tr>
+                            <td>deployment</td>
+                            <td>we deploy 30 static/carousel posts and 30 stories across your instagram and facebook per month, plus 4 dedicated tiktoks/reels per week.</td>
+                        </tr>
+                        <tr>
+                            <td>platforms</td>
+                            <td>instagram, tiktok, and facebook.</td>
+                        </tr>
+                        <tr>
+                            <td>copywriting</td>
+                            <td>we handle all the captions. this includes targeted hashtags and basic seo optimisation so your local customers can find you easier.</td>
+                        </tr>
+                        <tr>
+                            <td>community</td>
+                            <td>active comment management. we monitor and reply to comments on your posts to build a genuine connection with your audience.</td>
+                        </tr>
+                        <tr>
+                            <td>paid ads</td>
+                            <td>strategic post boosting. we will manage and run targeted ad campaigns to push your best performing posts to a wider local audience.</td>
+                        </tr>
+                        <tr>
+                            <td>strategy</td>
+                            <td>1x optional monthly check-in. an optional 30-minute call to discuss your business's upcoming promotions, needs, and overall social direction for the next month.</td>
+                        </tr>
+                        <tr>
+                            <td>the goal</td>
+                            <td>to proactively drive audience engagement, local visibility, and brand growth through high-volume daily content, active community management, and strategic paid advertising.</td>
+                        </tr>
+                    </table>
+                `
+            },
+            ecosystem: {
+                title: "03 / ecosystem",
+                body: `
+                    <p>the complete digital infrastructure. everything included in the momentum tier, plus a fully managed professional website to convert your social media traffic into real business.</p>
+                    <table>
+                        <tr>
+                            <td>content engine</td>
+                            <td>includes everything from the momentum tier: weekly shoots, 30 monthly posts/stories, 4 weekly reels, active community management and paid ad campaigns.</td>
+                        </tr>
+                        <tr>
+                            <td>platforms</td>
+                            <td>instagram, tiktok, and facebook.</td>
+                        </tr>
+                        <tr>
+                            <td>web design</td>
+                            <td>we build a bespoke, modern website for your business. clean, responsive, and optimised to turn visitors into booking clients.</td>
+                        </tr>
+                        <tr>
+                            <td>web maintenance</td>
+                            <td>we handle the ongoing hosting, regular updates, bug fixes, and changes to your services as your business evolves.</td>
+                        </tr>
+                        <tr>
+                            <td>brand identity</td>
+                            <td>basic logo touch-ups and ensuring a unified, professional visual identity across all your platforms and your new website.</td>
+                        </tr>
+                        <tr>
+                            <td>strategy</td>
+                            <td>priority direct communication and your optional monthly 30-minute strategy call to align our efforts with your business goals.</td>
+                        </tr>
+                        <tr>
+                            <td>the goal</td>
+                            <td>to provide an end-to-end, fully managed digital infrastructure. this tier combines high-volume social media execution with a bespoke, optimised website designed to convert digital attention into actionable business.</td>
+                        </tr>
+                    </table>
+                `
+            }
+        };
+
+        const modal = document.getElementById('tierModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalBody = document.getElementById('modalBody');
+
+function openModal(tier) {
+            document.body.classList.add('modal-open'); 
+            modalTitle.innerText = tierData[tier].title;
+            modalBody.innerHTML = tierData[tier].body; 
+            
+            modal.style.display = 'flex';
+            
+            // Wait for the display change to register before resetting scroll
+            setTimeout(() => {
+                document.querySelector('.modal-content').scrollTop = 0;
+                modal.classList.add('active');
+            }, 10);
+        }
+
+        function closeModal(event, forceClose = false) {
+            if (event.target === modal || forceClose) {
+                modal.classList.remove('active');
+                document.body.classList.remove('modal-open'); 
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                }, 400); 
+            }
+        }
+
+        document.getElementById('agencyForm').addEventListener('submit', async function(e) {
+            e.preventDefault(); 
+            
+            const form = e.target;
+            const btn = form.querySelector('button');
+            const msg = document.getElementById('form-message');
+            const err = document.getElementById('form-error');
+            
+            btn.innerText = 'sending...';
+            btn.style.opacity = '0.5';
+            btn.style.pointerEvents = 'none';
+
+            try {
+                const response = await fetch(form.action, {
+                    method: form.method,
+                    body: new FormData(form),
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if (response.ok) {
+                    btn.style.display = 'none';
+                    if(err) err.style.display = 'none';
+                    msg.style.display = 'block';
+                    form.reset(); 
+                } else {
+                    throw new Error('Network response was not ok.');
+                }
+            } catch (error) {
+                btn.innerText = 'submit inquiry';
+                btn.style.opacity = '1';
+                btn.style.pointerEvents = 'auto';
+                if(err) err.style.display = 'block';
+            }
+        });
+
+        // MOBILE HEADER INVERSION LOGIC
+        const investmentHeader = document.getElementById('investment');
+        const momentumTier = document.querySelector('.tier-card.featured');
+
+        window.addEventListener('scroll', () => {
+            if (window.innerWidth <= 1024 && investmentHeader && momentumTier) {
+                const headerRect = investmentHeader.getBoundingClientRect();
+                const tierRect = momentumTier.getBoundingClientRect();
+                
+                if (headerRect.bottom > tierRect.top && headerRect.top < tierRect.bottom) {
+                    investmentHeader.classList.add('inverted');
+                } else {
+                    investmentHeader.classList.remove('inverted');
+                }
+            } else if (investmentHeader) {
+                investmentHeader.classList.remove('inverted');
+            }
+        });
+    </script>
+
+</body>
+</html>
