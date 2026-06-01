@@ -3,12 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+    <meta name="theme-color" content="#ffffff">
     <title>terms & conditions | snwbl digital</title>
    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     
     <style>
+        /* --- CUSTOM HELVETICA FONT ENFORCEMENT --- */
+        @font-face {
+            font-family: 'Helvetica Custom';
+            src: url('./Helvetica.ttf') format('truetype');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Helvetica Custom';
+            src: url('./Helvetica-bold.ttf') format('truetype');
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+
         :root {
             --gr-obsidian: #0d0d0d; 
             --gr-bone: #ffffff;
@@ -24,11 +40,14 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: "Helvetica Neue", Helvetica, "Inter", sans-serif;
+            font-family: "Helvetica Custom", "Helvetica Neue", Helvetica, Arial, sans-serif;
             cursor: default !important; 
         }
 
-        /* --- AMBIENT BACKGROUND & BODY --- */
+        html, body {
+            min-height: 100%;
+        }
+
         body {
             background-color: var(--gr-bone);
             color: var(--gr-obsidian);
@@ -36,19 +55,12 @@
             -webkit-font-smoothing: antialiased;
             position: relative;
             padding: 80px;
-            /* the frosted glass execution */
             animation: frostedLoad 1.2s cubic-bezier(0.19, 1, 0.22, 1);
         }
 
         @keyframes frostedLoad {
-            0% { 
-                opacity: 0; 
-                filter: blur(15px); 
-            }
-            100% { 
-                opacity: 1; 
-                filter: none; 
-            }
+            0% { opacity: 0; filter: blur(15px); }
+            100% { opacity: 1; filter: none; }
         }
 
         .back-link {
@@ -61,11 +73,11 @@
             font-weight: 500;
             border-bottom: 1px solid var(--gr-obsidian);
             padding-bottom: 5px;
-            text-transform: lowercase; /* Preserved brand styling */
+            text-transform: lowercase; 
             transition: opacity 0.3s ease;
-            -webkit-user-select: none; /* Safari */
-            -ms-user-select: none; /* IE 10 and IE 11 */
-            user-select: none; /* Standard syntax */
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
 
         .back-link:hover { opacity: 0.5; }
@@ -77,10 +89,10 @@
             margin-bottom: 80px;
             border-bottom: 1px solid var(--glass-border);
             padding-bottom: 40px;
-            text-transform: lowercase; /* Preserved brand styling */
-            -webkit-user-select: none; /* Safari */
-            -ms-user-select: none; /* IE 10 and IE 11 */
-            user-select: none; /* Standard syntax */
+            text-transform: lowercase; 
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none; 
         }
 
         .legal-content {
@@ -126,6 +138,15 @@
             .legal-header { margin-bottom: 40px; padding-bottom: 20px; }
         }
     </style>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5VFWXGS3GC"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-5VFWXGS3GC');
+    </script>
 </head>
 <body>
 
@@ -134,7 +155,6 @@
     <h1 class="legal-header">legal documentation.</h1>
 
     <div class="legal-content">
-        
         <div class="legal-section">
             <span class="legal-title">01 / Website Terms of Use</span>
             <p>By accessing and using snwbldigital.com, you agree to be bound by these Terms of Use. All content, designs, text, and graphics on this website are the intellectual property of snwbl digital. You may not reproduce, distribute, or exploit this content without explicit written permission.</p>
@@ -195,7 +215,6 @@
             <h3>9. Governing Law</h3>
             <p>9.1 This Agreement shall be governed by and construed in accordance with the laws of the Republic of South Africa.</p>
         </div>
-
     </div>
 
 </body>
