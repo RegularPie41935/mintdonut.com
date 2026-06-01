@@ -90,7 +90,6 @@
         /* --- AMBIENT BACKGROUND & BODY --- */
         html, body {
             min-height: 100%;
-            height: 100%;
         }
 
         body {
@@ -151,21 +150,26 @@
         /* --- BULLETPROOF NO-SCROLL HERO --- */
         .hero-container {
             width: 100%;
-            height: 100dvh; /* Mathematical screen lock */
-            padding: 50px 80px; 
-            padding-top: max(50px, env(safe-area-inset-top));
+            height: 100dvh; 
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
             border-bottom: 1px solid var(--glass-border);
-            overflow: hidden; /* Guarantee no scroll bars inside the hero */
+            overflow: hidden; 
+            position: relative; 
         }
 
+        /* --- ALIGNED TOP BAR --- */
         .hero-top-bar {
-            flex-shrink: 0; /* Protects bar from getting squished */
+            flex-shrink: 0; 
             display: flex;
-            justify-content: flex-start; 
+            justify-content: space-between; 
+            align-items: center; 
             width: 100%;
+            padding: 40px 80px; 
+            padding-top: max(40px, env(safe-area-inset-top));
+            background-color: transparent; 
+            position: relative;
+            z-index: 10;
         }
 
         .header-logo {
@@ -177,61 +181,54 @@
             user-select: none;
         }
 
-        .hero-main-content {
-            flex-grow: 1;
+        /* --- NEW WALL WRAPPER --- */
+        .wall-wrapper {
+            flex: 1; 
+            position: relative;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* --- PERFECT NON-CLIPPED WATERMARK WALL --- */
+        .architectural-wall {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); 
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: stretch;
-            /* Padding removed here to stop vertical blowout */
-        }
-
-        /* --- STAGGERED ARCHITECTURAL TYPOGRAPHY --- */
-        .architectural-title {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            /* min() function ensures text respects both width AND height, never breaking the no-scroll lock */
-            font-size: clamp(3rem, min(10vw, 18dvh), 12rem); 
-            font-weight: 400;
-            line-height: 0.85; 
+            width: 100vw;
+            font-size: clamp(3rem, min(8vw, 9vh), 10rem); 
+            font-weight: 700;
+            line-height: 1.1; 
             letter-spacing: -0.04em;
-            margin: 0;
             color: var(--gr-obsidian);
+            opacity: 0.04; 
             -webkit-user-select: none;
             -ms-user-select: none;
             user-select: none;
+            z-index: 1; 
+            pointer-events: none;
         }
 
-        .architectural-title span {
-            display: inline-block;
-            transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1), color 0.4s ease;
-        }
-
-        .architectural-title span:hover {
-            color: var(--gr-sage);
-            transform: scale(1.02) translateY(-5px);
-        }
-
-        .architectural-title .line-1 {
-            align-self: flex-start;
-        }
-
-        .architectural-title .line-2 {
-            align-self: center;
-            color: var(--gr-sage);
-        }
-
-        .architectural-title .line-3 {
-            align-self: flex-end;
-        }
-
-        .hero-bottom-bar {
-            flex-shrink: 0; /* Protects button area from getting pushed out */
+        .marquee-line {
             display: flex;
-            justify-content: flex-end;
+            justify-content: center;
+            align-items: center;
             width: 100%;
+            white-space: nowrap;
+            gap: clamp(15px, 3vw, 50px);
+            margin-top: -0.25em; /* Stacks the text cleanly without slicing the font node */
         }
+
+        /* Organic staggering offsets for the wallpaper */
+        .marquee-line:nth-child(3n+1) { transform: translateX(-3vw); }
+        .marquee-line:nth-child(3n+2) { transform: translateX(2vw); }
+        .marquee-line:nth-child(3n)   { transform: translateX(-1vw); }
 
         /* --- GLOBALS & BUTTONS --- */
         button {
@@ -244,12 +241,12 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 22px 48px;
+            padding: 16px 32px; 
             background: var(--gr-obsidian);
             border: 1px solid var(--gr-obsidian);
             text-decoration: none;
             color: var(--gr-bone);
-            font-size: 13px;
+            font-size: 11px; 
             letter-spacing: var(--tracking-massive);
             font-weight: 500;
             transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
@@ -669,7 +666,7 @@
             letter-spacing: 0.05em;
         }
 
-        /* --- NEW UNHIGHLIGHTABLE EDITORIAL FOOTER --- */
+        /* --- UNHIGHLIGHTABLE EDITORIAL FOOTER --- */
         .site-footer {
             background-color: var(--gr-bone);
             padding: 100px 100px 40px 100px; 
@@ -750,27 +747,33 @@
                 gap: 8px;
             } 
 
-            /* --- BULLETPROOF MOBILE HERO REPAIR --- */
+            /* --- REPAIRED BRUTALIST MOBILE HERO --- */
             .hero-container { 
-                padding: 30px; 
-                height: 100dvh; /* Guarantee strict viewport height */
+                height: 100dvh; 
+            }
+            .hero-top-bar {
+                padding: 20px 30px; /* Balanced side padding */
+                padding-top: max(50px, env(safe-area-inset-top)); /* Extra breathing room at the very top */
             }
             .header-logo { 
-                width: clamp(140px, 35vw, 180px); 
+                width: clamp(110px, 28vw, 150px); /* Slightly smaller so it doesn't dominate the narrow screen */
             }
-            .architectural-title {
-                /* Dynamically respects both narrow width and short height */
-                font-size: clamp(3.5rem, min(14vw, 20dvh), 7rem); 
-                line-height: 1; 
+            .hero-top-bar .cta-trigger {
+                padding: 14px 24px; /* Slightly thicker button for better touch targets */
+                font-size: 10px;
             }
-            .hero-bottom-bar {
-                justify-content: stretch;
+            
+            .architectural-wall {
+                font-size: clamp(3rem, min(14vw, 9vh), 7rem); 
+                line-height: 1.1; 
             }
-            .hero-bottom-bar .cta-trigger {
-                width: 100%; /* Robust scaling for perfect touch target */
+            .marquee-line {
+                gap: 15px; 
+                margin-top: -0.25em; 
             }
 
             /* ------------------------------------- */
+            /* Restored the spacious, breathable 40px mobile padding */
             .partners-section { padding: 60px 40px; }
             .partners-grid { gap: 40px 50px; }
             .partner-item img { max-height: 35px; }
@@ -812,17 +815,16 @@
             .hero-container {
                 height: 100dvh;
             }
+            
             .hero-top-bar {
-                padding-bottom: 10px;
+                padding: 20px 40px;
+                padding-top: max(20px, env(safe-area-inset-top));
             }
-            .architectural-title {
-                flex-direction: row; 
-                justify-content: center;
-                gap: 20px;
+
+            .architectural-wall {
+                font-size: 4rem; 
             }
-            .architectural-title span {
-                align-self: center !important; 
-            }
+            
             .section-header {
                 position: relative; 
                 padding: 20px 40px;
@@ -848,21 +850,54 @@
 
     <main>
         <div class="hero-container animate-up">
+            
             <div class="hero-top-bar">
                 <img src="snwbl Logo Black.png" alt="snwbl digital logo" class="header-logo">
+                <a href="#retainers-section" class="cta-trigger">view retainers</a>
             </div>
 
-            <div class="hero-main-content">
-                <h1 class="architectural-title">
-                    <span class="line-1">attention</span>
-                    <span class="line-2">is your</span>
-                    <span class="line-3">currency.</span>
-                </h1>
+            <div class="wall-wrapper">
+                <div class="architectural-wall">
+                    
+                    <div class="marquee-line">
+                        <span>attention</span><span>attention</span><span>attention</span><span>attention</span><span>attention</span><span>attention</span><span>attention</span><span>attention</span><span>attention</span><span>attention</span>
+                    </div>
+                    
+                    <div class="marquee-line">
+                        <span>is your</span><span>is your</span><span>is your</span><span>is your</span><span>is your</span><span>is your</span><span>is your</span><span>is your</span><span>is your</span><span>is your</span>
+                    </div>
+
+                    <div class="marquee-line">
+                        <span>currency.</span><span>currency.</span><span>currency.</span><span>currency.</span><span>currency.</span><span>currency.</span><span>currency.</span><span>currency.</span><span>currency.</span><span>currency.</span>
+                    </div>
+
+                    <div class="marquee-line">
+                        <span>attention</span><span>attention</span><span>attention</span><span>attention</span><span>attention</span><span>attention</span><span>attention</span><span>attention</span><span>attention</span><span>attention</span>
+                    </div>
+                    
+                    <div class="marquee-line">
+                        <span>is your</span><span>is your</span><span>is your</span><span>is your</span><span>is your</span><span>is your</span><span>is your</span><span>is your</span><span>is your</span><span>is your</span>
+                    </div>
+
+                    <div class="marquee-line">
+                        <span>currency.</span><span>currency.</span><span>currency.</span><span>currency.</span><span>currency.</span><span>currency.</span><span>currency.</span><span>currency.</span><span>currency.</span><span>currency.</span>
+                    </div>
+
+                    <div class="marquee-line">
+                        <span>attention</span><span>attention</span><span>attention</span><span>attention</span><span>attention</span><span>attention</span><span>attention</span><span>attention</span><span>attention</span><span>attention</span>
+                    </div>
+                    
+                    <div class="marquee-line">
+                        <span>is your</span><span>is your</span><span>is your</span><span>is your</span><span>is your</span><span>is your</span><span>is your</span><span>is your</span><span>is your</span><span>is your</span>
+                    </div>
+
+                    <div class="marquee-line">
+                        <span>currency.</span><span>currency.</span><span>currency.</span><span>currency.</span><span>currency.</span><span>currency.</span><span>currency.</span><span>currency.</span><span>currency.</span><span>currency.</span>
+                    </div>
+
+                </div>
             </div>
 
-            <div class="hero-bottom-bar">
-                <a href="#investment" class="cta-trigger">view retainers</a>
-            </div>
         </div>
 
         <div class="partners-section animate-up delay-1">
@@ -873,7 +908,7 @@
             </div>
         </div>
 
-        <div class="content-section">
+        <div class="content-section" id="process-section">
             <div id="architecture" class="section-header animate-up delay-2">
                 <span>01 / the process</span>
                 <span>[ how we support you ]</span>
@@ -904,7 +939,7 @@
             </div>
         </div>
 
-        <div class="content-section">
+        <div class="content-section" id="retainers-section">
             <div id="investment" class="section-header">
                 <span>02 / retainers</span>
                 <span>[ select your tier ]</span>
@@ -962,8 +997,8 @@
             </div>
         </div> 
 
-        <div class="content-section">
-        <div id="contact" class="section-header">
+        <div class="content-section" id="inquiry-section">
+            <div id="contact" class="section-header">
                 <span>03 / initiate</span>
                 <span>[ project inquiry ]</span>
             </div>
@@ -1004,7 +1039,7 @@
             <span class="modal-close" onclick="closeModal(event, true)">×</span>
             <h3 class="modal-title" id="modalTitle">tier title</h3>
             <div class="modal-body" id="modalBody"></div>
-            <a href="#contact" class="cta-trigger" onclick="closeModal(event, true)">secure this package</a>
+            <a href="#inquiry-section" class="cta-trigger" onclick="closeModal(event, true)">secure this package</a>
         </div>
     </div>
 
@@ -1012,9 +1047,9 @@
         <div class="footer-grid">
             <div class="footer-col">
                 <h4>explore</h4>
-                <a href="#architecture" class="footer-link">the process</a>
-                <a href="#investment" class="footer-link">investment</a>
-                <a href="#contact" class="footer-link">contact</a>
+                <a href="#process-section" class="footer-link">the process</a>
+                <a href="#retainers-section" class="footer-link">investment</a>
+                <a href="#inquiry-section" class="footer-link">contact</a>
             </div>
             <div class="footer-col">
                 <h4>socials</h4>
@@ -1151,18 +1186,13 @@
         const modalBody = document.getElementById('modalBody');
 
         function openModal(tier) {
-            // Setup static content first
             modalTitle.innerText = tierData[tier].title;
             modalBody.innerHTML = tierData[tier].body; 
             
-            // Render block container safely
             modal.style.display = 'flex';
             document.body.classList.add('modal-open'); 
-            
-            // Force modal view layer back to standard baseline scroll position
             document.querySelector('.modal-content').scrollTop = 0;
             
-            // Trigger visual transitions cleanly
             setTimeout(() => {
                 modal.classList.add('active');
             }, 30);
@@ -1170,9 +1200,7 @@
 
         function closeModal(event, forceClose = false) {
             if (event) {
-                // Prevent anchor link fallback triggers if clicked inside overlay container elements
-                if (event.target.tagName === 'A' && event.target.getAttribute('href') === '#contact') {
-                    // Let link transition naturally but unlock standard body scroll controls first
+                if (event.target.tagName === 'A' && event.target.getAttribute('href') === '#inquiry-section') {
                     document.body.classList.remove('modal-open');
                     modal.classList.remove('active');
                     setTimeout(() => { modal.style.display = 'none'; }, 400);
