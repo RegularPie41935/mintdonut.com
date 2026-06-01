@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#ffffff">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     
     <title>snwbl digital</title>
@@ -42,6 +43,22 @@
     </script>
 
     <style>
+        /* --- CUSTOM HELVETICA FONT ENFORCEMENT --- */
+        @font-face {
+            font-family: 'Helvetica Custom';
+            src: url('./Helvetica.ttf') format('truetype');
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+        @font-face {
+            font-family: 'Helvetica Custom';
+            src: url('./Helvetica-bold.ttf') format('truetype');
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+
         :root {
             --gr-obsidian: #0d0d0d; 
             --gr-bone: #ffffff; 
@@ -62,18 +79,22 @@
             color: var(--gr-bone);
         }
 
-        /* --- FORCED DEFAULT CURSOR --- */
+        /* --- FORCED DEFAULT CURSOR & GLOBALS --- */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             text-transform: lowercase;
-            font-family: "Helvetica Neue", Helvetica, "Inter", sans-serif;
+            font-family: "Helvetica Custom", "Helvetica Neue", Helvetica, Arial, sans-serif;
             scroll-behavior: smooth;
             cursor: default !important; 
         }
 
         /* --- AMBIENT BACKGROUND & BODY --- */
+        html, body {
+            min-height: 100%;
+        }
+
         body {
             background-color: var(--gr-bone);
             color: var(--gr-obsidian);
@@ -84,17 +105,10 @@
         }
 
         @keyframes frostedLoad {
-            0% { 
-                opacity: 0; 
-                filter: blur(15px); 
-            }
-            100% { 
-                opacity: 1; 
-                filter: none; 
-            }
+            0% { opacity: 0; filter: blur(15px); }
+            100% { opacity: 1; filter: none; }
         }
 
-        /* This creates the living, breathing background effect */
         body::before {
             content: "";
             position: fixed;
@@ -114,11 +128,12 @@
             100% { transform: rotate(3deg) scale(1.05); }
         }
 
+        /* Cleaned layout lock that doesn't trigger scroll-to-top glitch */
         body.modal-open {
             overflow: hidden;
+            touch-action: none;
         }
 
-        /* --- CINEMATIC ENTRANCE ANIMATIONS --- */
         @keyframes fadeUp {
             from { opacity: 0; transform: translateY(40px); }
             to { opacity: 1; transform: translateY(0); }
@@ -126,17 +141,15 @@
 
         .animate-up {
             animation: fadeUp 1.2s cubic-bezier(0.19, 1, 0.22, 1) forwards;
-            opacity: 0; /* Prevents flashing before animation starts */
+            opacity: 0; 
         }
         .delay-1 { animation-delay: 0.1s; }
         .delay-2 { animation-delay: 0.2s; }
         .delay-3 { animation-delay: 0.3s; }
 
-        /* --- HERO & LOGO INTEGRATION --- */
         .hero-container {
             width: 100%;
             min-height: 100dvh; 
-            /* Changed to fluid padding: squishes top/bottom space on smaller screens */
             padding: clamp(30px, 5vh, 80px) 80px; 
             display: flex;
             flex-direction: column;
@@ -150,12 +163,11 @@
             width: clamp(120px, 15vw, 200px); 
             height: auto;
             opacity: 0.95;
-            /* Fluid bottom margin */
             margin-bottom: clamp(20px, 4vh, 60px); 
             filter: drop-shadow(0 10px 20px rgba(13, 13, 13, 0.05)); 
-            -webkit-user-select: none; /* Safari */
-            -ms-user-select: none; /* IE 10 and IE 11 */
-            user-select: none; /* Standard syntax */
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
 
         .hero-text-block {
@@ -173,13 +185,12 @@
             margin: 0;
             letter-spacing: -0.04em;
             width: 100%;
-            -webkit-user-select: none; /* Safari */
-            -ms-user-select: none; /* IE 10 and IE 11 */
-            user-select: none; /* Standard syntax */
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
 
         .hero-sub {
-            /* Fluid margins scale down dynamically on laptop screens */
             margin-top: clamp(20px, 4vh, 50px); 
             font-size: 18px;
             letter-spacing: 0.02em;
@@ -193,7 +204,6 @@
             border: none;
             background: transparent;
             font-family: inherit;
-            
         }
 
         .cta-trigger {
@@ -208,9 +218,9 @@
             font-weight: 500;
             transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
             text-align: center;
-            -webkit-user-select: none; /* Safari */
-            -ms-user-select: none; /* IE 10 and IE 11 */
-            user-select: none; /* Standard syntax */
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
 
         .cta-trigger:hover {
@@ -231,7 +241,6 @@
             color: var(--gr-bone);
         }
 
-        /* --- PARTNERS SECTION --- */
         .partners-section {
             padding: 60px 80px;
             border-bottom: 1px solid var(--glass-border);
@@ -246,9 +255,9 @@
             color: var(--gr-sage);
             font-weight: 500;
             margin-bottom: 40px;
-            -webkit-user-select: none; /* Safari */
-            -ms-user-select: none; /* IE 10 and IE 11 */
-            user-select: none; /* Standard syntax */
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
 
         .partners-grid {
@@ -258,9 +267,9 @@
             align-items: center;
             gap: 40px 70px;
             max-width: 900px;
-            -webkit-user-select: none; /* Safari */
-            -ms-user-select: none; /* IE 10 and IE 11 */
-            user-select: none; /* Standard syntax */
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
 
         .partner-item {
@@ -269,7 +278,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            
         }
 
         .partner-item:hover {
@@ -277,7 +285,6 @@
             transform: scale(1.05);
         }
 
-        /* Forces actual logos to be beautifully minimal and uniform */
         .partner-item img {
             max-height: 60px; 
             min-height: 40px;
@@ -285,9 +292,8 @@
             filter: grayscale(100%) contrast(120%); 
         }
 
-        /* --- UPDATED STICKY HEADERS --- */
         .content-section {
-            position: relative; /* Acts as the bounding box for the sticky headers */
+            position: relative;
         }
 
         .section-header {
@@ -295,7 +301,7 @@
             letter-spacing: var(--tracking-massive);
             padding: 25px 80px;
             border-bottom: 1px solid var(--glass-border);
-            background: rgba(255, 255, 255, 0.85); /* Updated to Snow White */
+            background: rgba(255, 255, 255, 0.85); 
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             display: flex;
@@ -305,19 +311,18 @@
             top: 0;
             z-index: 100;
             transition: color 0.3s ease, background-color 0.3s ease, border-bottom-color 0.3s ease;
-            -webkit-user-select: none; /* Safari */
-            -ms-user-select: none; /* IE 10 and IE 11 */
-            user-select: none; /* Standard syntax */
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
         }
 
         .section-header span:last-child {
             color: var(--gr-sage);
         }
 
-        /* Dark inversion class triggered by JS on mobile */
         .section-header.inverted {
             color: var(--gr-bone);
-            background-color: transparent; /* Allows black tier to show through */
+            background-color: transparent; 
             border-bottom-color: rgba(255, 255, 255, 0.1);
         }
 
@@ -458,7 +463,7 @@
 
         .form-input {
             padding: 15px;
-            background: rgba(255, 255, 255, 0.4); /* Updated for pure white */
+            background: rgba(255, 255, 255, 0.4); 
             border: 1px solid var(--glass-border);
             color: var(--gr-obsidian);
             font-family: inherit;
@@ -485,7 +490,6 @@
             display: none;
         }
 
-        /* --- SUBTLE CUSTOM SCOPE BLOCK --- */
         .custom-scope-block {
             padding: 40px 80px;
             background: transparent;
@@ -519,14 +523,14 @@
             border-bottom-color: var(--gr-sage);
         }
 
-        /* --- COMPACT & DETAILED MODAL CSS --- */
+        /* --- STABLE AND NON-GLITCHING OVERLAY --- */
         .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(13, 13, 13, 0.5); 
+            width: 100%;
+            height: 100dvh; 
+            background: rgba(13, 13, 13, 0.65); 
             backdrop-filter: blur(20px); 
             -webkit-backdrop-filter: blur(20px);
             z-index: 2000;
@@ -607,7 +611,6 @@
             margin-bottom: 15px;
         }
 
-        /* --- MODAL TABLE CSS --- */
         .modal-body table {
             width: 100%;
             border-collapse: collapse;
@@ -693,23 +696,36 @@
             font-size: 9px;
             letter-spacing: 0.45em;
             line-height: 2.2;
-            -webkit-user-select: none; /* Safari */
-            -ms-user-select: none; /* IE 10 and IE 11 */
-            user-select: none; /* Standard syntax */
+            -webkit-user-select: none; 
+            -ms-user-select: none; 
+            user-select: none; 
         }
 
-@media (max-width: 1024px) {
-            .section-header { padding: 20px 30px; } 
+        @media (max-width: 1024px) {
+            /* Responsive Header Fix */
+            .section-header { 
+                padding: 20px 30px; 
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            } 
+
+            /* --- NEW ULTRA-MINIMAL MOBILE HERO --- */
             .hero-container { 
-                padding: clamp(30px, 5vh, 60px) 30px; /* Updated mobile padding */
+                padding: clamp(30px, 5vh, 60px) 30px; 
                 min-height: 100dvh; 
                 justify-content: center;
+                align-items: center; /* Centers everything perfectly */
             }
             .header-logo { 
-                width: clamp(100px, 30vw, 150px); 
-                margin-bottom: 30px; 
+                width: clamp(200px, 60vw, 350px); /* Scales the logo up nice and big */
+                margin-bottom: 40px; 
             }
-            .edge-text { font-size: clamp(2.8rem, 11vw, 5rem); } /* Adjusted scaling for mobile */
+            .hero-text-block, .hero-sub {
+                display: none; /* Completely hides the text clutter on mobile */
+            }
+            /* ------------------------------------- */
+
             .partners-section { padding: 50px 30px; }
             .partners-grid { gap: 30px 40px; }
             .partner-item img { max-height: 30px; }
@@ -717,11 +733,40 @@
             .tier-grid { grid-template-columns: 1fr; }
             .custom-scope-block { flex-direction: column; padding: 40px 30px; gap: 20px; text-align: center; }
             .contact-section { padding: 80px 30px; }
-            footer { flex-direction: column; align-items: flex-start; gap: 80px; padding: 80px 30px; }
+            
+            footer { 
+                flex-direction: column; 
+                align-items: center; 
+                text-align: center;
+                gap: 40px; 
+                padding: 60px 30px; 
+            }
+            .social-block {
+                width: 100%;
+                justify-content: center;
+                padding: 15px 20px;
+            }
+            .legal-block {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+                align-items: center;
+            }
+
             .modal-content { padding: 40px 25px; }
             .modal-body td:first-child { width: 40%; }
         }
     </style>
+
+     <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5VFWXGS3GC"></script>
+    <script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-5VFWXGS3GC');
+    </script>
 </head>
 <body>
 
@@ -876,8 +921,7 @@
         <div class="modal-content" onclick="event.stopPropagation()">
             <span class="modal-close" onclick="closeModal(event, true)">×</span>
             <h3 class="modal-title" id="modalTitle">tier title</h3>
-            <div class="modal-body" id="modalBody">
-                </div>
+            <div class="modal-body" id="modalBody"></div>
             <a href="#contact" class="cta-trigger" onclick="closeModal(event, true)">secure this package</a>
         </div>
     </div>
@@ -901,7 +945,6 @@
     </footer>
 
     <script>
-        // TABLE FORMATTED MODAL DATA
         const tierData = {
             presence: {
                 title: "01 / presence",
@@ -1013,22 +1056,38 @@
         const modalTitle = document.getElementById('modalTitle');
         const modalBody = document.getElementById('modalBody');
 
-function openModal(tier) {
-            document.body.classList.add('modal-open'); 
+        function openModal(tier) {
+            // Setup static content first
             modalTitle.innerText = tierData[tier].title;
             modalBody.innerHTML = tierData[tier].body; 
             
+            // Render block container safely
             modal.style.display = 'flex';
+            document.body.classList.add('modal-open'); 
             
-            // Wait for the display change to register before resetting scroll
+            // Force modal view layer back to standard baseline scroll position
+            document.querySelector('.modal-content').scrollTop = 0;
+            
+            // Trigger visual transitions cleanly
             setTimeout(() => {
-                document.querySelector('.modal-content').scrollTop = 0;
                 modal.classList.add('active');
-            }, 10);
+            }, 30);
         }
 
         function closeModal(event, forceClose = false) {
+            if (event) {
+                // Prevent anchor link fallback triggers if clicked inside overlay container elements
+                if (event.target.tagName === 'A' && event.target.getAttribute('href') === '#contact') {
+                    // Let link transition naturally but unlock standard body scroll controls first
+                    document.body.classList.remove('modal-open');
+                    modal.classList.remove('active');
+                    setTimeout(() => { modal.style.display = 'none'; }, 400);
+                    return;
+                }
+            }
+
             if (event.target === modal || forceClose) {
+                if (event) event.preventDefault();
                 modal.classList.remove('active');
                 document.body.classList.remove('modal-open'); 
                 setTimeout(() => {
@@ -1072,7 +1131,6 @@ function openModal(tier) {
             }
         });
 
-        // MOBILE HEADER INVERSION LOGIC
         const investmentHeader = document.getElementById('investment');
         const momentumTier = document.querySelector('.tier-card.featured');
 
