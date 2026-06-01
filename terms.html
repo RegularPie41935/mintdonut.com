@@ -133,7 +133,7 @@
 
         .legal-content li { margin-bottom: 12px; }
         
-        /* --- UNHIGHLIGHTABLE EDITORIAL FOOTER (Perfectly Synced) --- */
+        /* --- UNHIGHLIGHTABLE EDITORIAL FOOTER --- */
         .site-footer {
             background-color: var(--gr-bone);
             padding: 100px 100px 40px 100px;
@@ -149,9 +149,9 @@
 
         .footer-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(2, 1fr); 
             gap: 60px;
-            max-width: 1200px;
+            max-width: 800px; 
         }
 
         .footer-col {
@@ -215,15 +215,15 @@
                 gap: 60px;
             }
             .footer-grid {
-                grid-template-columns: repeat(2, 1fr); 
+                grid-template-columns: 1fr; 
                 gap: 50px;
             }
             .footer-col:last-child {
-                grid-column: span 2; 
+                grid-column: span 1; 
             }
             .footer-massive-brand {
                 opacity: 0.05;
-                font-size: 13vw; /* Exact 13vw math lock */
+                font-size: 13vw; 
             }
             .footer-bottom {
                 flex-direction: column;
@@ -316,12 +316,6 @@
 
     <footer class="site-footer">
         <div class="footer-grid">
-            <div class="footer-col">
-                <h4>explore</h4>
-                <a href="index.html#architecture" class="footer-link">the process</a>
-                <a href="index.html#investment" class="footer-link">investment</a>
-                <a href="index.html#contact" class="footer-link">contact</a>
-            </div>
             <div class="footer-col">
                 <h4>socials</h4>
                 <a href="https://www.instagram.com/snwbldigital/?utm_source=ig_web_button_share_sheet" class="footer-link">instagram</a>
