@@ -114,8 +114,6 @@ body {
     position: relative;
     animation: frostedLoad 1.2s cubic-bezier(0.19, 1, 0.22, 1);
     min-height: 100dvh;
-    padding-top: max(0px, env(safe-area-inset-top));
-    padding-bottom: max(0px, env(safe-area-inset-bottom));
 }
 
         @keyframes frostedLoad {
@@ -167,6 +165,7 @@ body {
             width: 100%;
             min-height: 100dvh; 
             padding: clamp(30px, 5vh, 80px) 80px; 
+            padding-top: max(clamp(30px, 5vh, 80px), env(safe-area-inset-top));
             display: flex;
             flex-direction: column;
             justify-content: center; 
