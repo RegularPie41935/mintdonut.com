@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     
     <title>snwbl digital</title>
@@ -99,10 +101,8 @@
         }
 
         /* --- AMBIENT BACKGROUND & BODY --- */
-        html {
+        html, body {
             min-height: 100%;
-            background-color: var(--gr-bone);
-            overscroll-behavior-y: none;
         }
 
         body {
@@ -111,10 +111,6 @@
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
             position: relative;
-            padding-top: env(safe-area-inset-top);
-            padding-bottom: env(safe-area-inset-bottom);
-            padding-left: env(safe-area-inset-left);
-            padding-right: env(safe-area-inset-right);
             animation: frostedLoad 1.2s cubic-bezier(0.19, 1, 0.22, 1);
         }
 
