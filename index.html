@@ -55,6 +55,14 @@
         }
         @font-face {
             font-family: 'Helvetica Custom';
+            /* Re-using the regular file so Samsung doesn't panic on weight 500 */
+            src: url('./Helvetica.ttf') format('truetype'); 
+            font-weight: 500;
+            font-style: normal;
+            font-display: swap;
+}
+        @font-face {
+            font-family: 'Helvetica Custom';
             src: url('./Helvetica-bold.ttf') format('truetype');
             font-weight: 700;
             font-style: normal;
@@ -98,6 +106,11 @@
             scroll-behavior: smooth;
             cursor: default !important; 
         }
+
+        /* --- BULLETPROOF FORM FONT INHERITANCE --- */
+       input, textarea, button, select {
+       font-family: "Helvetica Custom", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+}
 
         /* --- AMBIENT BACKGROUND & BODY --- */
 html, body {
