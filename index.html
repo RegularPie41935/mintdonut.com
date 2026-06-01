@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -102,18 +101,22 @@
         }
 
         /* --- AMBIENT BACKGROUND & BODY --- */
-        html, body {
-            min-height: 100%;
-        }
+html, body {
+    min-height: 100%;
+    height: 100%;
+}
 
-        body {
-            background-color: var(--gr-bone);
-            color: var(--gr-obsidian);
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
-            position: relative;
-            animation: frostedLoad 1.2s cubic-bezier(0.19, 1, 0.22, 1);
-        }
+body {
+    background-color: var(--gr-bone);
+    color: var(--gr-obsidian);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    position: relative;
+    animation: frostedLoad 1.2s cubic-bezier(0.19, 1, 0.22, 1);
+    min-height: 100dvh;
+    padding-top: max(0px, env(safe-area-inset-top));
+    padding-bottom: max(0px, env(safe-area-inset-bottom));
+}
 
         @keyframes frostedLoad {
             0% { opacity: 0; filter: blur(15px); }
@@ -121,18 +124,20 @@
         }
 
         body::before {
-            content: "";
-            position: fixed;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle at 50% 50%, rgba(141, 163, 153, 0.06), transparent 50%),
-                        radial-gradient(circle at 80% 20%, rgba(13, 13, 13, 0.03), transparent 40%);
-            z-index: -1;
-            animation: ambientDrift 25s ease-in-out infinite alternate;
-            pointer-events: none;
-        }
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 50% 50%, rgba(141, 163, 153, 0.06), transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(13, 13, 13, 0.03), transparent 40%);
+    z-index: -1;
+    animation: ambientDrift 25s ease-in-out infinite alternate;
+    pointer-events: none;
+}
 
         @keyframes ambientDrift {
             0% { transform: rotate(0deg) scale(1); }
