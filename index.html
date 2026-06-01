@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#ffffff">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     
     <title>snwbl digital</title>
+    <link rel="icon" type="image/png" href="snwbl digital Logo PFP.png">
+    <link rel="apple-touch-icon" href="snwbl digital Logo PFP.png">
 
     <meta name="description" content="snwbl digital provides a consistent, high-quality online presence for small businesses in Randburg and Sandton. We handle the video production, editing, and daily posting so you can handle your brand.">
     <meta name="keywords" content="digital marketing agency, social media management, short form video editing, web design, Randburg, Sandton, Gauteng, local business marketing">
@@ -756,6 +757,32 @@
             .modal-content { padding: 40px 25px; }
             .modal-body td:first-child { width: 40%; }
         }
+
+        /* --- LANDSCAPE MODE & SHORT SCREEN FIXES --- */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .hero-container {
+                min-height: 100vh;
+                padding: 60px 30px;
+                justify-content: flex-start; /* Stops the logo from bleeding out the top */
+                align-items: flex-start;
+            }
+            .header-logo {
+                width: clamp(120px, 20vw, 180px); /* Shrinks the logo so it fits sideways */
+                margin-bottom: 20px;
+            }
+            .section-header {
+                position: relative; /* Stops the sticky header from taking up too much screen space */
+                padding: 15px 30px;
+            }
+            .feature-block, .tier-card {
+                padding: 40px 30px; /* Reduces padding so text isn't cut off */
+            }
+            .modal-content { 
+                max-height: 80vh; 
+                padding: 30px 20px; 
+            }
+        }
+
     </style>
 
      <!-- Google tag (gtag.js) -->
