@@ -49,7 +49,6 @@
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
             position: relative;
-            padding: 80px;
             animation: frostedLoad 1.2s cubic-bezier(0.19, 1, 0.22, 1);
         }
 
@@ -58,16 +57,22 @@
             100% { opacity: 1; filter: none; }
         }
 
+        /* --- NEW STRUCTURAL CONTENT WRAPPER --- */
+        .legal-wrapper {
+            padding: 100px;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
         .back-link {
             display: inline-block;
-            margin-bottom: 60px;
+            margin-bottom: 70px;
             text-decoration: none;
             color: var(--gr-obsidian);
-            font-size: 11px;
+            font-size: 12px;
             letter-spacing: var(--tracking-massive);
             font-weight: 500;
             border-bottom: 1px solid var(--gr-obsidian);
-            padding-bottom: 5px;
+            padding-bottom: 6px;
             text-transform: lowercase; 
             transition: opacity 0.3s ease;
             -webkit-user-select: none;
@@ -92,45 +97,140 @@
 
         .legal-content {
             max-width: 800px;
-            font-size: 15px;
+            font-size: 16px;
             line-height: 1.8;
             font-weight: 300;
             opacity: 0.85;
         }
 
-        .legal-section { margin-bottom: 60px; }
+        .legal-section { margin-bottom: 70px; }
 
         .legal-title {
-            font-size: 12px;
+            font-size: 13px;
             letter-spacing: var(--tracking-massive);
             font-weight: 500;
             color: var(--gr-sage);
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             display: block;
             text-transform: lowercase;
         }
 
         .legal-content h3 {
-            font-size: 20px;
+            font-size: 22px;
             font-weight: 300;
-            margin: 30px 0 15px 0;
+            margin: 40px 0 20px 0;
             color: var(--gr-obsidian);
             letter-spacing: -0.01em;
         }
 
-        .legal-content p { margin-bottom: 15px; }
+        .legal-content p { margin-bottom: 18px; }
         
         .legal-content ul {
             margin-left: 20px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             list-style-type: square;
         }
 
-        .legal-content li { margin-bottom: 10px; }
+        .legal-content li { margin-bottom: 12px; }
+        
+        /* --- UNHIGHLIGHTABLE EDITORIAL FOOTER (Perfectly Synced) --- */
+        .site-footer {
+            background-color: var(--gr-bone);
+            padding: 100px 100px 40px 100px;
+            display: flex;
+            flex-direction: column;
+            gap: 100px;
+            position: relative;
+            z-index: 10;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
 
-        @media (max-width: 768px) {
-            body { padding: 40px 25px; }
-            .legal-header { margin-bottom: 40px; padding-bottom: 20px; }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 60px;
+            max-width: 1200px;
+        }
+
+        .footer-col {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .footer-col h4 {
+            font-size: 11px;
+            letter-spacing: var(--tracking-massive);
+            color: var(--gr-sage);
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+
+        .footer-link {
+            text-decoration: none;
+            color: var(--gr-obsidian);
+            font-size: 19px;
+            font-weight: 300;
+            transition: color 0.3s ease, transform 0.3s ease;
+            width: fit-content;
+        }
+
+        .footer-link:hover {
+            color: var(--gr-sage);
+            transform: translateX(5px);
+        }
+
+        .footer-massive-brand {
+            font-size: clamp(3rem, 13vw, 20rem);
+            font-weight: 700;
+            line-height: 0.8;
+            letter-spacing: -0.05em;
+            color: var(--gr-obsidian);
+            text-align: center;
+            overflow: hidden;
+            white-space: nowrap;
+            opacity: 0.03; 
+            pointer-events: none;
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid var(--glass-border);
+            padding-top: 40px;
+            font-size: 11px;
+            letter-spacing: var(--tracking-massive);
+            color: var(--gr-obsidian);
+        }
+
+        @media (max-width: 1024px) {
+            .legal-wrapper { padding: 60px 40px; }
+            .legal-header { margin-bottom: 50px; padding-bottom: 25px; }
+            
+            /* --- RESPONSIVE MOBILE FOOTER --- */
+            .site-footer { 
+                padding: 80px 40px 40px 40px; 
+                gap: 60px;
+            }
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr); 
+                gap: 50px;
+            }
+            .footer-col:last-child {
+                grid-column: span 2; 
+            }
+            .footer-massive-brand {
+                opacity: 0.05;
+                font-size: 13vw; /* Exact 13vw math lock */
+            }
+            .footer-bottom {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+                text-align: center;
+            }
         }
     </style>
      
@@ -145,72 +245,103 @@
 </head>
 <body>
 
-    <a href="index.html" class="back-link">← back to site</a>
+    <main class="legal-wrapper">
+        <a href="index.html" class="back-link">← back to site</a>
 
-    <h1 class="legal-header">legal documentation.</h1>
+        <h1 class="legal-header">legal documentation.</h1>
 
-    <div class="legal-content">
-        <div class="legal-section">
-            <span class="legal-title">01 / Website Terms of Use</span>
-            <p>By accessing and using snwbldigital.com, you agree to be bound by these Terms of Use. All content, designs, text, and graphics on this website are the intellectual property of snwbl digital. You may not reproduce, distribute, or exploit this content without explicit written permission.</p>
-            <p>This website is provided "as is" without any warranties. snwbl digital reserves the right to modify or discontinue the site, or alter its services and pricing, without prior notice.</p>
+        <div class="legal-content">
+            <div class="legal-section">
+                <span class="legal-title">01 / Website Terms of Use</span>
+                <p>By accessing and using snwbldigital.com, you agree to be bound by these Terms of Use. All content, designs, text, and graphics on this website are the intellectual property of snwbl digital. You may not reproduce, distribute, or exploit this content without explicit written permission.</p>
+                <p>This website is provided "as is" without any warranties. snwbl digital reserves the right to modify or discontinue the site, or alter its services and pricing, without prior notice.</p>
+            </div>
+
+            <div class="legal-section">
+                <span class="legal-title">02 / Privacy Policy</span>
+                <p>snwbl digital respects your privacy. When you submit an inquiry through our contact form, we collect your name, email address, and business details. This information is used solely to respond to your project inquiry and communicate regarding potential services.</p>
+                <p>We do not sell, rent, or trade your personal information to third parties. Our website may use basic analytics to monitor site traffic, which does not identify individual users. By using our contact form, you consent to the collection and use of your information as outlined here.</p>
+            </div>
+
+            <div class="legal-section">
+                <span class="legal-title">03 / Master Terms of Service</span>
+                <p>The following terms govern all active client retainers and projects executed by snwbl digital. By signing a Statement of Work (SOW), clients agree to be bound by these terms.</p>
+                
+                <h3>1. Parties & Relationship</h3>
+                <p>1.1 This Agreement is entered into between Sami Elnaamani trading as snwbl digital ("the Agency", "we", "us") and [Client Company Name] ("the Client", "you").</p>
+                <p>1.2 Independent Contractor: The Agency operates as an independent contractor. Nothing in this Agreement shall be construed to create an employer-employee relationship, partnership, or joint venture. The Agency retains the right to perform services for other clients during the term of this Agreement.</p>
+
+                <h3>2. Financial Terms & Invoicing</h3>
+                <p>2.1 Payment Schedule: All retainer tiers operate on a strict month-to-month basis. Invoices will be issued on the 25th of each month for the upcoming month's services.</p>
+                <p>2.2 Payment Terms: Invoices are payable within 5 days of receipt. Work for the upcoming billing cycle, including on-site capture days, will not commence until the retainer fee has cleared into the Agency’s nominated bank account.</p>
+                <p>2.3 Late Fees: The Agency reserves the right to suspend all services and social media publishing if an invoice remains unpaid past the due date.</p>
+                <p>2.4 Exclusions: The retainer fee covers the Agency’s time, equipment, and expertise. It strictly excludes third-party costs, including but not limited to: Meta/Google advertising spend, premium stock asset licensing, domain registrations, or third-party software subscriptions requested by the Client.</p>
+
+                <h3>3. Scope of Work & Revisions</h3>
+                <p>3.1 Deliverables: The specific services provided are detailed in the signed Statement of Work (SOW) corresponding to the Client's selected tier (Presence, Momentum, or Ecosystem).</p>
+                <p>3.2 Travel & Location Boundaries: The Agency’s standard retainer pricing includes travel to one (1) primary Client location within a 20km radius of Sandton, Gauteng. Requests for on-site capture outside of this radius will be declined at the Agency's discretion.</p>
+                <p>3.3 Revisions: To maintain the momentum of the content schedule, the Agency provides one (1) consolidated round of minor revisions per video or web page (if applicable). A "minor revision" includes text changes, music swaps, or minor clip adjustments. Total re-edits or requests that deviate from the original approved concept will be billed at an hourly rate of R250/hr.</p>
+                <p>3.4 Scope Creep: Any requests outside the agreed-upon SOW (e.g., attending events outside scheduled capture days) will be quoted and billed separately.</p>
+
+                <h3>4. Client Responsibilities & Communication</h3>
+                <p>4.1 Secure Access & Assets: For the security of the Client’s digital properties, the Agency does not request, accept, or store direct user passwords. The Client agrees to grant the Agency secure administrative or "Partner" access to all relevant social media accounts (e.g., via Meta Business Manager, TikTok Business Center), ad platforms, and website hosting environments required to execute the signed SOW. The Client will also provide access to physical locations and brand guidelines as necessary.</p>
+                <p>4.2 Approvals & Feedback: The Client agrees to provide feedback on sent assets within 12 hours. If the Client fails to respond within this timeframe, the Agency reserves the right to auto-approve and publish the content to maintain the posting schedule.</p>
+                <p>4.3 Communication Boundaries: Official project communication, approvals, and strategy discussions will be conducted via email or scheduled calls during standard operating hours (Monday - Friday, 09:00 - 17:00). Requests made via personal text message or social media DMs will be redirected to email.</p>
+                <p>4.4 Public Holidays & Festive Season: The Agency observes all South African national public holidays and a standard annual closure during the December/January festive season (exact dates will be communicated 30 days in advance). To maintain the Client's digital momentum, content for these periods will be pre-produced and scheduled in advance. The monthly retainer fee remains payable in full during the festive month, as the agreed-upon volume of deliverables is still fulfilled via advanced batching.</p>
+
+                <h3>5. Intellectual Property & Creative Rights</h3>
+                <p>5.1 Final Licenses: Upon full payment of the monthly retainer, the Client is granted a non-exclusive, international, royalty-free license to use the final, flattened digital assets (videos, graphics, web pages) for their intended digital marketing purposes.</p>
+                <p>5.2 Raw Files: All raw video footage, working project files (e.g., Premiere Pro, Figma files), and b-roll remain the exclusive intellectual property of the Agency. Raw assets are not released to the Client unless a separate buyout fee is negotiated.</p>
+                <p>5.3 Portfolio Rights: The Agency reserves the right to use any completed work, performance analytics, and the Client's name/logo for its own promotional purposes, portfolio, and case studies.</p>
+
+                <h3>6. Confidentiality & Indemnification</h3>
+                <p>6.1 Confidentiality: Both parties agree to keep all proprietary business information, strategies, and financial data strictly confidential.</p>
+                <p>6.2 Indemnification (Client Assets): If the Client provides the Agency with specific music, logos, text, or imagery to use in the content, the Client guarantees they own the rights or hold the necessary licenses for those materials. The Client agrees to indemnify and hold the Agency harmless against any legal claims, copyright strikes, or damages arising from the use of materials provided by the Client.</p>
+
+                <h3>7. Term, Termination & Pauses</h3>
+                <p>7.1 Month-to-Month Term: This Agreement continues on a rolling monthly basis.</p>
+                <p>7.2 Cancellation: Either party may terminate this Agreement by providing thirty (30) days' written notice. Because content is planned and batched in advance, the Client is responsible for payment covering the 30-day notice period.</p>
+                <p>7.3 Pausing Services: Retainers cannot be "paused" mid-month. If a Client wishes to pause services, they must provide 30 days' notice to cancel, and then re-sign an SOW at current market rates when they wish to resume.</p>
+
+                <h3>8. Liability, Guarantees & Force Majeure</h3>
+                <p>8.1 Platform Volatility: The Agency uses modern, data-driven tactics to maximise digital reach. However, due to the unpredictable nature of third-party algorithms (Meta, TikTok, Google), the Agency cannot legally guarantee specific numerical outcomes, exact follower growth, viral performance, or direct sales conversions.</p>
+                <p>8.2 Force Majeure: The Agency shall not be held liable for delays or failures in performance resulting from circumstances beyond its reasonable control, including but not limited to severe illness, natural disasters, platform outages, or localized infrastructure failures (e.g., severe power grid interruptions/load shedding).</p>
+                <p>8.3 Limitation of Liability: In no event shall the Agency's total liability to the Client for any damages exceed the total retainer amount paid by the Client in the one (1) month preceding the claim.</p>
+
+                <h3>9. Governing Law</h3>
+                <p>9.1 This Agreement shall be governed by and construed in accordance with the laws of the Republic of South Africa.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>explore</h4>
+                <a href="index.html#architecture" class="footer-link">the process</a>
+                <a href="index.html#investment" class="footer-link">investment</a>
+                <a href="index.html#contact" class="footer-link">contact</a>
+            </div>
+            <div class="footer-col">
+                <h4>socials</h4>
+                <a href="https://www.instagram.com/snwbldigital/?utm_source=ig_web_button_share_sheet" class="footer-link">instagram</a>
+                <a href="https://www.tiktok.com/@snwbldigital?_r=1&_t=ZS-96pKU1hGBHw" class="footer-link">tiktok</a>
+                <a href="https://www.linkedin.com/company/snwbldigital/" class="footer-link">linkedin</a>
+                <a href="https://www.facebook.com/snwbldigital" class="footer-link">facebook</a>
+            </div>
+            <div class="footer-col">
+                <h4>navigation</h4>
+                <a href="index.html" class="footer-link">← back to site</a>
+            </div>
         </div>
 
-        <div class="legal-section">
-            <span class="legal-title">02 / Privacy Policy</span>
-            <p>snwbl digital respects your privacy. When you submit an inquiry through our contact form, we collect your name, email address, and business details. This information is used solely to respond to your project inquiry and communicate regarding potential services.</p>
-            <p>We do not sell, rent, or trade your personal information to third parties. Our website may use basic analytics to monitor site traffic, which does not identify individual users. By using our contact form, you consent to the collection and use of your information as outlined here.</p>
+        <div class="footer-massive-brand">snwbl digital</div>
+
+        <div class="footer-bottom">
+            <span>© 2026 all rights reserved.</span>
+            <span>based in sandton, gauteng.</span>
         </div>
-
-        <div class="legal-section">
-            <span class="legal-title">03 / Master Terms of Service</span>
-            <p>The following terms govern all active client retainers and projects executed by snwbl digital. By signing a Statement of Work (SOW), clients agree to be bound by these terms.</p>
-            
-            <h3>1. Parties & Relationship</h3>
-            <p>1.1 This Agreement is entered into between Sami Elnaamani trading as snwbl digital ("the Agency", "we", "us") and [Client Company Name] ("the Client", "you").</p>
-            <p>1.2 Independent Contractor: The Agency operates as an independent contractor. Nothing in this Agreement shall be construed to create an employer-employee relationship, partnership, or joint venture. The Agency retains the right to perform services for other clients during the term of this Agreement.</p>
-
-            <h3>2. Financial Terms & Invoicing</h3>
-            <p>2.1 Payment Schedule: All retainer tiers operate on a strict month-to-month basis. Invoices will be issued on the 25th of each month for the upcoming month's services.</p>
-            <p>2.2 Payment Terms: Invoices are payable within 5 days of receipt. Work for the upcoming billing cycle, including on-site capture days, will not commence until the retainer fee has cleared into the Agency’s nominated bank account.</p>
-            <p>2.3 Late Fees: The Agency reserves the right to suspend all services and social media publishing if an invoice remains unpaid past the due date.</p>
-            <p>2.4 Exclusions: The retainer fee covers the Agency’s time, equipment, and expertise. It strictly excludes third-party costs, including but not limited to: Meta/Google advertising spend, premium stock asset licensing, domain registrations, or third-party software subscriptions requested by the Client.</p>
-
-            <h3>3. Scope of Work & Revisions</h3>
-            <p>3.1 Deliverables: The specific services provided are detailed in the signed Statement of Work (SOW) corresponding to the Client's selected tier (Presence, Momentum, or Ecosystem).</p>
-            <p>3.2 Travel & Location Boundaries: The Agency’s standard retainer pricing includes travel to one (1) primary Client location within a 20km radius of Sandton, Gauteng. Requests for on-site capture outside of this radius will be declined at the Agency's discretion.</p>
-            <p>3.3 Revisions: To maintain the momentum of the content schedule, the Agency provides one (1) consolidated round of minor revisions per video or web page (if applicable). A "minor revision" includes text changes, music swaps, or minor clip adjustments. Total re-edits or requests that deviate from the original approved concept will be billed at an hourly rate of R250/hr.</p>
-            <p>3.4 Scope Creep: Any requests outside the agreed-upon SOW (e.g., attending events outside scheduled capture days) will be quoted and billed separately.</p>
-
-            <h3>4. Client Responsibilities & Communication</h3>
-            <p>4.1 Secure Access & Assets: For the security of the Client’s digital properties, the Agency does not request, accept, or store direct user passwords. The Client agrees to grant the Agency secure administrative or "Partner" access to all relevant social media accounts (e.g., via Meta Business Manager, TikTok Business Center), ad platforms, and website hosting environments required to execute the signed SOW. The Client will also provide access to physical locations and brand guidelines as necessary.</p>
-            <p>4.2 Approvals & Feedback: The Client agrees to provide feedback on sent assets within 12 hours. If the Client fails to respond within this timeframe, the Agency reserves the right to auto-approve and publish the content to maintain the posting schedule.</p>
-            <p>4.3 Communication Boundaries: Official project communication, approvals, and strategy discussions will be conducted via email or scheduled calls during standard operating hours (Monday - Friday, 09:00 - 17:00). Requests made via personal text message or social media DMs will be redirected to email.</p>
-            <p>4.4 Public Holidays & Festive Season: The Agency observes all South African national public holidays and a standard annual closure during the December/January festive season (exact dates will be communicated 30 days in advance). To maintain the Client's digital momentum, content for these periods will be pre-produced and scheduled in advance. The monthly retainer fee remains payable in full during the festive month, as the agreed-upon volume of deliverables is still fulfilled via advanced batching.</p>
-
-            <h3>5. Intellectual Property & Creative Rights</h3>
-            <p>5.1 Final Licenses: Upon full payment of the monthly retainer, the Client is granted a non-exclusive, international, royalty-free license to use the final, flattened digital assets (videos, graphics, web pages) for their intended digital marketing purposes.</p>
-            <p>5.2 Raw Files: All raw video footage, working project files (e.g., Premiere Pro, Figma files), and b-roll remain the exclusive intellectual property of the Agency. Raw assets are not released to the Client unless a separate buyout fee is negotiated.</p>
-            <p>5.3 Portfolio Rights: The Agency reserves the right to use any completed work, performance analytics, and the Client's name/logo for its own promotional purposes, portfolio, and case studies.</p>
-
-            <h3>6. Confidentiality & Indemnification</h3>
-            <p>6.1 Confidentiality: Both parties agree to keep all proprietary business information, strategies, and financial data strictly confidential.</p>
-            <p>6.2 Indemnification (Client Assets): If the Client provides the Agency with specific music, logos, text, or imagery to use in the content, the Client guarantees they own the rights or hold the necessary licenses for those materials. The Client agrees to indemnify and hold the Agency harmless against any legal claims, copyright strikes, or damages arising from the use of materials provided by the Client.</p>
-
-            <h3>7. Term, Termination & Pauses</h3>
-            <p>7.1 Month-to-Month Term: This Agreement continues on a rolling monthly basis.</p>
-            <p>7.2 Cancellation: Either party may terminate this Agreement by providing thirty (30) days' written notice. Because content is planned and batched in advance, the Client is responsible for payment covering the 30-day notice period.</p>
-            <p>7.3 Pausing Services: Retainers cannot be "paused" mid-month. If a Client wishes to pause services, they must provide 30 days' notice to cancel, and then re-sign an SOW at current market rates when they wish to resume.</p>
-
-            <h3>8. Liability, Guarantees & Force Majeure</h3>
-            <p>8.1 Platform Volatility: The Agency uses modern, data-driven tactics to maximise digital reach. However, due to the unpredictable nature of third-party algorithms (Meta, TikTok, Google), the Agency cannot legally guarantee specific numerical outcomes, exact follower growth, viral performance, or direct sales conversions.</p>
-            <p>8.2 Force Majeure: The Agency shall not be held liable for delays or failures in performance resulting from circumstances beyond its reasonable control, including but not limited to severe illness, natural disasters, platform outages, or localized infrastructure failures (e.g., severe power grid interruptions/load shedding).</p>
-            <p>8.3 Limitation of Liability: In no event shall the Agency's total liability to the Client for any damages exceed the total retainer amount paid by the Client in the one (1) month preceding the claim.</p>
-
-            <h3>9. Governing Law</h3>
-            <p>9.1 This Agreement shall be governed by and construed in accordance with the laws of the Republic of South Africa.</p>
-        </div>
-    </div>
+    </footer>
 
 </body>
 </html>
