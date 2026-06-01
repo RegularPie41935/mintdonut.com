@@ -70,12 +70,13 @@
         }
         @font-face {
             font-family: 'Helvetica Custom';
-            src: url('./Helvetica-Light.ttf') format('truetype');
+            /* Using the bulletproof web format */
+            src: url('./Helvetica-Light.woff2') format('woff2');
             font-weight: 300;
             font-style: normal;
             font-display: swap;
         }
-
+        
         :root {
             --gr-obsidian: #0d0d0d; 
             --gr-bone: #ffffff; 
