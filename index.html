@@ -95,7 +95,7 @@
         body {
             background-color: var(--gr-bone);
             color: var(--gr-obsidian);
-            overflow-x: hidden;
+            overflow-x: clip;
             -webkit-font-smoothing: antialiased;
             position: relative;
             animation: frostedLoad 1.2s cubic-bezier(0.19, 1, 0.22, 1);
@@ -357,6 +357,7 @@
             display: flex;
             justify-content: space-between;
             font-weight: 500;
+            position: -webkit-sticky;
             position: sticky;
             top: 0;
             z-index: 100;
