@@ -16,11 +16,13 @@
 
     <style>
         :root {
-            --gr-obsidian: #0a0a0a; 
-            --gr-bone: #ffffff;
-            --gr-mint: #c5e6d3; /* Strictly uniform pastel green synced */
-            --glass-bg: rgba(255, 255, 255, 0.7);
-            --grid-line: rgba(10, 10, 10, 0.08); 
+            /* 1. change the harsh black to a deep, warm dark brown */
+            --gr-obsidian: #2c1e16; 
+            --gr-bone: #ede5d3; 
+            --gr-mint: #a2c4b1; 
+            --gr-dough: #d1c1af; 
+            --glass-bg: rgba(237, 229, 211, 0.7); 
+            --grid-line: rgba(28, 27, 24, 0.08); 
             --tracking-massive: 0.4em; 
         }
 
@@ -200,11 +202,11 @@
             font-weight: 700;
             line-height: 0.8;
             letter-spacing: -0.05em;
-            color: var(--gr-obsidian);
+            color: var(--gr-dough); /* Pastel brown accent */
             text-align: center;
             overflow: hidden;
             white-space: nowrap;
-            opacity: 0.03; 
+            opacity: 0.3; /* Adjusted to show color */
             pointer-events: none;
         }
 
@@ -215,7 +217,7 @@
             padding-top: 40px;
             font-size: 11px;
             letter-spacing: var(--tracking-massive);
-            color: rgba(10, 10, 10, 0.5);
+            color: rgba(44, 30, 22, 0.5); 
         }
 
         @media (max-width: 1024px) {
@@ -236,7 +238,7 @@
                 grid-column: span 1; 
             }
             .footer-massive-brand {
-                opacity: 0.05;
+                opacity: 0.3; /* Adjusted opacity */
                 font-size: 13vw; 
             }
             .footer-bottom {
