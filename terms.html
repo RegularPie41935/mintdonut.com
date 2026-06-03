@@ -16,15 +16,16 @@
 
     <style>
         :root {
-            --gr-obsidian: #0d0d0d; 
+            --gr-obsidian: #0a0a0a; 
             --gr-bone: #ffffff;
-            --gr-sage: #8da399;
-            --glass-border: rgba(13, 13, 13, 0.1);
+            --gr-mint: #c5e6d3; /* Strictly uniform pastel green synced */
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --grid-line: rgba(10, 10, 10, 0.08); 
             --tracking-massive: 0.4em; 
         }
 
-        ::-moz-selection { background-color: var(--gr-sage); color: var(--gr-bone); }
-        ::selection { background-color: var(--gr-sage); color: var(--gr-bone); }
+        ::-moz-selection { background-color: var(--gr-mint); color: var(--gr-obsidian); }
+        ::selection { background-color: var(--gr-mint); color: var(--gr-obsidian); }
 
         * {
             margin: 0;
@@ -36,7 +37,7 @@
 
         /* --- BULLETPROOF FORM FONT INHERITANCE --- */
         input, textarea, button, select {
-         font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+            font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
         }
 
         html, body {
@@ -57,37 +58,49 @@
             100% { opacity: 1; filter: none; }
         }
 
-        /* --- NEW STRUCTURAL CONTENT WRAPPER --- */
-        .legal-wrapper {
-            padding: 100px;
-            border-bottom: 1px solid var(--glass-border);
+        /* --- NEW GLASSMORPHIC HEADER NAV --- */
+        .legal-nav {
+            position: sticky;
+            top: 0;
+            padding: 28px 100px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--grid-line);
+            z-index: 100;
         }
 
         .back-link {
-            display: inline-block;
-            margin-bottom: 70px;
+            display: inline-flex;
+            align-items: center;
             text-decoration: none;
             color: var(--gr-obsidian);
             font-size: 12px;
             letter-spacing: var(--tracking-massive);
             font-weight: 500;
-            border-bottom: 1px solid var(--gr-obsidian);
-            padding-bottom: 6px;
             text-transform: lowercase; 
-            transition: opacity 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             -webkit-user-select: none;
             -ms-user-select: none;
             user-select: none;
         }
 
-        .back-link:hover { opacity: 0.5; }
+        .back-link:hover { 
+            color: var(--gr-mint);
+            transform: translateX(-5px); 
+        }
+
+        .legal-wrapper {
+            padding: 60px 100px 100px 100px;
+            border-bottom: 1px solid var(--grid-line);
+        }
 
         .legal-header {
             font-size: clamp(2rem, 5vw, 4rem);
             font-weight: 700;
             letter-spacing: -0.03em;
             margin-bottom: 80px;
-            border-bottom: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--grid-line);
             padding-bottom: 40px;
             text-transform: lowercase; 
             -webkit-user-select: none;
@@ -109,7 +122,7 @@
             font-size: 13px;
             letter-spacing: var(--tracking-massive);
             font-weight: 500;
-            color: var(--gr-sage);
+            color: var(--gr-mint);
             margin-bottom: 30px;
             display: block;
             text-transform: lowercase;
@@ -133,13 +146,13 @@
 
         .legal-content li { margin-bottom: 12px; }
         
-        /* --- UNHIGHLIGHTABLE EDITORIAL FOOTER --- */
+        /* --- UNIFIED EDITORIAL FOOTER --- */
         .site-footer {
             background-color: var(--gr-bone);
-            padding: 100px 100px 40px 100px;
+            padding: 80px 80px 35px 80px; 
             display: flex;
             flex-direction: column;
-            gap: 100px;
+            gap: 80px;
             position: relative;
             z-index: 10;
             -webkit-user-select: none;
@@ -163,7 +176,7 @@
         .footer-col h4 {
             font-size: 11px;
             letter-spacing: var(--tracking-massive);
-            color: var(--gr-sage);
+            color: var(--gr-mint);
             font-weight: 500;
             margin-bottom: 15px;
         }
@@ -173,12 +186,12 @@
             color: var(--gr-obsidian);
             font-size: 19px;
             font-weight: 300;
-            transition: color 0.3s ease, transform 0.3s ease;
+            transition: all 0.3s ease;
             width: fit-content;
         }
 
         .footer-link:hover {
-            color: var(--gr-sage);
+            color: var(--gr-mint);
             transform: translateX(5px);
         }
 
@@ -198,20 +211,21 @@
         .footer-bottom {
             display: flex;
             justify-content: space-between;
-            border-top: 1px solid var(--glass-border);
+            border-top: 1px solid var(--grid-line);
             padding-top: 40px;
             font-size: 11px;
             letter-spacing: var(--tracking-massive);
-            color: var(--gr-obsidian);
+            color: rgba(10, 10, 10, 0.5);
         }
 
         @media (max-width: 1024px) {
-            .legal-wrapper { padding: 60px 40px; }
+            .legal-nav { padding: 20px 40px; }
+            .legal-wrapper { padding: 40px 40px 60px 40px; }
             .legal-header { margin-bottom: 50px; padding-bottom: 25px; }
             
             /* --- RESPONSIVE MOBILE FOOTER --- */
             .site-footer { 
-                padding: 80px 40px 40px 40px; 
+                padding: 60px 40px 30px 40px; 
                 gap: 60px;
             }
             .footer-grid {
@@ -245,9 +259,11 @@
 </head>
 <body>
 
-    <main class="legal-wrapper">
+    <nav class="legal-nav">
         <a href="index.html" class="back-link">← back to site</a>
+    </nav>
 
+    <main class="legal-wrapper">
         <h1 class="legal-header">legal documentation.</h1>
 
         <div class="legal-content">
