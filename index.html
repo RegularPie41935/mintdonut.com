@@ -6,18 +6,18 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     
-    <title>mintdonut | attention is your currency.</title>
+    <title>mintdonut | the glaze your brand deserves.</title>
     <link rel="icon" type="image/png" href="mintdonut Logo PFP.png">
     <link rel="apple-touch-icon" href="mintdonut Logo PFP.png">
 
-    <meta name="description" content="mintdonut provides a consistent, high-quality online presence for small businesses in Randburg and Sandton. We handle the video production, editing, and daily posting so you can handle your brand.">
+    <meta name="description" content="based in sandton, gauteng, mintdonut is a specialised digital marketing agency dedicated to providing a consistent, high-end online presence for local businesses. we understand that business owners need to focus on operations, not content creation. that is why we operate as your dedicated digital partner, taking the absolute burden of social media and web management off your shoulders.">
     <meta name="keywords" content="digital marketing agency, social media management, short form video editing, web design, Randburg, Sandton, Gauteng, local business marketing">
     <meta name="author" content="Sami Elnaamani">
     <meta name="robots" content="index, follow">
     
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://www.mintdonut.com/">
-    <meta property="og:title" content="mintdonut | attention is your currency.">
+    <meta property="og:title" content="mintdonut | the glaze your brand deserves.">
     <meta property="og:description" content="End-to-end digital infrastructure, cinematic video production, and daily social media management for local businesses.">
     <meta property="og:image" content="https://www.mintdonut.com/mintdonut-preview.jpg"> 
     
@@ -42,7 +42,7 @@
         "longitude": 28.0066
       },
       "priceRange": "ZAR",
-      "description": "mintdonut provides a consistent, high-quality online presence for small businesses through cinematic on-site production, dynamic editing, and automated posting."
+      "description": "based in sandton, gauteng, mintdonut is a specialised digital marketing agency dedicated to providing a consistent, high-end online presence for local businesses. we understand that business owners need to focus on operations, not content creation. that is why we operate as your dedicated digital partner, taking the absolute burden of social media and web management off your shoulders."
     }
     </script>
 
@@ -52,23 +52,23 @@
 
     <style>
         :root {
-            --gr-obsidian: #0d0d0d; 
-            --gr-bone: #ffffff; 
-            --gr-sage: #8da399;
-            --glass-bg: rgba(255, 255, 255, 0.6);
-            --glass-border: rgba(13, 13, 13, 0.1);
+            --gr-obsidian: #0a0a0a; 
+            --gr-bone: #ffffff;
+            --gr-mint: #c5e6d3; /* Strictly uniform pastel green */
+            --glass-bg: rgba(255, 255, 255, 0.7); 
+            --grid-line: rgba(10, 10, 10, 0.08);
             --tracking-massive: 0.4em; 
             --tracking-standard: 0.1em; 
         }
 
         /* --- CUSTOM HIGHLIGHTING --- */
         ::-moz-selection {
-            background-color: var(--gr-sage);
-            color: var(--gr-bone);
+            background-color: var(--gr-mint);
+            color: var(--gr-obsidian);
         }
         ::selection {
-            background-color: var(--gr-sage);
-            color: var(--gr-bone);
+            background-color: var(--gr-mint);
+            color: var(--gr-obsidian);
         }
 
         /* --- FORCED DEFAULT CURSOR & GLOBALS --- */
@@ -83,8 +83,8 @@
         }
 
         /* --- BULLETPROOF FORM FONT INHERITANCE --- */
-       input, textarea, button, select {
-       font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+        input, textarea, button, select {
+            font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
         }
 
         /* --- AMBIENT BACKGROUND & BODY --- */
@@ -103,35 +103,22 @@
             padding-top: max(0px, env(safe-area-inset-top));
         }
 
+        main, footer {
+            transition: filter 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
         @keyframes frostedLoad {
             0% { opacity: 0; filter: blur(15px); }
             100% { opacity: 1; filter: none; }
         }
 
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 50% 50%, rgba(141, 163, 153, 0.06), transparent 50%),
-                        radial-gradient(circle at 80% 20%, rgba(13, 13, 13, 0.03), transparent 40%);
-            z-index: -1;
-            animation: ambientDrift 25s ease-in-out infinite alternate;
-            pointer-events: none;
-        }
-
-        @keyframes ambientDrift {
-            0% { transform: rotate(0deg) scale(1); }
-            100% { transform: rotate(3deg) scale(1.05); }
-        }
-
         body.modal-open {
             overflow: hidden;
             touch-action: none;
+        }
+
+        body.modal-open main, body.modal-open footer {
+            filter: blur(12px); 
         }
 
         @keyframes fadeUp {
@@ -155,6 +142,7 @@
             flex-direction: column;
             overflow: hidden; 
             position: relative; 
+            border-bottom: 1px solid var(--grid-line);
         }
 
         .wall-wrapper {
@@ -199,7 +187,6 @@
             margin-top: -0.25em; 
         }
 
-        /* Organic staggering offsets */
         .marquee-line:nth-child(3n+1) { transform: translateX(-3vw); }
         .marquee-line:nth-child(3n+2) { transform: translateX(2vw); }
         .marquee-line:nth-child(3n)   { transform: translateX(-1vw); }
@@ -213,7 +200,7 @@
 
         .marquee-static {
             opacity: 1;
-            color: var(--gr-obsidian);
+            color: var(--gr-mint); /* Brand color updated */
             -webkit-user-select: none;
             user-select: none;
             position: relative;
@@ -225,7 +212,7 @@
             opacity: 1;
             color: var(--gr-obsidian);
             text-decoration: none;
-            transition: color 0.4s ease, transform 0.4s ease;
+            transition: color 0.2s ease, transform 0.2s ease;
             -webkit-user-select: none;
             user-select: none;
             position: relative;
@@ -234,11 +221,9 @@
         }
 
         .marquee-link:hover {
-            color: var(--gr-sage);
-            transform: scale(1.02);
+            color: var(--gr-mint);
         }
 
-        /* Desktop specific shift to put mintdonut on the right visually */
         @media (min-width: 1025px) {
             .brand-row {
                 transform: translateX(12vw) !important; 
@@ -252,19 +237,20 @@
             font-family: inherit;
         }
 
+        /* Baseborn style flat buttons with enhanced hover */
         .cta-trigger {
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 16px 32px; 
-            background: var(--gr-obsidian);
+            padding: 14px 28px; 
+            background: var(--gr-bone);
             border: 1px solid var(--gr-obsidian);
             text-decoration: none;
-            color: var(--gr-bone);
+            color: var(--gr-obsidian);
             font-size: 11px; 
             letter-spacing: var(--tracking-massive);
             font-weight: 500;
-            transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             text-align: center;
             -webkit-user-select: none;
             -ms-user-select: none;
@@ -273,38 +259,54 @@
         }
 
         .cta-trigger:hover {
-            background: transparent;
-            color: var(--gr-obsidian);
-            transform: translateY(-2px); 
-            box-shadow: 0 10px 20px rgba(13, 13, 13, 0.1);
+            background: var(--gr-obsidian) !important;
+            color: var(--gr-bone) !important;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(10, 10, 10, 0.15);
         }
 
         .cta-trigger.secondary {
             background: transparent;
+            border: 1px solid var(--grid-line);
             color: var(--gr-obsidian);
         }
 
         .cta-trigger.secondary:hover {
-            background: var(--gr-sage);
-            border-color: var(--gr-sage);
-            color: var(--gr-bone);
+            background: var(--gr-mint) !important;
+            border-color: var(--gr-mint) !important;
+            color: var(--gr-obsidian) !important;
+            box-shadow: 0 8px 20px rgba(197, 230, 211, 0.5);
+        }
+
+        /* Specific fix for the middle tier dark button hover */
+        .cta-trigger.featured-btn {
+            background: var(--gr-obsidian);
+            color: var(--gr-mint);
+            border-color: var(--gr-obsidian);
+        }
+
+        .cta-trigger.featured-btn:hover {
+            background: var(--gr-mint) !important;
+            color: var(--gr-obsidian) !important;
+            box-shadow: 0 8px 20px rgba(197, 230, 211, 0.5);
+            transform: translateY(-3px);
         }
 
         /* --- CONTENT SECTIONS --- */
         .partners-section {
-            padding: 80px 100px; 
-            border-bottom: 1px solid var(--glass-border);
+            padding: 60px 80px; 
+            border-bottom: 1px solid var(--grid-line);
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
         .partners-label {
-            font-size: 13px;
+            font-size: 11px;
             letter-spacing: var(--tracking-massive);
-            color: var(--gr-sage);
+            color: var(--gr-mint);
             font-weight: 500;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
             -webkit-user-select: none;
             -ms-user-select: none;
             user-select: none;
@@ -315,7 +317,7 @@
             flex-wrap: wrap;
             justify-content: center;
             align-items: center;
-            gap: 50px 90px; 
+            gap: 40px 80px; 
             max-width: 1000px;
             -webkit-user-select: none;
             -ms-user-select: none;
@@ -323,8 +325,8 @@
         }
 
         .partner-item {
-            opacity: 0.4;
-            transition: opacity 0.4s ease, transform 0.4s ease;
+            opacity: 0.3;
+            transition: opacity 0.2s ease;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -332,28 +334,28 @@
 
         .partner-item:hover {
             opacity: 1;
-            transform: scale(1.05);
         }
 
         .partner-item img {
-            max-height: 65px; 
-            min-height: 45px;
+            max-height: 50px; 
+            min-height: 35px;
             width: auto;
-            filter: grayscale(100%) contrast(120%); 
+            filter: grayscale(100%) contrast(110%); 
         }
 
         .content-section {
             position: relative;
         }
 
+        /* GLASSMORPHIC HEADER */
         .section-header {
-            font-size: 12px;
+            font-size: 11px;
             letter-spacing: var(--tracking-massive);
-            padding: 35px 100px; 
-            border-bottom: 1px solid var(--glass-border);
-            background: rgba(255, 255, 255, 0.85); 
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            padding: 28px 80px; 
+            border-bottom: 1px solid var(--grid-line);
+            background: var(--glass-bg); 
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             display: flex;
             justify-content: space-between;
             font-weight: 500;
@@ -361,119 +363,108 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            transition: color 0.3s ease, background-color 0.3s ease, border-bottom-color 0.3s ease;
             -webkit-user-select: none;
             -ms-user-select: none;
             user-select: none;
         }
 
         .section-header span:last-child {
-            color: var(--gr-sage);
-        }
-
-        .section-header.inverted {
-            color: var(--gr-bone);
-            background-color: transparent; 
-            border-bottom-color: rgba(255, 255, 255, 0.1);
+            color: var(--gr-mint); 
         }
 
         .feature-block {
-            padding: 100px; 
-            border-bottom: 1px solid var(--glass-border);
+            padding: 80px; 
+            border-bottom: 1px solid var(--grid-line);
             display: grid;
-            grid-template-columns: 220px 1fr;
-            gap: 60px;
-            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+            grid-template-columns: 180px 1fr;
+            gap: 50px;
+            transition: background 0.2s ease;
         }
 
         .feature-block:hover { 
-            background: rgba(255, 255, 255, 0.5); 
-            transform: translateY(-3px);
-            box-shadow: 0 30px 60px rgba(13, 13, 13, 0.03);
-            position: relative;
-            z-index: 2;
+            background: #f8fdf9;
         }
 
         .feature-id {
-            font-size: 13px;
+            font-size: 11px;
             letter-spacing: var(--tracking-massive);
-            color: var(--gr-sage);
+            color: var(--gr-mint); 
             font-weight: 500;
-            padding-top: 12px;
+            padding-top: 8px;
+            transition: color 0.2s ease;
         }
 
         .feature-title {
-            font-size: 36px;
+            font-size: 32px;
             letter-spacing: -0.02em;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             display: block;
             font-weight: 400;
+            transition: color 0.2s ease;
         }
 
         .feature-desc {
-            font-size: 19px;
-            line-height: 1.7;
+            font-size: 16px;
+            line-height: 1.65;
             font-weight: 300;
-            max-width: 800px;
+            max-width: 750px;
+            transition: color 0.2s ease;
+            color: rgba(10, 10, 10, 0.75);
         }
 
         .tier-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            background: var(--glass-border);
+            background: var(--grid-line);
             gap: 1px;
-            border-bottom: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--grid-line);
         }
 
         .tier-card {
             background: var(--gr-bone);
-            padding: 100px 60px; 
+            padding: 80px 50px; 
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+            transition: all 0.2s ease;
         }
 
         .tier-card:hover {
-            background: #ffffff;
-            transform: scale(1.01);
-            box-shadow: 0 40px 80px rgba(13, 13, 13, 0.05);
-            z-index: 3;
+            background: #fafbfa;
         }
 
         .tier-card.featured {
-            background: var(--gr-obsidian);
-            color: var(--gr-bone);
+            background: var(--gr-mint);
+            color: var(--gr-obsidian);
         }
 
         .tier-card.featured:hover {
-            background: #1a1a1a;
-            box-shadow: 0 40px 80px rgba(13, 13, 13, 0.15);
+            filter: brightness(0.97); /* Subtle shade shift using the same exact color base */
         }
 
         .tier-label {
-            opacity: 0.6;
-            font-size: 12px;
+            font-size: 11px;
             letter-spacing: var(--tracking-massive);
-            margin-bottom: 35px;
+            margin-bottom: 30px;
             display: block;
+            font-weight: 500;
         }
 
         .price {
-            font-size: 68px;
+            font-size: 56px;
             font-weight: 400;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
             letter-spacing: -0.03em;
         }
 
         .tier-features {
             list-style: none;
-            margin-bottom: 60px;
+            margin-bottom: 50px;
         }
 
         .tier-features li {
-            font-size: 16px;
-            margin-bottom: 18px;
+            font-size: 15px;
+            margin-bottom: 15px;
             display: flex;
             align-items: center;
             font-weight: 300;
@@ -481,115 +472,119 @@
 
         .tier-features li::before {
             content: "";
-            width: 8px; height: 8px;
-            background: var(--gr-sage);
-            margin-right: 15px;
-            border-radius: 50%; 
+            width: 6px;
+            height: 6px;
+            background: var(--gr-obsidian);
+            margin-right: 12px;
+            border-radius: 0;
+            flex-shrink: 0;
+        }
+        
+        .tier-card:not(.featured) .tier-features li::before {
+            background: var(--gr-mint);
         }
 
         .contact-section {
-            padding: 120px 100px; 
-            border-bottom: 1px solid var(--glass-border);
+            padding: 100px 80px; 
+            border-bottom: 1px solid var(--grid-line);
         }
 
         .contact-form {
-            max-width: 650px;
+            max-width: 600px;
             display: flex;
             flex-direction: column;
             margin: 0 auto;
-            gap: 35px;
+            gap: 30px;
         }
 
         .form-group {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 10px;
         }
 
         .form-label {
-            font-size: 12px;
+            font-size: 11px;
             letter-spacing: var(--tracking-standard);
-            opacity: 0.7;
+            font-weight: 500;
         }
 
         .form-input {
-            padding: 18px;
-            background: rgba(255, 255, 255, 0.4); 
-            border: 1px solid var(--glass-border);
+            padding: 16px; 
+            background: var(--gr-bone);
+            border: 1px solid var(--grid-line);
             color: var(--gr-obsidian);
             font-family: inherit;
-            font-size: 16px;
+            font-size: 15px;
             outline: none;
-            transition: all 0.3s ease;
+            transition: border-color 0.2s ease;
         }
 
         .form-input:focus {
-            border-color: var(--gr-sage);
-            background: #ffffff;
-            box-shadow: 0 10px 20px rgba(141, 163, 153, 0.1);
+            border-color: var(--gr-mint);
         }
 
         textarea.form-input {
             resize: vertical;
-            min-height: 140px;
+            min-height: 120px;
         }
 
         #form-message {
-            font-size: 13px;
+            font-size: 12px;
             letter-spacing: var(--tracking-standard);
-            color: var(--gr-sage);
+            color: var(--gr-mint);
             display: none;
+            font-weight: 500;
         }
 
         .custom-scope-block {
-            padding: 50px 100px; 
-            background: transparent;
+            padding: 40px 80px; 
+            background: var(--gr-bone);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid var(--glass-border); 
+            border-bottom: 1px solid var(--grid-line); 
         }
 
         .scope-text {
             font-size: 12px;
             letter-spacing: 0.05em;
-            color: var(--gr-sage);
-            font-weight: 400;
+            color: rgba(10, 10, 10, 0.6);
+            font-weight: 300;
         }
 
         .scope-link {
             font-size: 11px;
             letter-spacing: var(--tracking-massive);
-            color: var(--gr-obsidian);
+            color: var(--gr-mint);
             text-decoration: none;
-            border-bottom: 1px solid rgba(13, 13, 13, 0.2);
-            padding-bottom: 6px;
-            transition: all 0.3s ease;
+            border-bottom: 1px solid var(--gr-mint);
+            padding-bottom: 4px;
+            transition: all 0.2s ease;
             display: inline-block; 
-            transform: translateZ(0); 
         }
 
         .scope-link:hover {
-            color: var(--gr-sage);
-            border-bottom-color: var(--gr-sage);
+            color: var(--gr-obsidian);
+            border-bottom-color: var(--gr-obsidian);
         }
 
-        /* --- STABLE AND NON-GLITCHING OVERLAY --- */
+        /* --- STARK MODAL OVERLAY --- */
         .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100dvh; 
-            background: rgba(13, 13, 13, 0.65); 
-            backdrop-filter: blur(20px); 
-            -webkit-backdrop-filter: blur(20px);
+            background: rgba(10, 10, 10, 0.5); 
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             z-index: 2000;
             display: none; 
             justify-content: center;
             align-items: center;
             opacity: 0;
-            transition: opacity 0.4s ease;
+            transition: opacity 0.3s ease;
         }
 
         .modal-overlay.active {
@@ -599,39 +594,38 @@
 
         .modal-content {
             background: var(--gr-bone);
-            padding: 60px 50px; 
-            max-width: 650px; 
+            padding: 50px 45px; 
+            max-width: 600px; 
             width: 90%;
             max-height: 85vh; 
             overflow-y: auto; 
             position: relative;
-            border: 1px solid rgba(13, 13, 13, 0.05); 
-            box-shadow: 0 50px 100px rgba(13, 13, 13, 0.3); 
-            border-radius: 2px; 
-            transform: scale(0.95) translateY(30px); 
-            transition: transform 0.6s cubic-bezier(0.19, 1, 0.22, 1); 
+            border: 1px solid var(--grid-line);
+            border-radius: 0;
+            transform: scale(0.98); 
+            transition: transform 0.3s cubic-bezier(0.19, 1, 0.22, 1); 
+            box-shadow: 0 25px 50px rgba(0,0,0,0.1);
         }
 
         .modal-content::-webkit-scrollbar {
             width: 4px;
         }
         .modal-content::-webkit-scrollbar-thumb {
-            background: var(--glass-border);
-            border-radius: 10px;
+            background: var(--grid-line);
         }
 
         .modal-overlay.active .modal-content {
-            transform: scale(1) translateY(0); 
+            transform: scale(1); 
         }
 
         .modal-close {
             position: absolute;
-            top: 25px;
-            right: 30px;
-            font-size: 28px;
+            top: 20px;
+            right: 25px;
+            font-size: 24px;
             font-weight: 300;
             opacity: 0.4;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.2s ease;
             text-decoration: none;
             color: var(--gr-obsidian);
         }
@@ -641,16 +635,16 @@
         }
 
         .modal-title {
-            font-size: 28px; 
-            margin-bottom: 25px;
+            font-size: 24px; 
+            margin-bottom: 20px;
             letter-spacing: -0.02em;
         }
 
         .modal-body {
             font-size: 14px; 
-            line-height: 1.7;
-            opacity: 0.85;
-            margin-bottom: 40px;
+            line-height: 1.65;
+            opacity: 0.8;
+            margin-bottom: 35px;
         }
 
         .modal-body strong {
@@ -658,37 +652,37 @@
             color: var(--gr-obsidian);
         }
 
-        .modal-body p { margin-bottom: 15px; }
+        .modal-body p { margin-bottom: 12px; }
 
         .modal-body table {
             width: 100%;
             border-collapse: collapse;
-            margin: 30px 0;
+            margin: 25px 0;
         }
 
-        .modal-body tr { border-bottom: 1px solid var(--glass-border); }
+        .modal-body tr { border-bottom: 1px solid var(--grid-line); }
         .modal-body tr:last-child { border-bottom: none; }
 
         .modal-body td {
-            padding: 20px 0;
+            padding: 18px 0;
             vertical-align: top;
         }
 
         .modal-body td:first-child {
             width: 30%;
-            padding-right: 20px;
-            color: var(--gr-sage);
+            padding-right: 15px;
+            color: var(--gr-mint);
             font-weight: 500;
             letter-spacing: 0.05em;
         }
 
-        /* --- UNHIGHLIGHTABLE EDITORIAL FOOTER --- */
+        /* --- EDITORIAL FOOTER --- */
         .site-footer {
             background-color: var(--gr-bone);
-            padding: 100px 100px 40px 100px; 
+            padding: 80px 80px 35px 80px; 
             display: flex;
             flex-direction: column;
-            gap: 100px;
+            gap: 80px;
             position: relative;
             z-index: 10;
             -webkit-user-select: none;
@@ -699,35 +693,35 @@
         .footer-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 60px;
-            max-width: 1200px;
+            gap: 50px;
+            max-width: 1000px;
         }
 
         .footer-col {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 18px;
         }
 
         .footer-col h4 {
             font-size: 11px;
             letter-spacing: var(--tracking-massive);
-            color: var(--gr-sage);
+            color: var(--gr-mint);
             font-weight: 500;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
 
         .footer-link {
             text-decoration: none;
             color: var(--gr-obsidian);
-            font-size: 19px;
+            font-size: 16px;
             font-weight: 300;
-            transition: color 0.3s ease, transform 0.3s ease;
+            transition: all 0.3s ease;
             width: fit-content;
         }
 
         .footer-link:hover {
-            color: var(--gr-sage);
+            color: var(--gr-mint);
             transform: translateX(5px);
         }
 
@@ -747,29 +741,28 @@
         .footer-bottom {
             display: flex;
             justify-content: space-between;
-            border-top: 1px solid var(--glass-border);
-            padding-top: 40px;
+            border-top: 1px solid var(--grid-line);
+            padding-top: 30px;
             font-size: 11px;
             letter-spacing: var(--tracking-massive);
-            color: var(--gr-obsidian);
+            color: rgba(10, 10, 10, 0.5);
         }
 
         /* --- RESPONSIVE MOBILE FIXES --- */
         @media (max-width: 1024px) {
             .section-header { 
-                padding: 25px 40px; 
+                padding: 20px 40px; 
                 flex-direction: column;
                 align-items: flex-start;
-                gap: 8px;
+                gap: 6px;
             } 
 
-            /* --- REPAIRED BRUTALIST MOBILE HERO --- */
             .hero-container { 
                 height: 100dvh; 
             }
             
             .architectural-wall {
-                font-size: clamp(2.5rem, 10vw, 5rem); /* Safe sizing to prevent word clipping */
+                font-size: clamp(2.5rem, 10vw, 5rem); 
                 line-height: 1.1; 
             }
             .marquee-line {
@@ -777,80 +770,45 @@
                 margin-top: -0.2em; 
             }
             
-            /* FORCE HIGHLIGHTED ROWS DEAD-CENTER ON MOBILE */
-            .highlight-row {
-                transform: translateX(0) !important;
-            }
-            .brand-row {
-                transform: translateX(0) !important; 
-            }
+            .highlight-row { transform: translateX(0) !important; }
+            .brand-row { transform: translateX(0) !important; }
 
-            /* ------------------------------------- */
-            .partners-section { padding: 60px 40px; }
-            .partners-grid { gap: 40px 50px; }
+            .partners-section { padding: 50px 40px; }
+            .partners-grid { gap: 30px 50px; }
             .partner-item img { max-height: 35px; }
-            .feature-block { grid-template-columns: 1fr; gap: 25px; padding: 60px 40px; }
+            .feature-block { grid-template-columns: 1fr; gap: 20px; padding: 50px 40px; }
             .tier-grid { grid-template-columns: 1fr; }
-            .tier-card { padding: 70px 40px; }
-            .custom-scope-block { flex-direction: column; padding: 50px 40px; gap: 25px; text-align: center; }
-            .contact-section { padding: 90px 40px; }
+            .tier-card { padding: 60px 40px; }
+            .custom-scope-block { flex-direction: column; padding: 40px 40px; gap: 20px; text-align: center; }
+            .contact-section { padding: 70px 40px; }
             
-            /* --- RESPONSIVE MOBILE FOOTER --- */
             .site-footer { 
-                padding: 80px 40px 40px 40px; 
+                padding: 60px 40px 30px 40px; 
                 gap: 60px;
             }
-            .footer-grid {
-                grid-template-columns: repeat(2, 1fr); 
-                gap: 50px;
-            }
-            .footer-col:last-child {
-                grid-column: span 2; 
-            }
-            .footer-massive-brand {
-                opacity: 0.05;
-                font-size: 13vw; 
-            }
-            .footer-bottom {
-                flex-direction: column;
-                align-items: center;
-                gap: 20px;
-                text-align: center;
-            }
+            .footer-grid { grid-template-columns: repeat(2, 1fr); gap: 40px; }
+            .footer-col:last-child { grid-column: span 2; }
+            .footer-massive-brand { opacity: 0.05; font-size: 13vw; }
+            .footer-bottom { flex-direction: column; align-items: center; gap: 15px; text-align: center; }
             
-            .modal-content { padding: 50px 30px; }
+            .modal-content { padding: 45px 30px; }
             .modal-body td:first-child { width: 40%; }
         }
 
-        /* --- LANDSCAPE MODE & SHORT SCREEN FIXES --- */
         @media (max-height: 600px) and (orientation: landscape) {
-            .hero-container {
-                height: 100dvh;
-            }
-
-            .architectural-wall {
-                font-size: 3.5rem; 
-            }
-            
-            .section-header {
-                position: relative; 
-                padding: 20px 40px;
-            }
-            .modal-content { 
-                max-height: 80vh; 
-                padding: 40px 30px; 
-            }
+            .hero-container { height: 100dvh; }
+            .architectural-wall { font-size: 3.5rem; }
+            .section-header { position: relative; padding: 15px 40px; }
+            .modal-content { max-height: 80vh; padding: 35px 25px; }
         }
-
     </style>
 
-     <script async src="https://www.googletagmanager.com/gtag/js?id=G-2257GJ95MX"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2257GJ95MX"></script>
     <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-2257GJ95MX');
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-2257GJ95MX');
     </script>
 </head>
 <body>
@@ -860,46 +818,43 @@
             
             <div class="wall-wrapper">
                 <div class="architectural-wall">
-                    
                     <div class="marquee-line">
-                        <span class="marquee-dim">attention</span><span class="marquee-dim">attention</span><span class="marquee-dim">attention</span><span class="marquee-dim">attention</span><span class="marquee-dim">attention</span><span class="marquee-dim">attention</span><span class="marquee-dim">attention</span><span class="marquee-dim">attention</span><span class="marquee-dim">attention</span>
+                        <span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span>
                     </div>
                     
                     <div class="marquee-line highlight-row brand-row">
-                        <span class="marquee-dim">is your</span><span class="marquee-dim">is your</span><span class="marquee-dim">is your</span><span class="marquee-dim">is your</span><span class="marquee-static">mintdonut</span><span class="marquee-dim">is your</span><span class="marquee-dim">is your</span><span class="marquee-dim">is your</span><span class="marquee-dim">is your</span>
+                        <span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-static">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span>
                     </div>
 
                     <div class="marquee-line">
-                        <span class="marquee-dim">currency.</span><span class="marquee-dim">currency.</span><span class="marquee-dim">currency.</span><span class="marquee-dim">currency.</span><span class="marquee-dim">currency.</span><span class="marquee-dim">currency.</span><span class="marquee-dim">currency.</span><span class="marquee-dim">currency.</span><span class="marquee-dim">currency.</span>
+                        <span class="marquee-dim">mintdonut.</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span>
                     </div>
 
                     <div class="marquee-line highlight-row">
-                        <span class="marquee-dim">attention</span><span class="marquee-dim">attention</span><span class="marquee-dim">attention</span><span class="marquee-dim">attention</span><a href="#process-section" class="marquee-link">process</a><span class="marquee-dim">attention</span><span class="marquee-dim">attention</span><span class="marquee-dim">attention</span><span class="marquee-dim">attention</span>
+                        <span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><a href="#process-section" class="marquee-link">process</a><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span>
                     </div>
                     
                     <div class="marquee-line">
-                        <span class="marquee-dim">is your</span><span class="marquee-dim">is your</span><span class="marquee-dim">is your</span><span class="marquee-dim">is your</span><span class="marquee-dim">is your</span><span class="marquee-dim">is your</span><span class="marquee-dim">is your</span><span class="marquee-dim">is your</span><span class="marquee-dim">is your</span>
+                        <span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span>
                     </div>
 
                     <div class="marquee-line highlight-row">
-                        <span class="marquee-dim">currency.</span><span class="marquee-dim">currency.</span><span class="marquee-dim">currency.</span><span class="marquee-dim">currency.</span><a href="#retainers-section" class="marquee-link">retainers</a><span class="marquee-dim">currency.</span><span class="marquee-dim">currency.</span><span class="marquee-dim">currency.</span><span class="marquee-dim">currency.</span>
+                        <span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><a href="#retainers-section" class="marquee-link">retainers</a><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span>
                     </div>
 
                     <div class="marquee-line">
-                        <span class="marquee-dim">attention</span><span class="marquee-dim">attention</span><span class="marquee-dim">attention</span><span class="marquee-dim">attention</span><span class="marquee-dim">attention</span><span class="marquee-dim">attention</span><span class="marquee-dim">attention</span><span class="marquee-dim">attention</span><span class="marquee-dim">attention</span>
+                        <span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span>
                     </div>
                     
                     <div class="marquee-line highlight-row">
-                        <span class="marquee-dim">is your</span><span class="marquee-dim">is your</span><span class="marquee-dim">is your</span><span class="marquee-dim">is your</span><a href="#inquiry-section" class="marquee-link">initiate</a><span class="marquee-dim">is your</span><span class="marquee-dim">is your</span><span class="marquee-dim">is your</span><span class="marquee-dim">is your</span>
+                        <span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><a href="#inquiry-section" class="marquee-link">initiate</a><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span>
                     </div>
 
                     <div class="marquee-line">
-                        <span class="marquee-dim">currency.</span><span class="marquee-dim">currency.</span><span class="marquee-dim">currency.</span><span class="marquee-dim">currency.</span><span class="marquee-dim">currency.</span><span class="marquee-dim">currency.</span><span class="marquee-dim">currency.</span><span class="marquee-dim">currency.</span><span class="marquee-dim">currency.</span>
+                        <span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span>
                     </div>
-
                 </div>
             </div>
-
         </div>
 
         <div class="partners-section animate-up delay-1">
@@ -951,7 +906,7 @@
                 <div class="tier-card">
                     <div>
                         <span class="tier-label">01 / presence</span>
-                        <div class="price"><span style="text-transform: uppercase;">R</span>4,500<span style="font-size: 18px; color: var(--gr-sage);"> / mo</span></div>
+                        <div class="price"><span style="text-transform: uppercase;">R</span>4,500<span style="font-size: 16px; color: var(--gr-mint);"> / mo</span></div>
                         <ul class="tier-features">
                             <li>4x monthly shoot days</li>
                             <li>15 ig posts & 15 ig stories / mo</li>
@@ -964,8 +919,8 @@
 
                 <div class="tier-card featured">
                     <div>
-                        <span class="tier-label" style="color: var(--gr-sage);">02 / momentum (recommended)</span>
-                        <div class="price"><span style="text-transform: uppercase;">R</span>8,500<span style="font-size: 18px; color: var(--gr-sage);"> / mo</span></div>
+                        <span class="tier-label" style="color: var(--gr-obsidian);">02 / momentum (recommended)</span>
+                        <div class="price"><span style="text-transform: uppercase;">R</span>8,500<span style="font-size: 16px; color: var(--gr-obsidian);"> / mo</span></div>
                         <ul class="tier-features">
                             <li>4x monthly shoot days</li>
                             <li>30 posts & 30 stories / mo</li>
@@ -974,13 +929,13 @@
                             <li>community management & paid ads</li>
                         </ul>
                     </div>
-                    <button class="cta-trigger" style="background: var(--gr-bone); color: var(--gr-obsidian); border-color: var(--gr-bone);" onclick="openModal('momentum')">learn more</button>
+                    <button class="cta-trigger featured-btn" onclick="openModal('momentum')">learn more</button>
                 </div>
 
                 <div class="tier-card">
                     <div>
                         <span class="tier-label">03 / ecosystem</span>
-                        <div class="price"><span style="text-transform: uppercase;">R</span>15,000<span style="font-size: 18px; color: var(--gr-sage);"> / mo</span></div>
+                        <div class="price"><span style="text-transform: uppercase;">R</span>15,000<span style="font-size: 16px; color: var(--gr-mint);"> / mo</span></div>
                         <ul class="tier-features">
                             <li>everything in momentum tier</li>
                             <li>platforms: instagram, tiktok & facebook</li>
@@ -993,10 +948,10 @@
                 </div>
             </div>
             
-<div class="custom-scope-block">
-    <span class="scope-text">* require something unique? custom scopes and exclusive packages available upon request.</span>
-    <a href="#inquiry-section" class="scope-link">submit an inquiry</a>
-</div>
+            <div class="custom-scope-block">
+                <span class="scope-text">* require something unique? custom scopes and exclusive packages available upon request.</span>
+                <a href="#inquiry-section" class="scope-link">submit an inquiry</a>
+            </div>
         </div> 
 
         <div class="content-section" id="inquiry-section">
@@ -1005,8 +960,8 @@
                 <span>[ project inquiry ]</span>
             </div>
 
-           <div class="contact-section">
-                <p style="font-size: 12px; letter-spacing: 0.1em; color: var(--gr-sage); text-align: center; margin-bottom: 50px; text-transform: lowercase;">* please note: on-site production is strictly limited to businesses within a 20km radius of sandton, gauteng.</p>
+            <div class="contact-section">
+                <p style="font-size: 11px; letter-spacing: 0.1em; color: var(--gr-mint); text-align: center; margin-bottom: 40px; text-transform: lowercase;">* please note: on-site production is strictly limited to businesses within a 20km radius of sandton, gauteng.</p>
                 <form class="contact-form" id="agencyForm" action="https://formspree.io/f/xeedwbwd" method="POST">
                     <div class="form-group">
                         <label class="form-label" for="name">your name</label>
@@ -1020,7 +975,7 @@
                         <label class="form-label" for="email">email address</label>
                         <input class="form-input" type="email" id="email" name="email" required placeholder="john@example.com">
                     </div>
-                     <div class="form-group">
+                    <div class="form-group">
                         <label class="form-label" for="location">business location</label>
                         <input class="form-input" type="text" id="location" name="location" required placeholder="e.g. sandton, gauteng">
                     </div>
@@ -1028,7 +983,7 @@
                         <label class="form-label" for="message">project details</label>
                         <textarea class="form-input" id="message" name="message" required placeholder="please share details about your current digital presence, business goals, and any specific inquiries..."></textarea>
                     </div>
-                    <button type="submit" class="cta-trigger">submit inquiry</button>
+                    <button type="submit" class="cta-trigger" style="background: var(--gr-obsidian); color: var(--gr-bone);">submit inquiry</button>
                     <div id="form-message">inquiry received. we will be in touch shortly.</div>
                     <div id="form-error" style="display:none; color: red; font-size: 12px; margin-top: 15px; text-align: center;">there was an error sending your message. please try again.</div>
                 </form>
@@ -1041,7 +996,7 @@
             <span class="modal-close" onclick="closeModal(event, true)">×</span>
             <h3 class="modal-title" id="modalTitle">tier title</h3>
             <div class="modal-body" id="modalBody"></div>
-            <a href="#inquiry-section" class="cta-trigger" onclick="closeModal(event, true)">secure this package</a>
+            <a href="#inquiry-section" class="cta-trigger" style="background: var(--gr-obsidian); color: var(--gr-bone);" onclick="closeModal(event, true)">secure this package</a>
         </div>
     </div>
 
@@ -1205,7 +1160,7 @@
                 if (event.target.tagName === 'A' && event.target.getAttribute('href') === '#inquiry-section') {
                     document.body.classList.remove('modal-open');
                     modal.classList.remove('active');
-                    setTimeout(() => { modal.style.display = 'none'; }, 400);
+                    setTimeout(() => { modal.style.display = 'none'; }, 200);
                     return;
                 }
             }
@@ -1216,7 +1171,7 @@
                 document.body.classList.remove('modal-open'); 
                 setTimeout(() => {
                     modal.style.display = 'none';
-                }, 400); 
+                }, 200); 
             }
         }
 
@@ -1252,24 +1207,6 @@
                 btn.style.opacity = '1';
                 btn.style.pointerEvents = 'auto';
                 if(err) err.style.display = 'block';
-            }
-        });
-
-        const investmentHeader = document.getElementById('investment');
-        const momentumTier = document.querySelector('.tier-card.featured');
-
-        window.addEventListener('scroll', () => {
-            if (window.innerWidth <= 1024 && investmentHeader && momentumTier) {
-                const headerRect = investmentHeader.getBoundingClientRect();
-                const tierRect = momentumTier.getBoundingClientRect();
-                
-                if (headerRect.bottom > tierRect.top && headerRect.top < tierRect.bottom) {
-                    investmentHeader.classList.add('inverted');
-                } else {
-                    investmentHeader.classList.remove('inverted');
-                }
-            } else if (investmentHeader) {
-                investmentHeader.classList.remove('inverted');
             }
         });
     </script>
