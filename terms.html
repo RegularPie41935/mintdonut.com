@@ -60,11 +60,11 @@
             100% { opacity: 1; filter: none; }
         }
 
-        /* --- NEW GLASSMORPHIC HEADER NAV --- */
+        /* --- GLASSMORPHIC HEADER NAV --- */
         .legal-nav {
             position: sticky;
             top: 0;
-            padding: 28px 100px;
+            padding: 28px 80px;
             background: var(--glass-bg);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
@@ -73,12 +73,12 @@
         }
 
         .back-link {
-            display: inline-flex;
+            display: flex;
             align-items: center;
             text-decoration: none;
             color: var(--gr-obsidian);
             font-size: 12px;
-            letter-spacing: var(--tracking-massive);
+            letter-spacing: 0.3em;
             font-weight: 500;
             text-transform: lowercase; 
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -148,7 +148,7 @@
 
         .legal-content li { margin-bottom: 12px; }
         
-        /* --- UNIFIED EDITORIAL FOOTER --- */
+        /* --- EDITORIAL FOOTER --- */
         .site-footer {
             background-color: var(--gr-bone);
             padding: 80px 80px 35px 80px; 
@@ -180,13 +180,13 @@
             letter-spacing: var(--tracking-massive);
             color: var(--gr-mint);
             font-weight: 500;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
 
         .footer-link {
             text-decoration: none;
             color: var(--gr-obsidian);
-            font-size: 19px;
+            font-size: 16px;
             font-weight: 300;
             transition: all 0.3s ease;
             width: fit-content;
@@ -202,11 +202,11 @@
             font-weight: 700;
             line-height: 0.8;
             letter-spacing: -0.05em;
-            color: var(--gr-dough); /* Pastel brown accent */
+            color: var(--gr-dough); 
             text-align: center;
             overflow: hidden;
             white-space: nowrap;
-            opacity: 0.3; /* Adjusted to show color */
+            opacity: 0.3; 
             pointer-events: none;
         }
 
@@ -214,7 +214,7 @@
             display: flex;
             justify-content: space-between;
             border-top: 1px solid var(--grid-line);
-            padding-top: 40px;
+            padding-top: 30px;
             font-size: 11px;
             letter-spacing: var(--tracking-massive);
             color: rgba(44, 30, 22, 0.5); 
