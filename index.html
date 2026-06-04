@@ -154,6 +154,10 @@
             left: 30px;
             z-index: 500;
             width: 80px; /* Fixed size across all devices to prevent shrinking */
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-user-drag: none;
         }
 
         .header-logo img {
@@ -384,8 +388,8 @@
 
         /* GLASSMORPHIC HEADER */
         .section-header {
-            font-size: 11px;
-            letter-spacing: var(--tracking-massive);
+            font-size: 12px;
+            letter-spacing: 0.3em;
             padding: 28px 80px; 
             border-bottom: 1px solid var(--grid-line);
             background: var(--glass-bg); 
@@ -910,7 +914,7 @@
         </div>
 
         <div class="content-section" id="process-section">
-            <div id="architecture" class="section-header animate-up delay-2">
+            <div id="architecture" class="section-header">
                 <span>01 / the process</span>
                 <span>[ how we support you ]</span>
             </div>
