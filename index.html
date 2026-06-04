@@ -153,7 +153,7 @@
             top: 25px;
             left: 30px;
             z-index: 500;
-            width: 80px; /* Fixed size across all devices to prevent shrinking */
+            width: 80px; 
             -webkit-user-select: none;
             -ms-user-select: none;
             user-select: none;
@@ -203,7 +203,6 @@
             flex-direction: column;
             justify-content: center;
             width: 100vw;
-            /* Tweak max vh to prevent collision with top-left logo */
             font-size: clamp(2.5rem, min(8vw, 7vh), 9.5rem); 
             font-weight: 700;
             line-height: 1.1; 
@@ -230,14 +229,13 @@
         .marquee-line:nth-child(3n+2) { transform: translateX(2vw); }
         .marquee-line:nth-child(3n)   { transform: translateX(-1vw); }
 
-        /* Force highlighted lines to stay perfectly centered on ALL devices */
         .highlight-row {
             transform: translateX(0) !important;
         }
 
         .marquee-dim {
-            opacity: 0.3; /* Matched to terms.html footer */
-            color: var(--gr-dough); /* Matched to terms.html footer */
+            opacity: 0.3; 
+            color: var(--gr-dough); 
             pointer-events: none;
             -webkit-user-select: none;
             user-select: none;
@@ -245,7 +243,7 @@
 
         .marquee-static {
             opacity: 1;
-            color: var(--gr-mint); /* Brand color updated */
+            color: var(--gr-mint); 
             -webkit-user-select: none;
             user-select: none;
             position: relative;
@@ -313,10 +311,9 @@
             background: var(--gr-mint) !important;
             border-color: var(--gr-mint) !important;
             color: var(--gr-obsidian) !important;
-            box-shadow: 0 8px 20px rgba(162, 196, 177, 0.5); /* Adjusted mint shadow */
+            box-shadow: 0 8px 20px rgba(162, 196, 177, 0.5); 
         }
 
-        /* Specific fix for the middle tier dark button hover */
         .cta-trigger.featured-btn {
             background: var(--gr-obsidian);
             color: var(--gr-mint);
@@ -326,7 +323,7 @@
         .cta-trigger.featured-btn:hover {
             background: var(--gr-mint) !important;
             color: var(--gr-obsidian) !important;
-            box-shadow: 0 8px 20px rgba(162, 196, 177, 0.5); /* Adjusted mint shadow */
+            box-shadow: 0 8px 20px rgba(162, 196, 177, 0.5); 
             transform: translateY(-3px);
         }
 
@@ -378,7 +375,6 @@
             max-height: 50px; 
             min-height: 35px;
             width: auto;
-            /* Tinting the black logos to dark brown to match --gr-obsidian */
             filter: invert(12%) sepia(34%) saturate(1469%) hue-rotate(345deg) brightness(91%) contrast(88%); 
         }
 
@@ -421,7 +417,7 @@
         }
 
         .feature-block:hover { 
-            background: #e8dfcc; /* Toned down, extremely subtle hover */
+            background: #e8dfcc; 
         }
 
         .feature-id {
@@ -469,7 +465,7 @@
         }
 
         .tier-card:hover {
-            background: #e8dfcc; /* Toned down, extremely subtle hover */
+            background: #e8dfcc; 
         }
 
         .tier-card.featured {
@@ -478,7 +474,7 @@
         }
 
         .tier-card.featured:hover {
-            filter: brightness(0.97); /* Subtle shade shift using the same exact color base */
+            filter: brightness(0.97); 
         }
 
         .tier-label {
@@ -563,7 +559,6 @@
             border-color: var(--gr-mint);
         }
 
-        /* Custom Light Brown Form Placeholders */
         .form-input::-webkit-input-placeholder { color: #bdaea1; }
         .form-input::-moz-placeholder { color: #bdaea1; opacity: 1; }
         .form-input:-ms-input-placeholder { color: #bdaea1; }
@@ -779,7 +774,7 @@
             text-align: center;
             overflow: hidden;
             white-space: nowrap; 
-            opacity: 0.3; /* Synced opacity */
+            opacity: 0.3; 
             pointer-events: none;
         }
 
@@ -796,7 +791,7 @@
         /* --- RESPONSIVE MOBILE FIXES --- */
         @media (max-width: 1024px) {
             .header-logo {
-                left: 25px; /* Slight margin adjustment for smaller screens */
+                left: 25px; 
             }
             .section-header { 
                 padding: 20px 40px; 
@@ -833,17 +828,20 @@
             }
             .footer-grid { grid-template-columns: repeat(2, 1fr); gap: 40px; }
             .footer-col:last-child { grid-column: span 2; }
-            .footer-massive-brand { opacity: 0.3; font-size: 13vw; } /* Synced opacity */
+            .footer-massive-brand { opacity: 0.3; font-size: 13vw; } 
             .footer-bottom { flex-direction: column; align-items: center; gap: 15px; text-align: center; }
             
             .modal-content { padding: 45px 30px; }
             .modal-body td:first-child { width: 40%; }
         }
 
-        @media (max-height: 600px) and (orientation: landscape) {
+        /* ADJUSTED: Specific fixes for vertically short screens */
+        @media (max-height: 600px) {
+            .header-logo { width: 50px; top: 15px; left: 20px; }
             .hero-container { height: 100dvh; }
-            .architectural-wall { font-size: 3.5rem; }
-            .section-header { position: relative; padding: 15px 40px; }
+            .architectural-wall { font-size: clamp(1.5rem, 6vh, 3rem); }
+            /* Removed 'position: relative;' to restore the sticky header behavior */
+            .section-header { position: sticky; top: 0; z-index: 100; padding: 15px 40px; }
             .modal-content { max-height: 80vh; padding: 35px 25px; }
         }
     </style>
