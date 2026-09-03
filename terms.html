@@ -14,9 +14,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://unpkg.com/lenis@1.1.9/dist/lenis.css">
+
     <style>
         :root {
-            /* 1. change the harsh black to a deep, warm dark brown */
             --gr-obsidian: #2c1e16; 
             --gr-bone: #ede5d3; 
             --gr-mint: #a2c4b1; 
@@ -24,6 +25,11 @@
             --glass-bg: rgba(237, 229, 211, 0.7); 
             --grid-line: rgba(28, 27, 24, 0.08); 
             --tracking-massive: 0.4em; 
+        }
+
+        /* --- STABLE SCROLLBAR TO PREVENT LAYOUT SHIFT --- */
+        html {
+            scrollbar-gutter: stable;
         }
 
         ::-moz-selection { background-color: var(--gr-mint); color: var(--gr-obsidian); }
@@ -49,10 +55,12 @@
         body {
             background-color: var(--gr-bone);
             color: var(--gr-obsidian);
-            overflow-x: hidden;
+            overflow-x: clip;
             -webkit-font-smoothing: antialiased;
             position: relative;
             animation: frostedLoad 1.2s cubic-bezier(0.19, 1, 0.22, 1);
+            min-height: 100dvh;
+            padding-top: max(0px, env(safe-area-inset-top));
         }
 
         @keyframes frostedLoad {
@@ -238,7 +246,7 @@
                 grid-column: span 1; 
             }
             .footer-massive-brand {
-                opacity: 0.3; /* Adjusted opacity */
+                opacity: 0.3;
                 font-size: 13vw; 
             }
             .footer-bottom {
@@ -351,10 +359,44 @@
 
         <div class="footer-bottom">
             <span>© 2026 all rights reserved.</span>
-            <span>sandton, gauteng.</span>
+            <span>johannesburg.</span>
+            <span>info@mintdonut.com</span>
         </div>
     </footer>
 
+    <script src="https://unpkg.com/lenis@1.1.9/dist/lenis.min.js"></script>
+    <script>
+        // Smooth Delayed Momentum Scrolling via Lenis for Page
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            smoothWheel: true,
+            touchMultiplier: 1.5
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        window.lenis = lenis;
+
+        // Smooth Anchor Scrolling Execution via Lenis
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    e.preventDefault();
+                    lenis.scrollTo(targetElement, {
+                        offset: 0,
+                        duration: 1.2
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
-
