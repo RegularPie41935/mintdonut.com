@@ -49,30 +49,26 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://unpkg.com/lenis@1.1.9/dist/lenis.css">
 
     <style>
- :root {
-    /* 1. change the harsh black to a deep, warm dark brown */
-    --gr-obsidian: #2c1e16; 
+        :root {
+            --gr-obsidian: #2c1e16; 
+            --gr-bone: #ede5d3; 
+            --gr-mint: #a2c4b1; 
+            --glass-bg: rgba(237, 229, 211, 0.7); 
+            --grid-line: rgba(28, 27, 24, 0.08); 
+            --gr-dough: #d1c1af;
 
-    /* 2. slightly richer, more oaty premium off-white */
-    --gr-bone: #ede5d3; 
+            --tracking-massive: 0.4em; 
+            --tracking-standard: 0.1em; 
+        }
 
-    /* 3. a slightly darker, richer pastel green */
-    --gr-mint: #a2c4b1; 
-
-    /* 4. update your glass header to match the new oaty off-white */
-    --glass-bg: rgba(237, 229, 211, 0.7); 
-
-    /* 5. soften the grid lines slightly so they aren't as aggressive */
-    --grid-line: rgba(28, 27, 24, 0.08); 
-    
-    /* 6. subtle pastel brown accent */
-    --gr-dough: #d1c1af;
-
-    --tracking-massive: 0.4em; 
-    --tracking-standard: 0.1em; 
-}
+        /* --- STABLE SCROLLBAR TO PREVENT LAYOUT SHIFT --- */
+        html {
+            scrollbar-gutter: stable;
+        }
 
         /* --- CUSTOM HIGHLIGHTING --- */
         ::-moz-selection {
@@ -84,14 +80,12 @@
             color: var(--gr-obsidian);
         }
 
-        /* --- FORCED DEFAULT CURSOR & GLOBALS --- */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             text-transform: lowercase;
             font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            scroll-behavior: smooth;
             cursor: default !important; 
         }
 
@@ -100,7 +94,6 @@
             font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
         }
 
-        /* --- AMBIENT BACKGROUND & BODY --- */
         html, body {
             min-height: 100%;
         }
@@ -116,22 +109,14 @@
             padding-top: max(0px, env(safe-area-inset-top));
         }
 
-        main, footer {
-            transition: filter 0.4s cubic-bezier(0.19, 1, 0.22, 1);
-        }
-
         @keyframes frostedLoad {
             0% { opacity: 0; filter: blur(15px); }
             100% { opacity: 1; filter: none; }
         }
 
+        /* PRESERVES STICKY HEADERS & PREVENTS POSITIONAL SHIFTS */
         body.modal-open {
-            overflow: hidden;
             touch-action: none;
-        }
-
-        body.modal-open main, body.modal-open footer {
-            filter: blur(12px); 
         }
 
         @keyframes fadeUp {
@@ -150,10 +135,11 @@
         /* --- HEADER LOGO --- */
         .header-logo {
             position: absolute;
-            top: 25px;
-            left: 30px;
+            top: clamp(20px, 5vh, 50px);
+            left: clamp(25px, 4vw, 55px);
             z-index: 500;
-            width: 80px; 
+            width: clamp(160px, 20vw, 420px); 
+            max-width: 60vw;
             -webkit-user-select: none;
             -ms-user-select: none;
             user-select: none;
@@ -164,118 +150,218 @@
             width: 100%;
             height: auto;
             display: block;
-            border-radius: 50%;
-            transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            border-radius: 0;
         }
 
-        .header-logo:hover img {
-            transform: scale(1.05) rotate(-5deg);
-        }
-
-        /* --- BULLETPROOF NO-SCROLL HERO --- */
+        /* --- HERO CAROUSEL --- */
         .hero-container {
             width: 100%;
-            height: 100dvh; 
-            display: flex;
-            flex-direction: column;
-            overflow: hidden; 
-            position: relative; 
-            border-bottom: 1px solid var(--grid-line);
-        }
-
-        .wall-wrapper {
-            flex: 1; 
+            height: 100dvh;
             position: relative;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             overflow: hidden;
-        }
-
-        /* --- PERFECT NON-CLIPPED WATERMARK WALL --- */
-        .architectural-wall {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%); 
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            width: 100vw;
-            font-size: clamp(2.5rem, min(8vw, 7vh), 9.5rem); 
-            font-weight: 700;
-            line-height: 1.1; 
-            letter-spacing: -0.04em;
-            color: var(--gr-obsidian);
+            background-color: var(--gr-obsidian);
+            border-bottom: 1px solid var(--grid-line);
             -webkit-user-select: none;
             -ms-user-select: none;
             user-select: none;
-            z-index: 10; 
-            pointer-events: auto;
+            -webkit-user-drag: none;
         }
 
-        .marquee-line {
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        /* STATIC HERO BACKGROUND LAYER */
+        .hero-static-bg {
+            position: absolute;
+            inset: 0;
             width: 100%;
-            white-space: nowrap;
-            gap: clamp(15px, 3vw, 50px);
-            margin-top: -0.25em; 
+            height: 100%;
+            z-index: 1;
+            overflow: hidden;
         }
 
-        .marquee-line:nth-child(3n+1) { transform: translateX(-3vw); }
-        .marquee-line:nth-child(3n+2) { transform: translateX(2vw); }
-        .marquee-line:nth-child(3n)   { transform: translateX(-1vw); }
-
-        .highlight-row {
-            transform: translateX(0) !important;
+        .hero-bg-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
         }
 
-        .marquee-dim {
-            opacity: 0.3; 
-            color: var(--gr-dough); 
-            pointer-events: none;
-            -webkit-user-select: none;
-            user-select: none;
+        .hero-bg-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(44, 30, 22, 0.3) 0%, rgba(44, 30, 22, 0.85) 75%, var(--gr-obsidian) 100%);
+            z-index: 2;
         }
 
-        .marquee-static {
-            opacity: 1;
-            color: var(--gr-mint); 
-            -webkit-user-select: none;
-            user-select: none;
+        .hero-slider {
+            width: 100%;
+            height: 100%;
             position: relative;
-            z-index: 20;
-            display: inline-block;
+            z-index: 3;
         }
 
-        .marquee-link {
+        .hero-slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.8s cubic-bezier(0.19, 1, 0.22, 1), visibility 0.8s ease;
+            display: flex;
+            align-items: flex-end;
+            padding: clamp(60px, 10vh, 100px) clamp(25px, 5vw, 80px) clamp(60px, 12vh, 100px) clamp(25px, 5vw, 80px);
+        }
+
+        .hero-slide.active {
             opacity: 1;
-            color: var(--gr-obsidian);
-            text-decoration: none;
-            transition: color 0.2s ease, transform 0.2s ease;
-            -webkit-user-select: none;
-            user-select: none;
-            position: relative;
-            z-index: 20;
-            display: inline-block;
+            visibility: visible;
         }
 
-        .marquee-link:hover {
+        .slide-content {
+            position: relative;
+            z-index: 10;
+            max-width: 800px;
+            color: var(--gr-bone);
+            transform: translateY(20px);
+            opacity: 0;
+            transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1) 0.2s, opacity 0.8s ease 0.2s;
+        }
+
+        .hero-slide.active .slide-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .slide-badge {
+            font-size: 12px;
+            letter-spacing: var(--tracking-massive);
+            color: var(--gr-mint);
+            font-weight: 500;
+            margin-bottom: 15px;
+            display: inline-block;
+            background: rgba(162, 196, 177, 0.15);
+            padding: 6px 14px;
+            border: 1px solid rgba(162, 196, 177, 0.3);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .slide-title {
+            font-size: clamp(1.8rem, 3vw + 2.5vh, 5.5rem);
+            font-weight: 700;
+            line-height: 1.05;
+            letter-spacing: -0.03em;
+            margin-bottom: 20px;
+            color: var(--gr-bone);
+        }
+
+        .slide-desc {
+            font-size: clamp(13px, 1vw + 0.5vh, 16px);
+            line-height: 1.6;
+            font-weight: 300;
+            color: rgba(237, 229, 211, 0.8);
+            margin-bottom: 35px;
+            max-width: 600px;
+        }
+
+        .slide-ctas {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .carousel-controls {
+            position: absolute;
+            bottom: clamp(15px, 4vh, 35px);
+            right: clamp(25px, 5vw, 80px);
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: rgba(44, 30, 22, 0.6);
+            padding: 12px 24px;
+            border: 1px solid rgba(237, 229, 211, 0.15);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+
+        .play-pause-btn {
+            background: transparent;
+            border: none;
+            color: var(--gr-bone);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            transition: all 0.3s ease;
+        }
+
+        .play-pause-btn:hover {
             color: var(--gr-mint);
         }
 
-        /* --- GLOBALS & BUTTONS --- */
+        .play-pause-btn svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+
+        .pagination-indicators {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .pag-bar {
+            height: 4px;
+            background: rgba(237, 229, 211, 0.2);
+            border: none;
+            width: 35px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .pag-bar:hover {
+            background: rgba(237, 229, 211, 0.4);
+        }
+
+        .pag-bar.active {
+            width: 70px;
+        }
+
+        .pag-progress {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 0%;
+            background: var(--gr-mint);
+        }
+
+        .pag-bar.active .pag-progress {
+            animation: slideProgress 6s linear forwards;
+        }
+
+        .pag-bar.active.paused .pag-progress {
+            animation-play-state: paused;
+        }
+
+        @keyframes slideProgress {
+            from { width: 0%; }
+            to { width: 100%; }
+        }
+
+        /* --- CLEAN ELEGANT BUTTON HOVER STATES --- */
         button {
             border: none;
             background: transparent;
             font-family: inherit;
+            outline: none;
         }
 
         .cta-trigger {
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
             padding: 14px 28px; 
@@ -289,14 +375,15 @@
             transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             text-align: center;
             -webkit-user-select: none;
-            -ms-user-select: none;
             user-select: none;
             white-space: nowrap;
+            outline: none;
         }
 
         .cta-trigger:hover {
             background: var(--gr-obsidian) !important;
             color: var(--gr-bone) !important;
+            border-color: var(--gr-obsidian) !important;
             transform: translateY(-3px);
             box-shadow: 0 8px 20px rgba(44, 30, 22, 0.15);
         }
@@ -312,22 +399,77 @@
             border-color: var(--gr-mint) !important;
             color: var(--gr-obsidian) !important;
             box-shadow: 0 8px 20px rgba(162, 196, 177, 0.5); 
+            transform: translateY(-3px);
         }
 
         .cta-trigger.featured-btn {
             background: var(--gr-obsidian);
             color: var(--gr-mint);
-            border-color: var(--gr-obsidian);
+            border: 1px solid var(--gr-obsidian);
         }
 
         .cta-trigger.featured-btn:hover {
             background: var(--gr-mint) !important;
             color: var(--gr-obsidian) !important;
+            border-color: var(--gr-mint) !important;
             box-shadow: 0 8px 20px rgba(162, 196, 177, 0.5); 
             transform: translateY(-3px);
         }
 
+        /* --- HERO CTAS SPECIFIC HOVER --- */
+        .hero-slide .cta-trigger {
+            background: rgba(237, 229, 211, 0.15);
+            color: var(--gr-bone);
+            border: 1px solid rgba(237, 229, 211, 0.4);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+
+        .hero-slide .cta-trigger:hover {
+            background: var(--gr-bone) !important;
+            color: var(--gr-obsidian) !important;
+            border-color: var(--gr-bone) !important;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-slide .cta-trigger.featured-btn {
+            background: var(--gr-mint);
+            color: var(--gr-obsidian);
+            border: 1px solid var(--gr-mint);
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+        }
+
+        .hero-slide .cta-trigger.featured-btn:hover {
+            background: var(--gr-bone) !important;
+            color: var(--gr-obsidian) !important;
+            border-color: var(--gr-bone) !important;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        /* --- MOMENTUM TIER OUTLINED HOVER STATE FIX --- */
+        .tier-card.featured .cta-trigger.featured-btn {
+            background: var(--gr-obsidian);
+            color: var(--gr-mint);
+            border: 1px solid var(--gr-obsidian);
+        }
+
+        .tier-card.featured .cta-trigger.featured-btn:hover {
+            background: transparent !important;
+            color: var(--gr-obsidian) !important;
+            border: 1px solid var(--gr-obsidian) !important;
+            box-shadow: none;
+            transform: translateY(-3px);
+        }
+
         /* --- CONTENT SECTIONS --- */
+        .content-section {
+            position: relative;
+            scroll-margin-top: 80px;
+        }
+
         .partners-section {
             padding: 60px 80px; 
             border-bottom: 1px solid var(--grid-line);
@@ -343,7 +485,6 @@
             font-weight: 500;
             margin-bottom: 40px;
             -webkit-user-select: none;
-            -ms-user-select: none;
             user-select: none;
         }
 
@@ -355,7 +496,6 @@
             gap: 40px 80px; 
             max-width: 1000px;
             -webkit-user-select: none;
-            -ms-user-select: none;
             user-select: none;
         }
 
@@ -378,10 +518,6 @@
             filter: invert(12%) sepia(34%) saturate(1469%) hue-rotate(345deg) brightness(91%) contrast(88%); 
         }
 
-        .content-section {
-            position: relative;
-        }
-
         /* GLASSMORPHIC HEADER */
         .section-header {
             font-size: 12px;
@@ -399,7 +535,6 @@
             top: 0;
             z-index: 100;
             -webkit-user-select: none;
-            -ms-user-select: none;
             user-select: none;
         }
 
@@ -461,7 +596,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            transition: all 0.2s ease;
+            transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
         }
 
         .tier-card:hover {
@@ -475,6 +610,11 @@
 
         .tier-card.featured:hover {
             filter: brightness(0.97); 
+        }
+
+        /* HIGHLIGHT ANIMATION PROMPT FOR ECOSYSTEM TIER */
+        .tier-card.highlight-prompt {
+            background: #e8dfcc !important;
         }
 
         .tier-label {
@@ -522,6 +662,7 @@
         .contact-section {
             padding: 100px 80px; 
             border-bottom: 1px solid var(--grid-line);
+            scroll-margin-top: 80px;
         }
 
         .contact-form {
@@ -600,7 +741,7 @@
             text-decoration: none;
             border-bottom: 1px solid var(--gr-mint);
             padding-bottom: 4px;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
             display: inline-block; 
         }
 
@@ -609,22 +750,25 @@
             border-bottom-color: var(--gr-obsidian);
         }
 
-        /* --- STARK MODAL OVERLAY --- */
+        /* --- FROSTED GLAZE MODAL OVERLAY --- */
         .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100dvh; 
-            background: rgba(44, 30, 22, 0.5); 
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            background: rgba(44, 30, 22, 0.45); 
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             z-index: 2000;
             display: none; 
             justify-content: center;
             align-items: center;
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+            overscroll-behavior: contain;
+            isolation: isolate;
+            transform: translateZ(0);
         }
 
         .modal-overlay.active {
@@ -633,18 +777,21 @@
         }
 
         .modal-content {
-            background: var(--gr-bone);
-            padding: 50px 45px; 
+            background: rgba(237, 229, 211, 0.95);
+            padding: 50px 45px 40px 45px; 
             max-width: 600px; 
             width: 90%;
             max-height: 85vh; 
             overflow-y: auto; 
+            -webkit-overflow-scrolling: touch;
+            touch-action: pan-y;
             position: relative;
-            border: 1px solid var(--grid-line);
+            border: 1px solid var(--gr-obsidian);
             border-radius: 0;
             transform: scale(0.98); 
             transition: transform 0.3s cubic-bezier(0.19, 1, 0.22, 1); 
-            box-shadow: 0 25px 50px rgba(0,0,0,0.1);
+            box-shadow: 0 30px 60px rgba(44, 30, 22, 0.3);
+            overscroll-behavior: contain;
         }
 
         .modal-content::-webkit-scrollbar {
@@ -664,14 +811,20 @@
             right: 25px;
             font-size: 24px;
             font-weight: 300;
-            opacity: 0.4;
-            transition: opacity 0.2s ease;
+            opacity: 0.5;
+            transition: all 0.3s ease;
             text-decoration: none;
             color: var(--gr-obsidian);
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .modal-close:hover {
             opacity: 1;
+            color: var(--gr-mint);
         }
 
         .modal-title {
@@ -684,7 +837,7 @@
             font-size: 14px; 
             line-height: 1.65;
             opacity: 0.8;
-            margin-bottom: 35px;
+            margin-bottom: 25px;
         }
 
         .modal-body strong {
@@ -716,6 +869,13 @@
             letter-spacing: 0.05em;
         }
 
+        /* FULL WIDTH BOTTOM SECURE BUTTON FOR MODAL */
+        .modal-content .cta-trigger {
+            width: 100%;
+            display: flex;
+            margin-top: 20px;
+        }
+
         /* --- EDITORIAL FOOTER --- */
         .site-footer {
             background-color: var(--gr-bone);
@@ -726,7 +886,6 @@
             position: relative;
             z-index: 10;
             -webkit-user-select: none;
-            -ms-user-select: none;
             user-select: none;
         }
 
@@ -788,10 +947,12 @@
             color: rgba(44, 30, 22, 0.5);
         }
 
-        /* --- RESPONSIVE MOBILE FIXES --- */
+        /* --- RESPONSIVE MOBILE & VERTICAL FIXES --- */
         @media (max-width: 1024px) {
             .header-logo {
-                left: 25px; 
+                top: clamp(20px, 4vh, 35px);
+                left: 30px; 
+                width: clamp(180px, 35vw, 280px);
             }
             .section-header { 
                 padding: 20px 40px; 
@@ -800,17 +961,8 @@
                 gap: 6px;
             } 
 
-            .hero-container { 
-                height: 100dvh; 
-            }
-            
-            .architectural-wall {
-                font-size: clamp(2.2rem, min(9vw, 7.5vh), 5rem); 
-                line-height: 1.1; 
-            }
-            .marquee-line {
-                gap: 15px; 
-                margin-top: -0.2em; 
+            .hero-bg-img {
+                object-position: center 30%;
             }
 
             .partners-section { padding: 50px 40px; }
@@ -835,12 +987,98 @@
             .modal-body td:first-child { width: 40%; }
         }
 
-        /* ADJUSTED: Specific fixes for vertically short screens */
-        @media (max-height: 600px) {
-            .header-logo { width: 50px; top: 15px; left: 20px; }
-            .hero-container { height: 100dvh; }
-            .architectural-wall { font-size: clamp(1.5rem, 6vh, 3rem); }
-            /* Removed 'position: relative;' to restore the sticky header behavior */
+        @media (max-width: 480px) {
+            .header-logo {
+                top: 20px;
+                left: 20px;
+                width: 170px;
+            }
+            .carousel-controls {
+                left: 20px;
+                right: 20px;
+                justify-content: space-between;
+            }
+        }
+
+        /* DEDICATED VERTICAL HEIGHT RESPONSIVENESS FOR SHORT WINDOWS & LANDSCAPE PHONES */
+        @media (max-height: 700px) {
+            .header-logo {
+                top: 15px;
+                left: 30px;
+                width: clamp(140px, 18vw, 220px);
+            }
+            .hero-slide {
+                padding: 60px 30px 70px 30px;
+            }
+            .slide-title {
+                font-size: clamp(1.6rem, 2.5vw + 2vh, 3.2rem);
+                margin-bottom: 10px;
+            }
+            .slide-badge {
+                font-size: 10px;
+                padding: 4px 10px;
+                margin-bottom: 8px;
+            }
+            .slide-desc {
+                font-size: 13px;
+                margin-bottom: 18px;
+                line-height: 1.4;
+            }
+            .cta-trigger {
+                padding: 10px 20px;
+                font-size: 10px;
+            }
+            .carousel-controls {
+                bottom: 15px;
+                padding: 8px 16px;
+            }
+        }
+
+        @media (max-height: 500px) {
+            .header-logo {
+                top: 10px;
+                left: 20px;
+                width: 120px;
+            }
+            .hero-slide {
+                padding: 45px 20px 45px 20px;
+            }
+            .slide-title {
+                font-size: clamp(1.2rem, 1.8vw + 2vh, 2rem);
+                margin-bottom: 6px;
+            }
+            .slide-badge {
+                font-size: 9px;
+                margin-bottom: 5px;
+                padding: 3px 8px;
+            }
+.slide-desc {
+    font-size: 12px;
+    line-height: 1.35;
+    margin-bottom: 12px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2; /* Add this standard property to satisfy VS Code */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+            .cta-trigger {
+                padding: 8px 16px;
+                font-size: 9px;
+            }
+            .carousel-controls {
+                bottom: 8px;
+                right: 20px;
+                padding: 6px 12px;
+                gap: 12px;
+            }
+            .pag-bar {
+                width: 20px;
+            }
+            .pag-bar.active {
+                width: 40px;
+            }
             .section-header { position: sticky; top: 0; z-index: 100; padding: 15px 40px; }
             .modal-content { max-height: 80vh; padding: 35px 25px; }
         }
@@ -859,46 +1097,65 @@
 
     <main>
         <div class="header-logo animate-up delay-1">
-            <img src="mintdonut Logo PNG.png" alt="mintdonut logo">
+            <img src="mintdonut Full Logo 5000x2000 PNG.png" alt="mintdonut logo">
         </div>
+
         <div class="hero-container animate-up">
-            <div class="wall-wrapper">
-                <div class="architectural-wall">
-                    <div class="marquee-line">
-                        <span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span>
-                    </div>
-                    
-                    <div class="marquee-line highlight-row brand-row">
-                        <span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-static">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span>
-                    </div>
+            <div class="hero-static-bg">
+                <img src="hero image website.png" alt="mintdonut visual agency background" class="hero-bg-img">
+                <div class="hero-bg-overlay"></div>
+            </div>
 
-                    <div class="marquee-line">
-                        <span class="marquee-dim">mintdonut.</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span>
+            <div class="hero-slider">
+                
+                <div class="hero-slide active">
+                    <div class="slide-content">
+                        <span class="slide-badge">mintdonut</span>
+                        <h1 class="slide-title">the glaze your brand deserves.</h1>
+                        <p class="slide-desc">we act as your dedicated digital partner, taking the full burden of daily content creation, social media growth, and website infrastructure off your shoulders.</p>
+                        <div class="slide-ctas">
+                            <a href="#inquiry-section" class="cta-trigger featured-btn">initiate</a>
+                            <a href="#retainers-section" class="cta-trigger"> explore retainers</a>
+                        </div>
                     </div>
+                </div>
 
-                    <div class="marquee-line highlight-row">
-                        <span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><a href="#process-section" class="marquee-link">process</a><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span>
+                <div class="hero-slide">
+                    <div class="slide-content">
+                        <span class="slide-badge">on-site production</span>
+                        <h2 class="slide-title">scroll-stopping video assets.</h2>
+                        <p class="slide-desc">we step directly into your local business to capture high-end, 15-90s cinematic footage designed for retention, conversion, and local dominance.</p>
+                        <div class="slide-ctas">
+                            <a href="#process-section" class="cta-trigger featured-btn">our process</a>
+                            <a href="#inquiry-section" class="cta-trigger">book a shoot</a>
+                        </div>
                     </div>
-                    
-                    <div class="marquee-line">
-                        <span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span>
-                    </div>
+                </div>
 
-                    <div class="marquee-line highlight-row">
-                        <span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><a href="#retainers-section" class="marquee-link">retainers</a><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span>
+                <div class="hero-slide">
+                    <div class="slide-content">
+                        <span class="slide-badge">ecosystem tier</span>
+                        <h2 class="slide-title">complete web & social infrastructure.</h2>
+                        <p class="slide-desc">combining high-volume daily content deployment with bespoke website design to convert modern social media attention into measurable revenue.</p>
+                        <div class="slide-ctas">
+                            <a href="#retainers-section" class="cta-trigger featured-btn" onclick="highlightEcosystem(event)">view ecosystem</a>
+                            <a href="#inquiry-section" class="cta-trigger">get started</a>
+                        </div>
                     </div>
+                </div>
 
-                    <div class="marquee-line">
-                        <span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span>
-                    </div>
-                    
-                    <div class="marquee-line highlight-row">
-                        <span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><a href="#inquiry-section" class="marquee-link">initiate</a><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span>
-                    </div>
+            </div>
 
-                    <div class="marquee-line">
-                        <span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span><span class="marquee-dim">mintdonut</span>
-                    </div>
+            <div class="carousel-controls">
+                <button class="play-pause-btn" id="playPauseBtn" title="Pause Autoplay" aria-label="Pause Carousel">
+                    <svg id="pauseIcon" viewBox="0 0 16 16"><path d="M4.667 2.667H6c.368 0 .667.298.667.666v9.334a.667.667 0 0 1-.667.666H4.667A.667.667 0 0 1 4 12.666V3.333c0-.368.298-.667.667-.667M10 2.667h1.333c.368 0 .667.298.667.666v9.334a.667.667 0 0 1-.667.666H10a.667.667 0 0 1-.667-.667V3.333c0-.368.299-.667.667-.667"></path></svg>
+                    <svg id="playIcon" viewBox="0 0 16 16" style="display:none;"><path d="M4.667 3.333v9.334a.667.667 0 0 0 1.025.565l7-4.667a.667.667 0 0 0 0-1.13l-7-4.667a.667.667 0 0 0-1.025.565z"></path></svg>
+                </button>
+
+                <div class="pagination-indicators">
+                    <button class="pag-bar active" onclick="goToSlide(0)"><div class="pag-progress"></div></button>
+                    <button class="pag-bar" onclick="goToSlide(1)"><div class="pag-progress"></div></button>
+                    <button class="pag-bar" onclick="goToSlide(2)"><div class="pag-progress"></div></button>
                 </div>
             </div>
         </div>
@@ -908,6 +1165,7 @@
             <div class="partners-grid">
                 <div class="partner-item"><img src="The Treat Kyalami PNG Black.png" alt="The Treat Kyalami"></div>
                 <div class="partner-item"><img src="AD FULL Black PNG.png" alt="Arcadia Designz"></div>
+                <div class="partner-item"><img src="KG Logo.png" alt="KG Lushious"></div>
             </div>
         </div>
 
@@ -978,7 +1236,7 @@
                     <button class="cta-trigger featured-btn" onclick="openModal('momentum')">learn more</button>
                 </div>
 
-                <div class="tier-card">
+                <div class="tier-card" id="tier-ecosystem">
                     <div>
                         <span class="tier-label">03 / ecosystem</span>
                         <div class="price"><span style="text-transform: uppercase;">R</span>15,000<span style="font-size: 16px; color: var(--gr-mint);"> / mo</span></div>
@@ -1038,11 +1296,11 @@
     </main>
 
     <div class="modal-overlay" id="tierModal" onclick="closeModal(event)">
-        <div class="modal-content" onclick="event.stopPropagation()">
+        <div class="modal-content" id="modalContent" data-lenis-prevent onclick="event.stopPropagation()">
             <span class="modal-close" onclick="closeModal(event, true)">×</span>
             <h3 class="modal-title" id="modalTitle">tier title</h3>
             <div class="modal-body" id="modalBody"></div>
-            <a href="#inquiry-section" class="cta-trigger" style="background: var(--gr-obsidian); color: var(--gr-bone);" onclick="closeModal(event, true)">secure this package</a>
+            <a href="#inquiry-section" class="cta-trigger" style="background: var(--gr-obsidian); color: var(--gr-bone);" onclick="closeModal(event, true)">secure retainer</a>
         </div>
     </div>
 
@@ -1072,11 +1330,135 @@
 
         <div class="footer-bottom">
             <span>© 2026 all rights reserved.</span>
-            <span>sandton, gauteng.</span>
+            <span>johannesburg.</span>
+            <span>info@mintdonut.com</span>
         </div>
     </footer>
 
+    <script src="https://unpkg.com/lenis@1.1.9/dist/lenis.min.js"></script>
     <script>
+        // Smooth Delayed Momentum Scrolling via Lenis for Page
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            smoothWheel: true,
+            touchMultiplier: 1.5
+        });
+
+        // Dedicated Smooth Scroll Instance for Modal Inner Content
+        const modalContentEl = document.getElementById('modalContent');
+        const modalLenis = new Lenis({
+            wrapper: modalContentEl,
+            content: modalContentEl,
+            duration: 0.8,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            smoothWheel: true,
+            touchMultiplier: 1.5
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            if (modalLenis) modalLenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        window.lenis = lenis;
+
+        // Smooth Anchor Scrolling Execution via Lenis
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    e.preventDefault();
+                    lenis.scrollTo(targetElement, {
+                        offset: 0,
+                        duration: 1.2
+                    });
+                }
+            });
+        });
+
+        // Highlight Ecosystem Card as Interactive Prompt
+        function highlightEcosystem(e) {
+            if (e) e.preventDefault();
+            const retainersSection = document.getElementById('retainers-section');
+            const ecosystemCard = document.getElementById('tier-ecosystem');
+            
+            if (window.lenis && retainersSection) {
+                window.lenis.scrollTo(retainersSection, {
+                    offset: 0,
+                    duration: 1.2
+                });
+            }
+            
+            if (ecosystemCard) {
+                setTimeout(() => {
+                    ecosystemCard.classList.add('highlight-prompt');
+                    setTimeout(() => {
+                        ecosystemCard.classList.remove('highlight-prompt');
+                    }, 2500);
+                }, 800);
+            }
+        }
+
+        // Hero Slider Logic
+        let currentSlide = 0;
+        let isPlaying = true;
+        let slideTimer;
+        const slides = document.querySelectorAll('.hero-slide');
+        const pagBars = document.querySelectorAll('.pag-bar');
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const playIcon = document.getElementById('playIcon');
+        const pauseIcon = document.getElementById('pauseIcon');
+
+        function goToSlide(index) {
+            slides[currentSlide].classList.remove('active');
+            pagBars[currentSlide].classList.remove('active', 'paused');
+
+            currentSlide = index;
+
+            slides[currentSlide].classList.add('active');
+            pagBars[currentSlide].classList.add('active');
+            if (!isPlaying) {
+                pagBars[currentSlide].classList.add('paused');
+            }
+
+            resetTimer();
+        }
+
+        function nextSlide() {
+            let next = (currentSlide + 1) % slides.length;
+            goToSlide(next);
+        }
+
+        function resetTimer() {
+            clearInterval(slideTimer);
+            if (isPlaying) {
+                slideTimer = setInterval(nextSlide, 6000);
+            }
+        }
+
+        playPauseBtn.addEventListener('click', () => {
+            isPlaying = !isPlaying;
+            if (isPlaying) {
+                pauseIcon.style.display = 'block';
+                playIcon.style.display = 'none';
+                pagBars[currentSlide].classList.remove('paused');
+                resetTimer();
+            } else {
+                pauseIcon.style.display = 'none';
+                playIcon.style.display = 'block';
+                pagBars[currentSlide].classList.add('paused');
+                clearInterval(slideTimer);
+            }
+        });
+
+        resetTimer();
+
+        // Tier Modal Data & Execution Logic
         const tierData = {
             presence: {
                 title: "01 / presence",
@@ -1107,7 +1489,7 @@
                 `
             },
             momentum: {
-                title: "02 / momentum (recommended)",
+                title: "02 / momentum",
                 body: `
                     <p>a proactive, hands-off approach to managing your social presence. we more than double the frosting and handle the community interaction, acting as your dedicated digital partner.</p>
                     <table>
@@ -1194,8 +1576,14 @@
             
             modal.style.display = 'flex';
             document.body.classList.add('modal-open'); 
-            document.querySelector('.modal-content').scrollTop = 0;
             
+            // PAUSE MAIN PAGE SCROLL
+            if (window.lenis) window.lenis.stop();
+
+            if (modalLenis) {
+                modalLenis.scrollTo(0, { immediate: true });
+            }
+
             setTimeout(() => {
                 modal.classList.add('active');
             }, 30);
@@ -1203,9 +1591,18 @@
 
         function closeModal(event, forceClose = false) {
             if (event) {
-                if (event.target.tagName === 'A' && event.target.getAttribute('href') === '#inquiry-section') {
+                const link = event.target.closest('a');
+                if (link && link.getAttribute('href') === '#inquiry-section') {
+                    event.preventDefault();
                     document.body.classList.remove('modal-open');
                     modal.classList.remove('active');
+                    if (window.lenis) {
+                        window.lenis.start();
+                        const inquiryTarget = document.getElementById('inquiry-section');
+                        if (inquiryTarget) {
+                            window.lenis.scrollTo(inquiryTarget, { offset: 0, duration: 1.2 });
+                        }
+                    }
                     setTimeout(() => { modal.style.display = 'none'; }, 200);
                     return;
                 }
@@ -1215,6 +1612,7 @@
                 if (event) event.preventDefault();
                 modal.classList.remove('active');
                 document.body.classList.remove('modal-open'); 
+                if (window.lenis) window.lenis.start();
                 setTimeout(() => {
                     modal.style.display = 'none';
                 }, 200); 
