@@ -157,6 +157,7 @@
         .hero-container {
             width: 100%;
             height: 100dvh;
+            min-height: 580px; /* ENFORCES MINIMUM HEIGHT FLOOR TO PREVENT ELEMENT COLLISION */
             position: relative;
             overflow: hidden;
             background-color: var(--gr-obsidian);
@@ -207,7 +208,7 @@
             transition: opacity 0.8s cubic-bezier(0.19, 1, 0.22, 1), visibility 0.8s ease;
             display: flex;
             align-items: flex-end;
-            padding: 80px 80px 100px 80px;
+            padding: 110px 80px 140px 80px; /* 140px BOTTOM PADDING GUARANTEES CLEARANCE ABOVE CAROUSEL CONTROLS */
         }
 
         .hero-slide.active {
@@ -220,6 +221,7 @@
             z-index: 10;
             max-width: 800px;
             color: var(--gr-bone);
+            margin-top: auto; /* PUSHES CONTENT DOWN SLIDE WHILE MAINTAINING LOGO CLEARANCE */
             transform: translateY(20px);
             opacity: 0;
             transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1) 0.2s, opacity 0.8s ease 0.2s;
@@ -296,10 +298,6 @@
             transition: all 0.3s ease;
         }
 
-        .play-pause-btn:hover {
-            color: var(--gr-mint);
-        }
-
         .play-pause-btn svg {
             width: 16px;
             height: 16px;
@@ -320,10 +318,6 @@
             position: relative;
             overflow: hidden;
             transition: all 0.3s ease;
-        }
-
-        .pag-bar:hover {
-            background: rgba(237, 229, 211, 0.4);
         }
 
         .pag-bar.active {
@@ -352,7 +346,7 @@
             to { width: 100%; }
         }
 
-        /* --- CLEAN ELEGANT BUTTON HOVER STATES --- */
+        /* --- BASE BUTTON STYLING --- */
         button {
             border: none;
             background: transparent;
@@ -380,26 +374,10 @@
             outline: none;
         }
 
-        .cta-trigger:hover {
-            background: var(--gr-obsidian) !important;
-            color: var(--gr-bone) !important;
-            border-color: var(--gr-obsidian) !important;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(44, 30, 22, 0.15);
-        }
-
         .cta-trigger.secondary {
             background: transparent;
             border: 1px solid var(--grid-line);
             color: var(--gr-obsidian);
-        }
-
-        .cta-trigger.secondary:hover {
-            background: var(--gr-mint) !important;
-            border-color: var(--gr-mint) !important;
-            color: var(--gr-obsidian) !important;
-            box-shadow: 0 8px 20px rgba(162, 196, 177, 0.5); 
-            transform: translateY(-3px);
         }
 
         .cta-trigger.featured-btn {
@@ -408,29 +386,12 @@
             border: 1px solid var(--gr-obsidian);
         }
 
-        .cta-trigger.featured-btn:hover {
-            background: var(--gr-mint) !important;
-            color: var(--gr-obsidian) !important;
-            border-color: var(--gr-mint) !important;
-            box-shadow: 0 8px 20px rgba(162, 196, 177, 0.5); 
-            transform: translateY(-3px);
-        }
-
-        /* --- HERO CTAS SPECIFIC HOVER --- */
         .hero-slide .cta-trigger {
             background: rgba(237, 229, 211, 0.15);
             color: var(--gr-bone);
             border: 1px solid rgba(237, 229, 211, 0.4);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
-        }
-
-        .hero-slide .cta-trigger:hover {
-            background: var(--gr-bone) !important;
-            color: var(--gr-obsidian) !important;
-            border-color: var(--gr-bone) !important;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
         }
 
         .hero-slide .cta-trigger.featured-btn {
@@ -441,27 +402,100 @@
             -webkit-backdrop-filter: none;
         }
 
-        .hero-slide .cta-trigger.featured-btn:hover {
-            background: var(--gr-bone) !important;
-            color: var(--gr-obsidian) !important;
-            border-color: var(--gr-bone) !important;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-        }
-
-        /* --- MOMENTUM TIER OUTLINED HOVER STATE FIX --- */
         .tier-card.featured .cta-trigger.featured-btn {
             background: var(--gr-obsidian);
             color: var(--gr-mint);
             border: 1px solid var(--gr-obsidian);
         }
 
-        .tier-card.featured .cta-trigger.featured-btn:hover {
-            background: transparent !important;
-            color: var(--gr-obsidian) !important;
-            border: 1px solid var(--gr-obsidian) !important;
-            box-shadow: none;
-            transform: translateY(-3px);
+        /* --- DESKTOP-ONLY HOVER EFFECTS (PREVENTS MOBILE TOUCH STICKINESS) --- */
+        @media (hover: hover) and (pointer: fine) {
+            .play-pause-btn:hover {
+                color: var(--gr-mint);
+            }
+
+            .pag-bar:hover {
+                background: rgba(237, 229, 211, 0.4);
+            }
+
+            .cta-trigger:hover {
+                background: var(--gr-obsidian) !important;
+                color: var(--gr-bone) !important;
+                border-color: var(--gr-obsidian) !important;
+                transform: translateY(-3px);
+                box-shadow: 0 8px 20px rgba(44, 30, 22, 0.15);
+            }
+
+            .cta-trigger.secondary:hover {
+                background: var(--gr-mint) !important;
+                border-color: var(--gr-mint) !important;
+                color: var(--gr-obsidian) !important;
+                box-shadow: 0 8px 20px rgba(162, 196, 177, 0.5); 
+                transform: translateY(-3px);
+            }
+
+            .cta-trigger.featured-btn:hover {
+                background: var(--gr-mint) !important;
+                color: var(--gr-obsidian) !important;
+                border-color: var(--gr-mint) !important;
+                box-shadow: 0 8px 20px rgba(162, 196, 177, 0.5); 
+                transform: translateY(-3px);
+            }
+
+            .hero-slide .cta-trigger:hover {
+                background: var(--gr-bone) !important;
+                color: var(--gr-obsidian) !important;
+                border-color: var(--gr-bone) !important;
+                transform: translateY(-3px);
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            }
+
+            .hero-slide .cta-trigger.featured-btn:hover {
+                background: var(--gr-bone) !important;
+                color: var(--gr-obsidian) !important;
+                border-color: var(--gr-bone) !important;
+                transform: translateY(-3px);
+                box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            }
+
+            .tier-card.featured .cta-trigger.featured-btn:hover {
+                background: transparent !important;
+                color: var(--gr-obsidian) !important;
+                border: 1px solid var(--gr-obsidian) !important;
+                box-shadow: none;
+                transform: translateY(-3px);
+            }
+
+            .partner-item:hover {
+                opacity: 1;
+            }
+
+            .feature-block:hover { 
+                background: #e8dfcc; 
+            }
+
+            .tier-card:hover {
+                background: #e8dfcc; 
+            }
+
+            .tier-card.featured:hover {
+                filter: brightness(0.97); 
+            }
+
+            .scope-link:hover {
+                color: var(--gr-obsidian);
+                border-bottom-color: var(--gr-obsidian);
+            }
+
+            .modal-close:hover {
+                opacity: 1;
+                color: var(--gr-mint);
+            }
+
+            .footer-link:hover {
+                color: var(--gr-mint);
+                transform: translateX(5px);
+            }
         }
 
         /* --- CONTENT SECTIONS --- */
@@ -507,10 +541,6 @@
             justify-content: center;
         }
 
-        .partner-item:hover {
-            opacity: 1;
-        }
-
         .partner-item img {
             max-height: 50px; 
             min-height: 35px;
@@ -549,10 +579,6 @@
             grid-template-columns: 180px 1fr;
             gap: 50px;
             transition: background 0.2s ease;
-        }
-
-        .feature-block:hover { 
-            background: #e8dfcc; 
         }
 
         .feature-id {
@@ -599,17 +625,9 @@
             transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
         }
 
-        .tier-card:hover {
-            background: #e8dfcc; 
-        }
-
         .tier-card.featured {
             background: var(--gr-mint);
             color: var(--gr-obsidian);
-        }
-
-        .tier-card.featured:hover {
-            filter: brightness(0.97); 
         }
 
         /* HIGHLIGHT ANIMATION PROMPT FOR ECOSYSTEM TIER */
@@ -745,11 +763,6 @@
             display: inline-block; 
         }
 
-        .scope-link:hover {
-            color: var(--gr-obsidian);
-            border-bottom-color: var(--gr-obsidian);
-        }
-
         /* --- FROSTED GLAZE MODAL OVERLAY --- */
         .modal-overlay {
             position: fixed;
@@ -820,11 +833,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-
-        .modal-close:hover {
-            opacity: 1;
-            color: var(--gr-mint);
         }
 
         .modal-title {
@@ -919,11 +927,6 @@
             width: fit-content;
         }
 
-        .footer-link:hover {
-            color: var(--gr-mint);
-            transform: translateX(5px);
-        }
-
         .footer-massive-brand {
             font-size: clamp(3rem, 13vw, 20rem); 
             font-weight: 700;
@@ -958,7 +961,7 @@
 
             .hero-container {
                 height: 100svh;
-                min-height: 600px;
+                min-height: 580px;
             }
 
             .hero-bg-img {
@@ -966,7 +969,7 @@
             }
 
             .hero-slide {
-                padding: 110px 28px 95px 28px;
+                padding: 110px 28px 120px 28px; /* 120px GUARANTEES CLEAR BUFFER ABOVE FLOATING CONTROLS */
                 align-items: flex-end;
             }
 
@@ -1117,6 +1120,81 @@
             .modal-body { font-size: 14px; line-height: 1.65; }
             .modal-body td:first-child { width: 38%; }
         }
+
+        /* --- DEDICATED SHORT-HEIGHT & LANDSCAPE RESPONSIVENESS (IPHONE HORIZONTAL) --- */
+        @media (max-height: 500px) {
+            .header-logo {
+                top: 14px;
+                left: 28px;
+                width: 140px;
+            }
+
+            .hero-container {
+                height: 100svh;
+                min-height: 100vh;
+            }
+
+            .hero-slide {
+                padding: 55px 28px 55px 28px;
+                align-items: flex-end;
+            }
+
+            .slide-badge {
+                font-size: 9px;
+                padding: 4px 8px;
+                margin-bottom: 6px;
+            }
+
+            .slide-title {
+                font-size: 1.5rem !important;
+                margin-bottom: 8px;
+                line-height: 1.1;
+            }
+
+            .slide-desc {
+                font-size: 12px !important;
+                line-height: 1.35;
+                margin-bottom: 12px;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+            }
+
+            .slide-ctas {
+                gap: 8px;
+            }
+
+            .slide-ctas .cta-trigger {
+                padding: 8px 14px;
+                font-size: 9px;
+                min-width: auto;
+            }
+
+            .carousel-controls {
+                bottom: 10px;
+                left: 28px;
+                right: 28px;
+                padding: 6px 12px;
+            }
+
+            .pag-bar {
+                width: 20px;
+            }
+            .pag-bar.active {
+                width: 35px;
+            }
+
+            .section-header { 
+                padding: 12px 28px;
+            }
+
+            .modal-content { 
+                max-height: 82vh; 
+                padding: 30px 24px; 
+            }
+        }
     </style>
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-2257GJ95MX"></script>
@@ -1150,7 +1228,7 @@
                         <p class="slide-desc">we act as your dedicated digital partner, taking the full burden of daily content creation, social media growth, and website infrastructure off your shoulders.</p>
                         <div class="slide-ctas">
                             <a href="#inquiry-section" class="cta-trigger featured-btn">initiate</a>
-                            <a href="#retainers-section" class="cta-trigger"> explore retainers</a>
+                            <a href="#retainers-section" class="cta-trigger">retainers</a>
                         </div>
                     </div>
                 </div>
