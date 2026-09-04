@@ -7,8 +7,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     
     <title>mintdonut | the glaze your brand deserves.</title>
-    <link rel="icon" type="image/png" href="mintdonut PFP 4000x4000.png">
-    <link rel="apple-touch-icon" href="mintdonut PFP 4000x4000.png">
+    <link rel="icon" type="image/png" href="mintdonut-favicon.webp">
+    <link rel="apple-touch-icon" href="mintdonut-favicon.webp">
 
     <meta name="description" content="based in sandton, gauteng, mintdonut is a specialised digital marketing agency dedicated to providing a consistent, high-end online presence for local businesses. we understand that business owners need to focus on operations, not content creation. that is why we operate as your dedicated digital partner, taking the absolute burden of social media and web management off your shoulders.">
     <meta name="keywords" content="digital marketing agency, agency, social media management, short form video editing, photography, photo editing, web design, Randburg, Sandton, Midrand, Roodepoort, Kyalami, Gauteng, local business marketing">
@@ -19,14 +19,14 @@
     <meta property="og:url" content="https://www.mintdonut.com/">
     <meta property="og:title" content="mintdonut | the glaze your brand deserves.">
     <meta property="og:description" content="End-to-end digital infrastructure, cinematic video production, and daily social media management for local businesses.">
-    <meta property="og:image" content="https://www.mintdonut.com/mintdonut PFP 4000x4000.png"> 
+    <meta property="og:image" content="https://www.mintdonut.com/mintdonut-favicon.webp"> 
     
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "ProfessionalService",
       "name": "mintdonut",
-      "image": "https://www.mintdonut.com/mintdonut PFP 4000x4000.png",
+      "image": "https://www.mintdonut.com/mintdonut-favicon.webp",
       "@id": "",
       "url": "https://www.mintdonut.com",
       "telephone": "",
@@ -91,11 +91,16 @@
             box-sizing: border-box;
             text-transform: lowercase;
             font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            cursor: default !important; 
         }
 
-        input, textarea, button, select {
+        /* RESTORED INTERACTIVE POINTER CURSORS */
+        a, button, .cta-trigger, .pag-bar, .modal-close, .scope-link, .partner-item, .play-pause-btn, .footer-link {
+            cursor: pointer;
+        }
+
+        input, textarea, select {
             font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+            cursor: text;
         }
 
         html, body {
@@ -825,6 +830,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            background: transparent;
+            border: none;
         }
 
         .modal-title {
@@ -1115,7 +1122,6 @@
             .feature-title { font-size: 22px; margin-bottom: 8px; }
             .feature-desc { font-size: 13px; line-height: 1.5; }
 
-            /* UN-SQUEEZED 1-COLUMN STACK FOR RETAINERS IN MOBILE LANDSCAPE */
             .tier-grid {
                 grid-template-columns: 1fr !important;
                 background: transparent;
@@ -1155,7 +1161,6 @@
             .modal-body { font-size: 13px; margin-bottom: 16px; }
             .modal-body td { padding: 8px 0; }
 
-            /* BALANCED FOOTER FOR MOBILE LANDSCAPE */
             .site-footer { 
                 padding: 35px var(--safe-area-left) 25px var(--safe-area-right);
                 gap: 28px; 
@@ -1194,12 +1199,12 @@
 
     <main>
         <div class="header-logo animate-up delay-1">
-            <img src="mintdonut Full Logo 5000x2000 PNG.png" alt="mintdonut logo">
+            <img src="mintdonut-hero-logo.webp" alt="mintdonut logo" width="420" height="168" fetchpriority="high">
         </div>
 
         <div class="hero-container animate-up">
             <div class="hero-static-bg">
-                <img src="hero image website.png" alt="mintdonut visual agency background" class="hero-bg-img">
+                <img src="hero-image.webp" alt="mintdonut visual agency background" class="hero-bg-img" width="1920" height="1080" fetchpriority="high">
                 <div class="hero-bg-overlay"></div>
             </div>
 
@@ -1250,9 +1255,9 @@
                 </button>
 
                 <div class="pagination-indicators">
-                    <button class="pag-bar active" onclick="goToSlide(0)"><div class="pag-progress"></div></button>
-                    <button class="pag-bar" onclick="goToSlide(1)"><div class="pag-progress"></div></button>
-                    <button class="pag-bar" onclick="goToSlide(2)"><div class="pag-progress"></div></button>
+                    <button class="pag-bar active" aria-label="Slide 1" onclick="goToSlide(0)"><div class="pag-progress"></div></button>
+                    <button class="pag-bar" aria-label="Slide 2" onclick="goToSlide(1)"><div class="pag-progress"></div></button>
+                    <button class="pag-bar" aria-label="Slide 3" onclick="goToSlide(2)"><div class="pag-progress"></div></button>
                 </div>
             </div>
         </div>
@@ -1260,9 +1265,9 @@
         <div class="partners-section animate-up delay-1">
             <div class="partners-label">businesses we've glazed</div>
             <div class="partners-grid">
-                <div class="partner-item"><img src="The Treat Kyalami PNG Black.png" alt="The Treat Kyalami"></div>
-                <div class="partner-item"><img src="AD FULL Black PNG.png" alt="Arcadia Designz"></div>
-                <div class="partner-item"><img src="KG Logo.png" alt="KG Lushious"></div>
+                <div class="partner-item"><img src="thetreatkyalami-logo.webp" alt="The Treat Kyalami" width="160" height="50" loading="lazy"></div>
+                <div class="partner-item"><img src="arcadiadesignz-logo.webp" alt="Arcadia Designz" width="160" height="50" loading="lazy"></div>
+                <div class="partner-item"><img src="kglushious-logo.webp" alt="KG Lushious" width="160" height="50" loading="lazy"></div>
             </div>
         </div>
 
@@ -1392,9 +1397,10 @@
         </div>
     </main>
 
-    <div class="modal-overlay" id="tierModal" onclick="closeModal(event)">
+    <!-- ACCESSIBLE MODAL DIALOG -->
+    <div class="modal-overlay" id="tierModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalBody" onclick="closeModal(event)">
         <div class="modal-content" id="modalContent" data-lenis-prevent onclick="event.stopPropagation()">
-            <span class="modal-close" onclick="closeModal(event, true)">×</span>
+            <button class="modal-close" aria-label="Close modal" onclick="closeModal(event, true)">×</button>
             <h3 class="modal-title" id="modalTitle">tier title</h3>
             <div class="modal-body" id="modalBody"></div>
             <a href="#inquiry-section" class="cta-trigger" style="background: var(--gr-obsidian); color: var(--gr-bone);" onclick="closeModal(event, true)">secure retainer</a>
@@ -1695,6 +1701,13 @@
                 }, 200); 
             }
         }
+
+        /* KEYBOARD ACCESSIBILITY: CLOSE MODAL ON ESCAPE KEY */
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                closeModal(e, true);
+            }
+        });
 
         document.getElementById('agencyForm').addEventListener('submit', async function(e) {
             e.preventDefault(); 
