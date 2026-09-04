@@ -64,9 +64,10 @@
             --tracking-massive: 0.4em; 
             --tracking-standard: 0.1em; 
 
-            /* --- UNIFIED DESIGN SYSTEM GUTTERS --- */
             --site-gutter: clamp(24px, 5vw, 80px);
             --header-padding-v: clamp(16px, 3vh, 28px);
+            --safe-area-left: max(var(--site-gutter), env(safe-area-inset-left));
+            --safe-area-right: max(var(--site-gutter), env(safe-area-inset-right));
         }
 
         html {
@@ -136,7 +137,7 @@
         .header-logo {
             position: absolute;
             top: clamp(20px, 4vh, 50px);
-            left: var(--site-gutter);
+            left: var(--safe-area-left);
             z-index: 500;
             width: clamp(160px, 22vw, 420px); 
             max-width: 55vw;
@@ -203,7 +204,7 @@
             transition: opacity 0.8s cubic-bezier(0.19, 1, 0.22, 1), visibility 0.8s ease;
             display: flex;
             align-items: flex-end;
-            padding: clamp(100px, 15vh, 140px) var(--site-gutter) clamp(110px, 16vh, 140px) var(--site-gutter);
+            padding: clamp(100px, 15vh, 140px) var(--safe-area-right) clamp(110px, 16vh, 140px) var(--safe-area-left);
         }
 
         .hero-slide.active {
@@ -269,7 +270,7 @@
         .carousel-controls {
             position: absolute;
             bottom: clamp(20px, 4vh, 35px);
-            right: var(--site-gutter);
+            right: var(--safe-area-right);
             z-index: 50;
             display: flex;
             align-items: center;
@@ -353,7 +354,7 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            min-height: 44px; /* APPLE HIG STANDARD TOUCH TARGET */
+            min-height: 44px;
             padding: 12px 28px; 
             background: var(--gr-bone);
             border: 1px solid var(--gr-obsidian);
@@ -484,7 +485,7 @@
         }
 
         .partners-section {
-            padding: 60px var(--site-gutter); 
+            padding: 60px var(--safe-area-left); 
             border-bottom: 1px solid var(--grid-line);
             display: flex;
             flex-direction: column;
@@ -531,7 +532,7 @@
         .section-header {
             font-size: 12px;
             letter-spacing: 0.25em;
-            padding: var(--header-padding-v) var(--site-gutter); 
+            padding: var(--header-padding-v) var(--safe-area-left); 
             border-bottom: 1px solid var(--grid-line);
             background: var(--glass-bg); 
             backdrop-filter: blur(16px);
@@ -553,7 +554,7 @@
         }
 
         .feature-block {
-            padding: 80px var(--site-gutter); 
+            padding: 80px var(--safe-area-left); 
             border-bottom: 1px solid var(--grid-line);
             display: grid;
             grid-template-columns: 180px 1fr;
@@ -656,7 +657,7 @@
         }
 
         .contact-section {
-            padding: clamp(60px, 8vw, 100px) var(--site-gutter); 
+            padding: clamp(60px, 8vw, 100px) var(--safe-area-left); 
             border-bottom: 1px solid var(--grid-line);
             scroll-margin-top: 60px;
         }
@@ -715,7 +716,7 @@
         }
 
         .custom-scope-block {
-            padding: 40px var(--site-gutter); 
+            padding: 40px var(--safe-area-left); 
             background: var(--gr-bone);
             display: flex;
             justify-content: space-between;
@@ -768,7 +769,7 @@
 
         .modal-content {
             background: rgba(237, 229, 211, 0.96);
-            padding: 45px var(--site-gutter) 35px var(--site-gutter); 
+            padding: 45px var(--safe-area-left) 35px var(--safe-area-right); 
             max-width: 620px; 
             width: 90%;
             max-height: 85vh; 
@@ -856,7 +857,7 @@
         /* --- FOOTER --- */
         .site-footer {
             background-color: var(--gr-bone);
-            padding: clamp(60px, 8vw, 80px) var(--site-gutter) 35px var(--site-gutter); 
+            padding: clamp(60px, 8vw, 80px) var(--safe-area-left) 35px var(--safe-area-right); 
             display: flex;
             flex-direction: column;
             gap: 60px;
@@ -919,8 +920,8 @@
             color: rgba(44, 30, 22, 0.5);
         }
 
-        /* --- TABLET & PORTRAIT MOBILE BREAKPOINTS --- */
-        @media (max-width: 768px) {
+        /* --- PORTRAIT MOBILE BREAKPOINTS --- */
+        @media (max-width: 768px) and (orientation: portrait) {
             .hero-container {
                 height: 100svh;
                 min-height: 520px;
@@ -1004,40 +1005,49 @@
             .modal-body td:first-child { width: 38%; }
         }
 
-        /* --- BULLETPROOF MOBILE LANDSCAPE OVERRIDES (SHORT HEIGHT VIEWPORTS) --- */
-        @media (max-height: 520px) {
+        /* --- ROCKSTAR-GRADE MOBILE LANDSCAPE OVERRIDES (SPACIOUS & UN-CRAMPED) --- */
+        @media screen and (orientation: landscape) and (max-height: 520px) {
             .header-logo {
-                top: 14px;
-                width: clamp(120px, 18vw, 160px);
+                top: 12px;
+                width: clamp(110px, 14vw, 150px);
             }
 
             .hero-container {
-                height: 100svh;
+                height: 100dvh;
                 min-height: 100vh;
             }
 
             .hero-slide {
-                padding: clamp(55px, 12vh, 75px) var(--site-gutter) clamp(55px, 12vh, 70px) var(--site-gutter);
-                align-items: flex-end;
+                padding-top: clamp(45px, 10vh, 60px);
+                padding-bottom: clamp(40px, 9vh, 55px);
+                padding-left: var(--safe-area-left);
+                padding-right: var(--safe-area-right);
+                align-items: center;
+            }
+
+            .slide-content {
+                max-width: 82%;
+                margin-top: 0;
             }
 
             .slide-badge {
                 font-size: 9px;
-                padding: 4px 10px;
-                margin-bottom: 8px;
+                padding: 3px 10px;
+                margin-bottom: 6px;
+                letter-spacing: 0.25em;
             }
 
             .slide-title {
-                font-size: clamp(1.4rem, 6vh, 2.2rem) !important;
-                margin-bottom: 8px;
-                line-height: 1.1;
+                font-size: clamp(1.3rem, 5.5vh, 2rem) !important;
+                margin-bottom: 6px;
+                line-height: 1.08;
             }
 
             .slide-desc {
-                font-size: clamp(11px, 2.2vh, 13px) !important;
-                line-height: 1.4;
-                margin-bottom: 14px;
-                max-width: 520px;
+                font-size: clamp(11px, 2.5vh, 13px) !important;
+                line-height: 1.35;
+                margin-bottom: 12px;
+                max-width: 480px;
                 display: -webkit-box;
                 -webkit-line-clamp: 2;
                 line-clamp: 2;
@@ -1051,31 +1061,82 @@
             }
 
             .slide-ctas .cta-trigger {
-                min-height: 36px;
-                padding: 8px 16px;
-                font-size: 9px;
+                min-height: 38px;
+                padding: 6px 18px;
+                font-size: 9.5px;
                 flex: none;
             }
 
             .carousel-controls {
                 bottom: 10px;
+                right: var(--safe-area-right);
                 padding: 6px 14px;
+                gap: 12px;
             }
 
             .pag-bar { width: 18px; }
             .pag-bar.active { width: 32px; }
 
             .section-header { 
-                padding: 12px var(--site-gutter);
+                padding: 10px var(--safe-area-left);
+                font-size: 10px;
             }
 
-            .feature-block { padding: 40px var(--site-gutter); }
-            .tier-card { padding: 40px var(--site-gutter); }
-            .contact-section { padding: 40px var(--site-gutter); }
+            .feature-block { 
+                padding: 35px var(--safe-area-left); 
+                grid-template-columns: 140px 1fr;
+                gap: 24px;
+            }
+            .feature-title { font-size: 22px; margin-bottom: 8px; }
+            .feature-desc { font-size: 13px; line-height: 1.5; }
+
+            /* UN-SQUEEZED 1-COLUMN STACK FOR RETAINERS IN MOBILE LANDSCAPE */
+            .tier-grid {
+                grid-template-columns: 1fr !important;
+                background: transparent;
+            }
+
+            .tier-card { 
+                padding: 40px var(--safe-area-left); 
+                border-bottom: 1px solid var(--grid-line);
+            }
+            .tier-card .cta-trigger {
+                width: fit-content;
+                min-width: 180px;
+            }
+            .price { font-size: clamp(36px, 8vh, 48px); margin-bottom: 24px; }
+            .tier-features { margin-bottom: 30px; }
+            .tier-features li { font-size: 14px; margin-bottom: 10px; }
+
+            .contact-section { padding: 35px var(--safe-area-left); }
+            .form-input { padding: 10px 14px; font-size: 13px; }
 
             .modal-content { 
-                max-height: 85vh; 
-                padding: 28px var(--site-gutter); 
+                max-height: 88dvh; 
+                padding: 24px var(--safe-area-left); 
+            }
+            .modal-title { font-size: 20px; margin-bottom: 12px; }
+            .modal-body { font-size: 13px; margin-bottom: 16px; }
+            .modal-body td { padding: 8px 0; }
+
+            /* BALANCED FOOTER FOR MOBILE LANDSCAPE */
+            .site-footer { 
+                padding: 40px var(--safe-area-left) 25px var(--safe-area-right);
+                gap: 35px; 
+            }
+            .footer-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 20px;
+            }
+            .footer-col { gap: 12px; }
+            .footer-col h4 { font-size: 10px; margin-bottom: 4px; }
+            .footer-link { font-size: 13px; }
+            .footer-massive-brand { font-size: clamp(2.5rem, 10vw, 6rem); opacity: 0.25; }
+            .footer-bottom { 
+                flex-direction: row; 
+                justify-content: space-between; 
+                padding-top: 20px; 
+                font-size: 10px; 
             }
         }
     </style>
