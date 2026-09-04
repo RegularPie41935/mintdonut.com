@@ -121,7 +121,7 @@
         }
 
         body.modal-open {
-            overflow: hidden !important;
+            touch-action: none;
         }
 
         @keyframes fadeUp {
@@ -553,6 +553,9 @@
             position: sticky;
             top: 0;
             z-index: 100;
+            transform: translateZ(0);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
             -webkit-user-select: none;
             user-select: none;
         }
