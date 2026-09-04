@@ -26,9 +26,10 @@
             --grid-line: rgba(28, 27, 24, 0.08); 
             --tracking-massive: 0.4em; 
 
-            /* --- UNIFIED DESIGN SYSTEM GUTTERS --- */
             --site-gutter: clamp(24px, 5vw, 80px);
             --header-padding-v: clamp(16px, 3vh, 28px);
+            --safe-area-left: max(var(--site-gutter), env(safe-area-inset-left));
+            --safe-area-right: max(var(--site-gutter), env(safe-area-inset-right));
         }
 
         html {
@@ -74,7 +75,7 @@
         .legal-nav {
             position: sticky;
             top: 0;
-            padding: var(--header-padding-v) var(--site-gutter);
+            padding: var(--header-padding-v) var(--safe-area-left);
             background: var(--glass-bg);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
@@ -99,7 +100,7 @@
         }
 
         .legal-wrapper {
-            padding: clamp(40px, 6vw, 80px) var(--site-gutter) clamp(60px, 8vw, 100px) var(--site-gutter);
+            padding: clamp(40px, 6vw, 80px) var(--safe-area-left) clamp(60px, 8vw, 100px) var(--safe-area-right);
             border-bottom: 1px solid var(--grid-line);
         }
 
@@ -168,7 +169,7 @@
         /* --- FOOTER --- */
         .site-footer {
             background-color: var(--gr-bone);
-            padding: clamp(60px, 8vw, 80px) var(--site-gutter) 35px var(--site-gutter); 
+            padding: clamp(60px, 8vw, 80px) var(--safe-area-left) 35px var(--safe-area-right); 
             display: flex;
             flex-direction: column;
             gap: 60px;
@@ -232,7 +233,7 @@
         }
 
         /* --- RESPONSIVE BREAKPOINTS --- */
-        @media (max-width: 768px) {
+        @media (max-width: 768px) and (orientation: portrait) {
             .footer-grid {
                 grid-template-columns: 1fr 1fr;
                 gap: 35px 24px;
@@ -246,10 +247,18 @@
             }
         }
 
-        @media (max-height: 520px) {
-            .legal-nav { padding: 12px var(--site-gutter); }
-            .legal-wrapper { padding: 30px var(--site-gutter) 40px var(--site-gutter); }
-            .legal-header { margin-bottom: 30px; padding-bottom: 15px; }
+        @media screen and (orientation: landscape) and (max-height: 520px) {
+            .legal-nav { padding: 12px var(--safe-area-left); }
+            .legal-wrapper { padding: 30px var(--safe-area-left) 40px var(--safe-area-right); }
+            .legal-header { margin-bottom: 25px; padding-bottom: 15px; font-size: 2rem; }
+            .legal-content { font-size: 13px; line-height: 1.65; }
+            .site-footer { padding: 40px var(--safe-area-left) 25px var(--safe-area-right); gap: 35px; }
+            .footer-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+            .footer-col { gap: 12px; }
+            .footer-col h4 { font-size: 10px; margin-bottom: 4px; }
+            .footer-link { font-size: 13px; }
+            .footer-massive-brand { font-size: clamp(2.5rem, 10vw, 6rem); opacity: 0.25; }
+            .footer-bottom { flex-direction: row; justify-content: space-between; padding-top: 20px; font-size: 10px; }
         }
     </style>
      
