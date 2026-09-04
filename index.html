@@ -606,6 +606,15 @@
             transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
         }
 
+        @media (min-width: 769px) {
+    .tier-card:first-child {
+        padding-left: var(--safe-area-left);
+    }
+    .tier-card:last-child {
+        padding-right: var(--safe-area-right);
+    }
+}
+
         .tier-card.featured {
             background: var(--gr-mint);
             color: var(--gr-obsidian);
@@ -927,6 +936,11 @@
                 min-height: 520px;
             }
 
+            .tier-card {
+    padding-left: var(--safe-area-left);
+    padding-right: var(--safe-area-right);
+}
+
             .hero-slide {
                 padding: 100px var(--site-gutter) 115px var(--site-gutter);
             }
@@ -1095,11 +1109,10 @@
                 grid-template-columns: 1fr !important;
                 background: transparent;
             }
-
-            .tier-card { 
-                padding: 40px var(--safe-area-left); 
-                border-bottom: 1px solid var(--grid-line);
-            }
+.tier-card { 
+    padding: 40px var(--safe-area-right) 40px var(--safe-area-left); 
+    border-bottom: 1px solid var(--grid-line);
+}
             .tier-card .cta-trigger {
                 width: fit-content;
                 min-width: 180px;
