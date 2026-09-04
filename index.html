@@ -72,6 +72,8 @@
 
         html {
             scrollbar-gutter: stable;
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
         }
 
         ::-moz-selection {
@@ -98,6 +100,8 @@
 
         html, body {
             min-height: 100%;
+            -webkit-text-size-adjust: 100%;
+            text-size-adjust: 100%;
         }
 
         body {
@@ -117,7 +121,7 @@
         }
 
         body.modal-open {
-            touch-action: none;
+            overflow: hidden !important;
         }
 
         @keyframes fadeUp {
@@ -216,6 +220,7 @@
             position: relative;
             z-index: 10;
             max-width: 800px;
+            width: 100%;
             color: var(--gr-bone);
             margin-top: auto;
             transform: translateY(20px);
@@ -265,6 +270,7 @@
             gap: 16px;
             align-items: center;
             flex-wrap: wrap;
+            max-width: 100%;
         }
 
         .carousel-controls {
@@ -369,6 +375,8 @@
             user-select: none;
             white-space: nowrap;
             outline: none;
+            box-sizing: border-box;
+            max-width: 100%;
         }
 
         .cta-trigger.secondary {
@@ -607,13 +615,13 @@
         }
 
         @media (min-width: 769px) {
-    .tier-card:first-child {
-        padding-left: var(--safe-area-left);
-    }
-    .tier-card:last-child {
-        padding-right: var(--safe-area-right);
-    }
-}
+            .tier-card:first-child {
+                padding-left: var(--safe-area-left);
+            }
+            .tier-card:last-child {
+                padding-right: var(--safe-area-right);
+            }
+        }
 
         .tier-card.featured {
             background: var(--gr-mint);
@@ -769,6 +777,7 @@
             transition: opacity 0.4s cubic-bezier(0.19, 1, 0.22, 1);
             overscroll-behavior: contain;
             isolation: isolate;
+            touch-action: pan-y;
         }
 
         .modal-overlay.active {
@@ -776,11 +785,11 @@
             opacity: 1;
         }
 
-.modal-content {
-    background: rgba(237, 229, 211, 0.96);
-    padding: 40px 32px 35px 32px; /* replaced var(--safe-area-left/right) */
-    max-width: 620px; 
-    width: 90%;
+        .modal-content {
+            background: rgba(237, 229, 211, 0.96);
+            padding: clamp(24px, 4vw, 40px) clamp(20px, 4vw, 32px);
+            max-width: 620px; 
+            width: 90%;
             max-height: 85vh; 
             overflow-y: auto; 
             -webkit-overflow-scrolling: touch;
@@ -849,13 +858,13 @@
             vertical-align: top;
         }
 
-.modal-body td:first-child {
-    width: 110px; /* reduced from 32% to fit short label text cleanly */
-    padding-right: 20px;
-    color: var(--gr-mint);
-    font-weight: 500;
-    letter-spacing: 0.05em;
-}
+        .modal-body td:first-child {
+            width: 110px;
+            padding-right: 20px;
+            color: var(--gr-mint);
+            font-weight: 500;
+            letter-spacing: 0.05em;
+        }
 
         .modal-content .cta-trigger {
             width: 100%;
@@ -937,9 +946,9 @@
             }
 
             .tier-card {
-    padding-left: var(--safe-area-left);
-    padding-right: var(--safe-area-right);
-}
+                padding-left: var(--safe-area-left);
+                padding-right: var(--safe-area-right);
+            }
 
             .hero-slide {
                 padding: 100px var(--site-gutter) 115px var(--site-gutter);
@@ -961,7 +970,7 @@
             }
 
             .slide-ctas .cta-trigger {
-                flex: 1;
+                flex: 1 1 calc(50% - 8px);
                 min-width: 125px;
                 padding: 12px 16px;
                 font-size: 10px;
@@ -1018,7 +1027,7 @@
             .modal-content { width: 92%; }
         }
 
-        /* --- ROCKSTAR-GRADE MOBILE LANDSCAPE OVERRIDES (SPACIOUS & UN-CRAMPED) --- */
+        /* --- ROCKSTAR-GRADE MOBILE LANDSCAPE OVERRIDES --- */
         @media screen and (orientation: landscape) and (max-height: 520px) {
             .header-logo {
                 top: 12px;
@@ -1031,15 +1040,15 @@
             }
 
             .hero-slide {
-                padding-top: clamp(45px, 10vh, 60px);
-                padding-bottom: clamp(40px, 9vh, 55px);
+                padding-top: clamp(40px, 8vh, 55px);
+                padding-bottom: clamp(35px, 8vh, 50px);
                 padding-left: var(--safe-area-left);
                 padding-right: var(--safe-area-right);
                 align-items: center;
             }
 
             .slide-content {
-                max-width: 82%;
+                max-width: 85%;
                 margin-top: 0;
             }
 
@@ -1051,16 +1060,16 @@
             }
 
             .slide-title {
-                font-size: clamp(1.3rem, 5.5vh, 2rem) !important;
+                font-size: clamp(1.2rem, 5vh, 1.8rem) !important;
                 margin-bottom: 6px;
-                line-height: 1.08;
+                line-height: 1.1;
             }
 
             .slide-desc {
-                font-size: clamp(11px, 2.5vh, 13px) !important;
+                font-size: clamp(11px, 2.2vh, 13px) !important;
                 line-height: 1.35;
                 margin-bottom: 12px;
-                max-width: 480px;
+                max-width: 520px;
                 display: -webkit-box;
                 -webkit-line-clamp: 2;
                 line-clamp: 2;
@@ -1074,9 +1083,9 @@
             }
 
             .slide-ctas .cta-trigger {
-                min-height: 38px;
-                padding: 6px 18px;
-                font-size: 9.5px;
+                min-height: 36px;
+                padding: 6px 16px;
+                font-size: 9px;
                 flex: none;
             }
 
@@ -1108,10 +1117,10 @@
                 grid-template-columns: 1fr !important;
                 background: transparent;
             }
-.tier-card { 
-    padding: 40px var(--safe-area-right) 40px var(--safe-area-left); 
-    border-bottom: 1px solid var(--grid-line);
-}
+            .tier-card { 
+                padding: 40px var(--safe-area-right) 40px var(--safe-area-left); 
+                border-bottom: 1px solid var(--grid-line);
+            }
             .tier-card .cta-trigger {
                 width: fit-content;
                 min-width: 180px;
@@ -1120,8 +1129,20 @@
             .tier-features { margin-bottom: 30px; }
             .tier-features li { font-size: 14px; margin-bottom: 10px; }
 
-            .contact-section { padding: 35px var(--safe-area-left); }
-            .form-input { padding: 10px 14px; font-size: 13px; }
+            .contact-section { padding: 30px var(--safe-area-left); }
+            .contact-section p {
+                font-size: 10px !important;
+                margin-bottom: 24px !important;
+                line-height: 1.4 !important;
+            }
+            .contact-form {
+                gap: 18px;
+                max-width: 500px;
+            }
+            .form-group { gap: 6px; }
+            .form-label { font-size: 10px; }
+            .form-input { padding: 10px 12px; font-size: 13px; }
+            textarea.form-input { min-height: 80px; }
 
             .modal-content { 
                 max-height: 88dvh; 
@@ -1133,22 +1154,26 @@
 
             /* BALANCED FOOTER FOR MOBILE LANDSCAPE */
             .site-footer { 
-                padding: 40px var(--safe-area-left) 25px var(--safe-area-right);
-                gap: 35px; 
+                padding: 35px var(--safe-area-left) 25px var(--safe-area-right);
+                gap: 28px; 
             }
             .footer-grid {
                 grid-template-columns: repeat(3, 1fr);
                 gap: 20px;
             }
-            .footer-col { gap: 12px; }
+            .footer-col { gap: 10px; }
             .footer-col h4 { font-size: 10px; margin-bottom: 4px; }
-            .footer-link { font-size: 13px; }
-            .footer-massive-brand { font-size: clamp(2.5rem, 10vw, 6rem); opacity: 0.25; }
+            .footer-link { font-size: 12px; }
+            .footer-massive-brand { font-size: clamp(2rem, 8vw, 4.5rem); opacity: 0.25; }
             .footer-bottom { 
                 flex-direction: row; 
+                flex-wrap: wrap;
                 justify-content: space-between; 
-                padding-top: 20px; 
+                align-items: center;
+                gap: 12px;
+                padding-top: 18px; 
                 font-size: 10px; 
+                letter-spacing: var(--tracking-massive);
             }
         }
     </style>
@@ -1413,19 +1438,8 @@
             touchMultiplier: 1.5
         });
 
-        const modalContentEl = document.getElementById('modalContent');
-        const modalLenis = new Lenis({
-            wrapper: modalContentEl,
-            content: modalContentEl,
-            duration: 0.8,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-            smoothWheel: true,
-            touchMultiplier: 1.5
-        });
-
         function raf(time) {
             lenis.raf(time);
-            if (modalLenis) modalLenis.raf(time);
             requestAnimationFrame(raf);
         }
         requestAnimationFrame(raf);
@@ -1632,6 +1646,7 @@
         const modal = document.getElementById('tierModal');
         const modalTitle = document.getElementById('modalTitle');
         const modalBody = document.getElementById('modalBody');
+        const modalContentEl = document.getElementById('modalContent');
 
         function openModal(tier) {
             modalTitle.innerText = tierData[tier].title;
@@ -1641,10 +1656,7 @@
             document.body.classList.add('modal-open'); 
             
             if (window.lenis) window.lenis.stop();
-
-            if (modalLenis) {
-                modalLenis.scrollTo(0, { immediate: true });
-            }
+            if (modalContentEl) modalContentEl.scrollTop = 0;
 
             setTimeout(() => {
                 modal.classList.add('active');
