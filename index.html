@@ -776,11 +776,11 @@
             opacity: 1;
         }
 
-        .modal-content {
-            background: rgba(237, 229, 211, 0.96);
-            padding: 45px var(--safe-area-left) 35px var(--safe-area-right); 
-            max-width: 620px; 
-            width: 90%;
+.modal-content {
+    background: rgba(237, 229, 211, 0.96);
+    padding: 40px 32px 35px 32px; /* replaced var(--safe-area-left/right) */
+    max-width: 620px; 
+    width: 90%;
             max-height: 85vh; 
             overflow-y: auto; 
             -webkit-overflow-scrolling: touch;
@@ -849,13 +849,13 @@
             vertical-align: top;
         }
 
-        .modal-body td:first-child {
-            width: 32%;
-            padding-right: 15px;
-            color: var(--gr-mint);
-            font-weight: 500;
-            letter-spacing: 0.05em;
-        }
+.modal-body td:first-child {
+    width: 110px; /* reduced from 32% to fit short label text cleanly */
+    padding-right: 20px;
+    color: var(--gr-mint);
+    font-weight: 500;
+    letter-spacing: 0.05em;
+}
 
         .modal-content .cta-trigger {
             width: 100%;
@@ -1016,7 +1016,6 @@
             .footer-bottom { flex-direction: column; align-items: center; gap: 12px; text-align: center; }
             
             .modal-content { width: 92%; }
-            .modal-body td:first-child { width: 38%; }
         }
 
         /* --- ROCKSTAR-GRADE MOBILE LANDSCAPE OVERRIDES (SPACIOUS & UN-CRAMPED) --- */
