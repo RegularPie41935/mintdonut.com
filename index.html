@@ -127,7 +127,6 @@
 
         body.modal-open {
             touch-action: none;
-            overflow: hidden;
         }
 
         @keyframes fadeUp {
@@ -1687,6 +1686,30 @@
                 }
             }, { passive: false });
         }
+
+        modal.addEventListener('touchmove', function(e) {
+            if (!modalContentEl.contains(e.target)) {
+                if (e.cancelable) e.preventDefault();
+            }
+        }, { passive: false });
+
+        modal.addEventListener('wheel', function(e) {
+            if (!modalContentEl.contains(e.target)) {
+                e.preventDefault();
+                return;
+            }
+
+            const top = modalContentEl.scrollTop;
+            const totalScroll = modalContentEl.scrollHeight;
+            const currentScroll = top + modalContentEl.offsetHeight;
+            const delta = e.deltaY;
+
+            if (delta < 0 && top <= 0) {
+                e.preventDefault();
+            } else if (delta > 0 && currentScroll >= totalScroll - 1) {
+                e.preventDefault();
+            }
+        }, { passive: false });
 
         function openModal(tier) {
             modalTitle.innerText = tierData[tier].title;
