@@ -1405,7 +1405,7 @@
 
     <!-- ACCESSIBLE MODAL DIALOG -->
     <div class="modal-overlay" id="tierModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalBody" onclick="closeModal(event)">
-        <div class="modal-content" id="modalContent" onclick="event.stopPropagation()">
+        <div class="modal-content" id="modalContent" data-lenis-prevent onclick="event.stopPropagation()">
             <button class="modal-close" aria-label="Close modal" onclick="closeModal(event, true)">×</button>
             <h3 class="modal-title" id="modalTitle">tier title</h3>
             <div class="modal-body" id="modalBody"></div>
@@ -1451,6 +1451,12 @@
             smoothWheel: true,
             touchMultiplier: 1.5
         });
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
 
         window.lenis = lenis;
 
@@ -1656,64 +1662,19 @@
         const modalBody = document.getElementById('modalBody');
         const modalContentEl = document.getElementById('modalContent');
 
-        // SUB-ELEMENT LENIS INSTANCE FOR SMOOTH MODAL SCROLLING
-        const modalLenis = new Lenis({
-            wrapper: modalContentEl,
-            content: modalContentEl,
-            duration: 1.2,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-            smoothWheel: true,
-            touchMultiplier: 1.5
-        });
-
-        function raf(time) {
-            lenis.raf(time);
-            if (modal && modal.classList.contains('active')) {
-                modalLenis.raf(time);
-            }
-            requestAnimationFrame(raf);
-        }
-        requestAnimationFrame(raf);
-
-        // Micro-clamping logic for iOS WebKit (Google App & Safari iOS)
         if (modalContentEl) {
-            modalContentEl.addEventListener('scroll', function() {
-                const maxScroll = modalContentEl.scrollHeight - modalContentEl.clientHeight;
-                if (maxScroll <= 0) return;
+            modalContentEl.addEventListener('touchstart', function() {
+                const top = modalContentEl.scrollTop;
+                const totalScroll = modalContentEl.scrollHeight;
+                const currentScroll = top + modalContentEl.offsetHeight;
 
-                if (modalContentEl.scrollTop <= 0) {
+                if (top <= 0) {
                     modalContentEl.scrollTop = 1;
-                } else if (modalContentEl.scrollTop >= maxScroll) {
-                    modalContentEl.scrollTop = maxScroll - 1;
+                } else if (currentScroll >= totalScroll) {
+                    modalContentEl.scrollTop = totalScroll - modalContentEl.offsetHeight - 1;
                 }
-            });
+            }, { passive: true });
         }
-
-        // Prevent backdrop touches from scrolling background on Mobile
-        modal.addEventListener('touchmove', function(e) {
-            if (!modalContentEl.contains(e.target)) {
-                if (e.cancelable) e.preventDefault();
-            }
-        }, { passive: false });
-
-        // Lock mouse wheel / trackpad background scrolling on Desktop Safari & Chrome
-        window.addEventListener('wheel', function(e) {
-            if (!modal.classList.contains('active')) return;
-
-            const isInsideModalContent = modalContentEl.contains(e.target);
-            if (!isInsideModalContent) {
-                e.preventDefault();
-                return;
-            }
-
-            const top = modalContentEl.scrollTop;
-            const maxScroll = modalContentEl.scrollHeight - modalContentEl.clientHeight;
-            const delta = e.deltaY;
-
-            if ((delta < 0 && top <= 0) || (delta > 0 && top >= maxScroll)) {
-                e.preventDefault();
-            }
-        }, { passive: false });
 
         function openModal(tier) {
             modalTitle.innerText = tierData[tier].title;
@@ -1723,12 +1684,7 @@
             document.body.classList.add('modal-open'); 
             
             if (window.lenis) window.lenis.stop();
-            if (modalLenis) {
-                modalLenis.start();
-                modalLenis.scrollTo(1, { immediate: true });
-            } else if (modalContentEl) {
-                modalContentEl.scrollTop = 1;
-            }
+            if (modalContentEl) modalContentEl.scrollTop = 1;
 
             setTimeout(() => {
                 modal.classList.add('active');
@@ -1742,7 +1698,6 @@
                     event.preventDefault();
                     document.body.classList.remove('modal-open');
                     modal.classList.remove('active');
-                    if (modalLenis) modalLenis.stop();
                     if (window.lenis) {
                         window.lenis.start();
                         const inquiryTarget = document.getElementById('inquiry-section');
@@ -1759,7 +1714,6 @@
                 if (event) event.preventDefault();
                 modal.classList.remove('active');
                 document.body.classList.remove('modal-open'); 
-                if (modalLenis) modalLenis.stop();
                 if (window.lenis) window.lenis.start();
                 setTimeout(() => {
                     modal.style.display = 'none';
