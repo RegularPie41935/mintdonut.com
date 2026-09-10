@@ -85,6 +85,7 @@
             color: var(--gr-obsidian);
         }
 
+        /* --- WILDCARD HYGIENE: CLEANED UP GLOBAL SELECTOR --- */
         * {
             margin: 0;
             padding: 0;
@@ -93,7 +94,6 @@
             font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         }
 
-        /* RESTORED INTERACTIVE POINTER CURSORS */
         a, button, .cta-trigger, .pag-bar, .modal-close, .scope-link, .partner-item, .play-pause-btn, .footer-link {
             cursor: pointer;
         }
@@ -101,6 +101,7 @@
         input, textarea, select {
             font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
             cursor: text;
+            border-radius: 0;
         }
 
         html, body {
@@ -125,6 +126,7 @@
             100% { opacity: 1; filter: none; }
         }
 
+        /* ZERO LAYOUT SHIFT & ZERO HEADER JUMP ON MODAL OPEN */
         body.modal-open {
             touch-action: none;
         }
@@ -170,6 +172,7 @@
             overflow: hidden;
             background-color: var(--gr-obsidian);
             border-bottom: 1px solid var(--grid-line);
+            border-radius: 0;
             -webkit-user-select: none;
             user-select: none;
         }
@@ -214,6 +217,7 @@
             display: flex;
             align-items: flex-end;
             padding: clamp(100px, 15vh, 140px) var(--safe-area-right) clamp(110px, 16vh, 140px) var(--safe-area-left);
+            border-radius: 0;
         }
 
         .hero-slide.active {
@@ -248,6 +252,7 @@
             background: rgba(162, 196, 177, 0.15);
             padding: 6px 14px;
             border: 1px solid rgba(162, 196, 177, 0.3);
+            border-radius: 0;
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
         }
@@ -289,6 +294,7 @@
             background: rgba(44, 30, 22, 0.65);
             padding: 12px 24px;
             border: 1px solid rgba(237, 229, 211, 0.18);
+            border-radius: 0;
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
         }
@@ -296,6 +302,7 @@
         .play-pause-btn {
             background: transparent;
             border: none;
+            border-radius: 0;
             color: var(--gr-bone);
             display: flex;
             align-items: center;
@@ -321,6 +328,7 @@
             height: 4px;
             background: rgba(237, 229, 211, 0.2);
             border: none;
+            border-radius: 0;
             width: 35px;
             position: relative;
             overflow: hidden;
@@ -338,6 +346,7 @@
             height: 100%;
             width: 0%;
             background: var(--gr-mint);
+            border-radius: 0;
         }
 
         .pag-bar.active .pag-progress {
@@ -353,12 +362,13 @@
             to { width: 100%; }
         }
 
-        /* --- BASE BUTTON STYLING --- */
+        /* --- BASE BUTTON STYLING & EXPLICIT BRAND SQUARE GEOMETRY --- */
         button {
             border: none;
             background: transparent;
             font-family: inherit;
             outline: none;
+            border-radius: 0;
         }
 
         .cta-trigger {
@@ -369,6 +379,7 @@
             padding: 12px 28px; 
             background: var(--gr-bone);
             border: 1px solid var(--gr-obsidian);
+            border-radius: 0;
             text-decoration: none;
             color: var(--gr-obsidian);
             font-size: 11px; 
@@ -480,11 +491,6 @@
                 border-bottom-color: var(--gr-obsidian);
             }
 
-            .modal-close:hover {
-                opacity: 1;
-                color: var(--gr-mint);
-            }
-
             .footer-link:hover {
                 color: var(--gr-mint);
                 transform: translateX(4px);
@@ -500,6 +506,7 @@
         .partners-section {
             padding: 60px var(--safe-area-left); 
             border-bottom: 1px solid var(--grid-line);
+            border-radius: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -532,6 +539,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            border-radius: 0;
         }
 
         .partner-item img {
@@ -547,6 +555,7 @@
             letter-spacing: 0.25em;
             padding: var(--header-padding-v) var(--safe-area-left); 
             border-bottom: 1px solid var(--grid-line);
+            border-radius: 0;
             background: var(--glass-bg); 
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
@@ -572,6 +581,7 @@
         .feature-block {
             padding: 80px var(--safe-area-left); 
             border-bottom: 1px solid var(--grid-line);
+            border-radius: 0;
             display: grid;
             grid-template-columns: 180px 1fr;
             gap: 50px;
@@ -619,6 +629,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            border-radius: 0;
             transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
         }
 
@@ -675,6 +686,7 @@
             background: var(--gr-obsidian);
             margin-right: 12px;
             flex-shrink: 0;
+            border-radius: 0;
         }
         
         .tier-card:not(.featured) .tier-features li::before {
@@ -684,6 +696,7 @@
         .contact-section {
             padding: clamp(60px, 8vw, 100px) var(--safe-area-left); 
             border-bottom: 1px solid var(--grid-line);
+            border-radius: 0;
             scroll-margin-top: 60px;
         }
 
@@ -711,6 +724,7 @@
             padding: 16px; 
             background: var(--gr-bone);
             border: 1px solid var(--grid-line);
+            border-radius: 0;
             color: var(--gr-obsidian);
             font-family: inherit;
             font-size: 15px;
@@ -747,6 +761,7 @@
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid var(--grid-line); 
+            border-radius: 0;
         }
 
         .scope-text {
@@ -767,119 +782,236 @@
             display: inline-block; 
         }
 
-        /* --- MODAL OVERLAY --- */
+        /* ==========================================================================
+           SYNCHRONIZED FROSTED GLASS & MOTION SYSTEM (GPU ACCELERATED & SQUARE GEOMETRY)
+           ========================================================================== */
+
         .modal-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
+            inset: 0;
             width: 100%;
             height: 100dvh; 
-            background: rgba(44, 30, 22, 0.45); 
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            background: rgba(44, 30, 22, 0.52); 
+            backdrop-filter: blur(0px);
+            -webkit-backdrop-filter: blur(0px);
             z-index: 2000;
-            display: none; 
+            display: flex; 
             justify-content: center;
             align-items: center;
             opacity: 0;
-            transition: opacity 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+            visibility: hidden;
+            pointer-events: none;
+            border-radius: 0;
+            
+            /* WEBKIT & SAFARI GPU LAYER ACCELERATION PROMOTION */
+            -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            will-change: opacity, backdrop-filter, -webkit-backdrop-filter, transform;
+
+            transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                        backdrop-filter 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                        -webkit-backdrop-filter 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                        visibility 0.35s cubic-bezier(0.16, 1, 0.3, 1);
             overscroll-behavior: contain;
             isolation: isolate;
-            touch-action: pan-y;
         }
 
         .modal-overlay.active {
-            display: flex;
             opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        /* INSTANT DISSOLVE CLASS FOR SEAMLESS CTA NAVIGATION */
+        .modal-overlay.fast-dissolve {
+            transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+                        backdrop-filter 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+                        -webkit-backdrop-filter 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+                        visibility 0.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .modal-content {
             background: rgba(237, 229, 211, 0.96);
-            padding: clamp(24px, 4vw, 40px) clamp(20px, 4vw, 32px);
-            max-width: 620px; 
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            padding: clamp(28px, 4vw, 44px) clamp(20px, 4vw, 36px);
+            max-width: 640px; 
             width: 90%;
-            max-height: 80dvh; 
+            max-height: 82dvh; 
             overflow-y: auto; 
             -webkit-overflow-scrolling: touch;
             touch-action: pan-y;
             position: relative;
             border: 1px solid var(--gr-obsidian);
-            transform: scale(0.98); 
-            transition: transform 0.3s cubic-bezier(0.19, 1, 0.22, 1); 
-            box-shadow: 0 30px 60px rgba(44, 30, 22, 0.3);
+            border-radius: 0;
+
+            /* WEBKIT & SAFARI GPU LAYER ACCELERATION PROMOTION */
+            -webkit-transform: scale(0.96) translate3d(0, 10px, 0);
+            transform: scale(0.96) translate3d(0, 10px, 0); 
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            will-change: opacity, backdrop-filter, -webkit-backdrop-filter, transform;
+
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); 
+            box-shadow: 0 30px 60px rgba(44, 30, 22, 0.35);
             overscroll-behavior-y: contain;
+            outline: none;
         }
 
         .modal-content::-webkit-scrollbar { width: 4px; }
         .modal-content::-webkit-scrollbar-thumb { background: var(--grid-line); }
 
-        .modal-overlay.active .modal-content { transform: scale(1); }
+        .modal-overlay.active .modal-content { 
+            -webkit-transform: scale(1) translate3d(0, 0, 0);
+            transform: scale(1) translate3d(0, 0, 0); 
+        }
+
+        .modal-sheet-handle-area {
+            display: none;
+        }
 
         .modal-close {
             position: absolute;
             top: 18px;
             right: 20px;
-            font-size: 26px;
+            font-size: 24px;
             font-weight: 300;
-            opacity: 0.6;
-            transition: all 0.3s ease;
+            line-height: 1;
+            opacity: 0.7;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
             text-decoration: none;
             color: var(--gr-obsidian);
-            width: 38px;
-            height: 38px;
+            width: 36px;
+            height: 36px;
             display: flex;
             align-items: center;
             justify-content: center;
             background: transparent;
-            border: none;
+            border: 1px solid transparent;
+            border-radius: 0;
+        }
+
+        .modal-close:hover {
+            opacity: 1;
+            background: var(--gr-obsidian);
+            color: var(--gr-bone);
+            border-color: var(--gr-obsidian);
         }
 
         .modal-title {
-            font-size: 24px; 
+            font-size: clamp(20px, 3vw, 26px); 
+            font-weight: 700;
             margin-bottom: 20px;
             letter-spacing: -0.02em;
+            color: var(--gr-obsidian);
+            padding-right: 40px;
         }
 
         .modal-body {
             font-size: 14px; 
             line-height: 1.65;
-            opacity: 0.85;
+            color: var(--gr-obsidian);
             margin-bottom: 25px;
         }
 
-        .modal-body strong {
-            font-weight: 500;
-            color: var(--gr-obsidian);
+        .modal-body p { 
+            margin-bottom: 16px;
+            font-weight: 300;
+            color: rgba(44, 30, 22, 0.85);
         }
 
-        .modal-body p { margin-bottom: 12px; }
-
+        /* ORIGINAL TABLE DATA STYLING */
         .modal-body table {
             width: 100%;
             border-collapse: collapse;
-            margin: 25px 0;
+            margin: 20px 0;
+            font-size: 13.5px;
         }
 
-        .modal-body tr { border-bottom: 1px solid var(--grid-line); }
-        .modal-body tr:last-child { border-bottom: none; }
+        .modal-body tr { 
+            border-bottom: 1px solid var(--grid-line); 
+        }
+        
+        .modal-body tr:last-child { 
+            border-bottom: none; 
+        }
 
         .modal-body td {
-            padding: 16px 0;
+            padding: 14px 0;
             vertical-align: top;
+            line-height: 1.5;
         }
 
         .modal-body td:first-child {
-            width: 110px;
-            padding-right: 20px;
+            width: 120px;
+            padding-right: 16px;
             color: var(--gr-mint);
             font-weight: 500;
-            letter-spacing: 0.05em;
+            letter-spacing: var(--tracking-standard);
+            text-transform: lowercase;
         }
 
-        .modal-content .cta-trigger {
+        .modal-body td:last-child {
+            color: var(--gr-obsidian);
+            font-weight: 300;
+        }
+
+        .modal-cta {
             width: 100%;
             display: flex;
-            margin-top: 20px;
+            margin-top: 10px;
+            background: var(--gr-obsidian) !important;
+            color: var(--gr-bone) !important;
+            border: 1px solid var(--gr-obsidian) !important;
+            border-radius: 0;
+        }
+
+        /* MOBILE DRAWER ADAPTATION (STRICT SQUARE GEOMETRY & GPU PROMOTION) */
+        @media (max-width: 768px) {
+            .modal-overlay {
+                align-items: flex-end;
+            }
+
+            .modal-content {
+                width: 100vw;
+                max-width: 100vw;
+                max-height: 85dvh;
+                border-radius: 0;
+                border-bottom: none;
+                border-left: none;
+                border-right: none;
+                border-top: 1px solid var(--gr-obsidian);
+                padding: 16px var(--site-gutter) 32px var(--site-gutter);
+                -webkit-transform: translate3d(0, 100%, 0);
+                transform: translate3d(0, 100%, 0);
+                transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            }
+
+            .modal-overlay.active .modal-content {
+                -webkit-transform: translate3d(0, 0, 0);
+                transform: translate3d(0, 0, 0);
+            }
+
+            .modal-sheet-handle-area {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 8px 0 16px 0;
+                cursor: grab;
+                touch-action: none;
+            }
+
+            .modal-sheet-handle {
+                width: 40px;
+                height: 4px;
+                background: var(--gr-obsidian);
+                opacity: 0.35;
+                border-radius: 0;
+            }
         }
 
         /* --- FOOTER --- */
@@ -891,6 +1023,7 @@
             gap: 60px;
             position: relative;
             z-index: 10;
+            border-radius: 0;
             -webkit-user-select: none;
             user-select: none;
         }
@@ -1033,15 +1166,21 @@
             .footer-col:nth-child(3) { grid-column: 2; grid-row: 1 / span 2; }
             .footer-massive-brand { font-size: 16vw; } 
             .footer-bottom { flex-direction: column; align-items: center; gap: 12px; text-align: center; }
-            
-            .modal-content { width: 92%; }
         }
 
-        /* --- ROCKSTAR-GRADE MOBILE LANDSCAPE OVERRIDES --- */
+        /* --- ROCKSTAR-GRADE MOBILE LANDSCAPE OVERRIDES & HERO LOGO CLEARANCE --- */
         @media screen and (orientation: landscape) and (max-height: 520px) {
             .header-logo {
                 top: 12px;
-                width: clamp(110px, 14vw, 150px);
+                width: auto;
+                max-height: clamp(32px, 10vh, 48px);
+            }
+
+            .header-logo img {
+                width: auto;
+                height: auto;
+                max-height: clamp(32px, 10vh, 48px);
+                object-fit: contain;
             }
 
             .hero-container {
@@ -1050,7 +1189,7 @@
             }
 
             .hero-slide {
-                padding-top: clamp(40px, 8vh, 55px);
+                padding-top: clamp(52px, 12vh, 68px);
                 padding-bottom: clamp(35px, 8vh, 50px);
                 padding-left: var(--safe-area-left);
                 padding-right: var(--safe-area-right);
@@ -1152,14 +1291,6 @@
             .form-label { font-size: 10px; }
             .form-input { padding: 10px 12px; font-size: 13px; }
             textarea.form-input { min-height: 80px; }
-
-            .modal-content { 
-                max-height: 88dvh; 
-                padding: 24px var(--safe-area-left); 
-            }
-            .modal-title { font-size: 20px; margin-bottom: 12px; }
-            .modal-body { font-size: 13px; margin-bottom: 16px; }
-            .modal-body td { padding: 8px 0; }
 
             .site-footer { 
                 padding: 35px var(--safe-area-left) 25px var(--safe-area-right);
@@ -1403,13 +1534,16 @@
         </div>
     </main>
 
-    <!-- ACCESSIBLE MODAL DIALOG -->
-    <div class="modal-overlay" id="tierModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalBody" onclick="closeModal(event)">
-        <div class="modal-content" id="modalContent" data-lenis-prevent onclick="event.stopPropagation()">
-            <button class="modal-close" aria-label="Close modal" onclick="closeModal(event, true)">×</button>
+    <!-- ACCESSIBLE MODAL DIALOG (STRICT SQUARE GEOMETRY) -->
+    <div class="modal-overlay" id="tierModal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modalTitle">
+        <div class="modal-content" id="modalContent" tabindex="-1" data-lenis-prevent>
+            <div class="modal-sheet-handle-area" id="modalHandle" aria-hidden="true">
+                <div class="modal-sheet-handle"></div>
+            </div>
+            <button class="modal-close" id="modalCloseBtn" aria-label="Close modal">×</button>
             <h3 class="modal-title" id="modalTitle">tier title</h3>
             <div class="modal-body" id="modalBody"></div>
-            <a href="#inquiry-section" class="cta-trigger" style="background: var(--gr-obsidian); color: var(--gr-bone);" onclick="closeModal(event, true)">secure retainer</a>
+            <a href="#inquiry-section" class="cta-trigger modal-cta" id="modalPrimaryCta">secure retainer</a>
         </div>
     </div>
 
@@ -1533,23 +1667,26 @@
             }
         }
 
-        playPauseBtn.addEventListener('click', () => {
-            isPlaying = !isPlaying;
-            if (isPlaying) {
-                pauseIcon.style.display = 'block';
-                playIcon.style.display = 'none';
-                pagBars[currentSlide].classList.remove('paused');
-                resetTimer();
-            } else {
-                pauseIcon.style.display = 'none';
-                playIcon.style.display = 'block';
-                pagBars[currentSlide].classList.add('paused');
-                clearInterval(slideTimer);
-            }
-        });
+        if (playPauseBtn) {
+            playPauseBtn.addEventListener('click', () => {
+                isPlaying = !isPlaying;
+                if (isPlaying) {
+                    pauseIcon.style.display = 'block';
+                    playIcon.style.display = 'none';
+                    pagBars[currentSlide].classList.remove('paused');
+                    resetTimer();
+                } else {
+                    pauseIcon.style.display = 'none';
+                    playIcon.style.display = 'block';
+                    pagBars[currentSlide].classList.add('paused');
+                    clearInterval(slideTimer);
+                }
+            });
+        }
 
         resetTimer();
 
+        /* --- RESTORED ORIGINAL TIER CONTENT DATA STRUCTURE --- */
         const tierData = {
             presence: {
                 title: "01 / presence",
@@ -1657,111 +1794,265 @@
             }
         };
 
-        const modal = document.getElementById('tierModal');
-        const modalTitle = document.getElementById('modalTitle');
-        const modalBody = document.getElementById('modalBody');
-        const modalContentEl = document.getElementById('modalContent');
+        /* --- ENCAPSULATED MINTMODAL ENGINE --- */
+        class MintModal {
+            constructor(options = {}) {
+                this.overlay = document.getElementById(options.overlayId || 'tierModal');
+                this.content = document.getElementById(options.contentId || 'modalContent');
+                this.closeBtn = document.getElementById(options.closeBtnId || 'modalCloseBtn');
+                this.titleEl = document.getElementById(options.titleId || 'modalTitle');
+                this.bodyEl = document.getElementById(options.bodyId || 'modalBody');
+                this.handleEl = document.getElementById(options.handleId || 'modalHandle');
+                this.primaryCta = document.getElementById(options.ctaId || 'modalPrimaryCta');
 
-        if (modalContentEl) {
-            modalContentEl.addEventListener('touchstart', function() {
-                const top = modalContentEl.scrollTop;
-                const totalScroll = modalContentEl.scrollHeight;
-                const currentScroll = top + modalContentEl.offsetHeight;
+                this.isOpen = false;
+                this.isAnimating = false;
+                this.triggerElement = null;
 
-                if (top <= 0) {
-                    modalContentEl.scrollTop = 1;
-                } else if (currentScroll >= totalScroll) {
-                    modalContentEl.scrollTop = totalScroll - modalContentEl.offsetHeight - 1;
-                }
-            }, { passive: true });
-        }
-
-        function openModal(tier) {
-            modalTitle.innerText = tierData[tier].title;
-            modalBody.innerHTML = tierData[tier].body; 
-            
-            modal.style.display = 'flex';
-            document.body.classList.add('modal-open'); 
-            
-            if (window.lenis) window.lenis.stop();
-            if (modalContentEl) modalContentEl.scrollTop = 1;
-
-            setTimeout(() => {
-                modal.classList.add('active');
-            }, 30);
-        }
-
-        function closeModal(event, forceClose = false) {
-            if (event) {
-                const link = event.target.closest('a');
-                if (link && link.getAttribute('href') === '#inquiry-section') {
-                    event.preventDefault();
-                    document.body.classList.remove('modal-open');
-                    modal.classList.remove('active');
-                    if (window.lenis) {
-                        window.lenis.start();
-                        const inquiryTarget = document.getElementById('inquiry-section');
-                        if (inquiryTarget) {
-                            window.lenis.scrollTo(inquiryTarget, { offset: 0, duration: 1.2 });
-                        }
-                    }
-                    setTimeout(() => { modal.style.display = 'none'; }, 200);
-                    return;
-                }
+                this.init();
             }
 
-            if (event.target === modal || forceClose) {
-                if (event) event.preventDefault();
-                modal.classList.remove('active');
-                document.body.classList.remove('modal-open'); 
-                if (window.lenis) window.lenis.start();
-                setTimeout(() => {
-                    modal.style.display = 'none';
-                }, 200); 
-            }
-        }
+            init() {
+                if (!this.overlay || !this.content) return;
 
-        /* KEYBOARD ACCESSIBILITY: CLOSE MODAL ON ESCAPE KEY */
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && modal.classList.contains('active')) {
-                closeModal(e, true);
-            }
-        });
-
-        document.getElementById('agencyForm').addEventListener('submit', async function(e) {
-            e.preventDefault(); 
-            
-            const form = e.target;
-            const btn = form.querySelector('button');
-            const msg = document.getElementById('form-message');
-            const err = document.getElementById('form-error');
-            
-            btn.innerText = 'sending...';
-            btn.style.opacity = '0.5';
-            btn.style.pointerEvents = 'none';
-
-            try {
-                const response = await fetch(form.action, {
-                    method: form.method,
-                    body: new FormData(form),
-                    headers: { 'Accept': 'application/json' }
+                this.overlay.addEventListener('click', (e) => {
+                    if (e.target === this.overlay) this.close(false);
                 });
 
-                if (response.ok) {
-                    btn.style.display = 'none';
-                    if(err) err.style.display = 'none';
-                    msg.style.display = 'block';
-                    form.reset(); 
-                } else {
-                    throw new Error('Network response was not ok.');
+                if (this.closeBtn) {
+                    this.closeBtn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        this.close(false);
+                    });
                 }
-            } catch (error) {
-                btn.innerText = 'submit inquiry';
-                btn.style.opacity = '1';
-                btn.style.pointerEvents = 'auto';
-                if(err) err.style.display = 'block';
+
+                if (this.primaryCta) {
+                    this.primaryCta.addEventListener('click', (e) => {
+                        const href = this.primaryCta.getAttribute('href');
+                        if (href && href.startsWith('#')) {
+                            e.preventDefault();
+                            
+                            // SIMULTANEOUS CLOSE & SCROLL (INSTANT LENIS START)
+                            if (window.lenis) {
+                                window.lenis.start();
+                                const target = document.querySelector(href);
+                                if (target) {
+                                    window.lenis.scrollTo(target, { offset: 0, duration: 1.0 });
+                                }
+                            }
+
+                            // DISSOLVE OVERLAY INSTANTLY (200MS FAST CLOSE)
+                            this.close(true);
+                        }
+                    });
+                }
+
+                document.addEventListener('keydown', (e) => {
+                    if (!this.isOpen) return;
+                    if (e.key === 'Escape') this.close(false);
+                    if (e.key === 'Tab') this.handleFocusTrap(e);
+                });
+
+                this.initTouchGestures();
             }
+
+            open(tierKey, triggerEl = null) {
+                if (this.isOpen || this.isAnimating) return;
+                const data = tierData[tierKey];
+                if (!data) return;
+
+                this.triggerElement = triggerEl || document.activeElement;
+                this.isAnimating = true;
+
+                if (this.titleEl) this.titleEl.innerText = data.title;
+                if (this.bodyEl) this.bodyEl.innerHTML = data.body;
+
+                // LOCK SCROLL WITHOUT LAYOUT SHIFT OR BODY WIDTH DISRUPTION
+                if (window.lenis) window.lenis.stop();
+                document.body.classList.add('modal-open');
+
+                if (this.content) this.content.scrollTop = 0;
+
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        this.overlay.classList.add('active');
+                        this.overlay.setAttribute('aria-hidden', 'false');
+                        this.isOpen = true;
+                        this.isAnimating = false;
+
+                        if (this.closeBtn) this.closeBtn.focus();
+                    });
+                });
+            }
+
+            close(fast = false, callback = null) {
+                if (!this.isOpen || this.isAnimating) return;
+                this.isAnimating = true;
+
+                if (fast) {
+                    this.overlay.classList.add('fast-dissolve');
+                }
+
+                this.overlay.classList.remove('active');
+
+                // IMMEDIATELY RESUME SCROLLING LIFECYCLE
+                if (window.lenis) window.lenis.start();
+                document.body.classList.remove('modal-open');
+
+                const handleTransitionEnd = (e) => {
+                    if (e && e.target !== this.overlay && e.target !== this.content) return;
+
+                    this.overlay.removeEventListener('transitionend', handleTransitionEnd);
+                    clearTimeout(fallbackTimeout);
+
+                    this.overlay.classList.remove('fast-dissolve');
+                    this.content.style.transform = '';
+                    this.overlay.setAttribute('aria-hidden', 'true');
+
+                    this.isOpen = false;
+                    this.isAnimating = false;
+
+                    if (this.triggerElement && typeof this.triggerElement.focus === 'function' && !fast) {
+                        this.triggerElement.focus();
+                    }
+
+                    if (typeof callback === 'function') callback();
+                };
+
+                this.overlay.addEventListener('transitionend', handleTransitionEnd);
+                const fallbackTimeout = setTimeout(() => handleTransitionEnd(), fast ? 220 : 400);
+            }
+
+            handleFocusTrap(e) {
+                const focusables = this.content.querySelectorAll(
+                    'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+                );
+                if (!focusables.length) return;
+
+                const first = focusables[0];
+                const last = focusables[focusables.length - 1];
+
+                if (e.shiftKey && document.activeElement === first) {
+                    e.preventDefault();
+                    last.focus();
+                } else if (!e.shiftKey && document.activeElement === last) {
+                    e.preventDefault();
+                    first.focus();
+                }
+            }
+
+            initTouchGestures() {
+                if (!this.handleEl) return;
+
+                let startY = 0;
+                let currentY = 0;
+                let isDragging = false;
+                let startTime = 0;
+
+                const onTouchStart = (e) => {
+                    if (window.innerWidth > 768) return;
+                    startY = e.touches[0].clientY;
+                    startTime = Date.now();
+                    isDragging = true;
+                    this.content.style.transition = 'none';
+                };
+
+                const onTouchMove = (e) => {
+                    if (!isDragging) return;
+                    currentY = e.touches[0].clientY;
+                    const deltaY = currentY - startY;
+
+                    if (deltaY > 0) {
+                        e.preventDefault();
+                        this.content.style.transform = `translateY(${deltaY}px)`;
+                    }
+                };
+
+                const onTouchEnd = () => {
+                    if (!isDragging) return;
+                    isDragging = false;
+                    const deltaY = currentY - startY;
+                    const deltaTime = Date.now() - startTime;
+                    const velocity = deltaY / (deltaTime || 1);
+
+                    this.content.style.transition = 'transform 0.35s cubic-bezier(0.16, 1, 0.3, 1)';
+                    if (deltaY > 100 || velocity > 0.4) {
+                        this.close(false);
+                    } else {
+                        this.content.style.transform = 'translateY(0)';
+                    }
+                    startY = 0;
+                    currentY = 0;
+                };
+
+                this.handleEl.addEventListener('touchstart', onTouchStart, { passive: false });
+                this.handleEl.addEventListener('touchmove', onTouchMove, { passive: false });
+                this.handleEl.addEventListener('touchend', onTouchEnd);
+            }
+        }
+
+        let mintModalSystem;
+        document.addEventListener('DOMContentLoaded', () => {
+            mintModalSystem = new MintModal({
+                overlayId: 'tierModal',
+                contentId: 'modalContent',
+                closeBtnId: 'modalCloseBtn',
+                handleId: 'modalHandle',
+                titleId: 'modalTitle',
+                bodyId: 'modalBody',
+                ctaId: 'modalPrimaryCta'
+            });
         });
+
+        function openModal(tierKey) {
+            if (mintModalSystem) {
+                mintModalSystem.open(tierKey, window.event ? window.event.currentTarget : null);
+            }
+        }
+
+        function closeModal(event) {
+            if (mintModalSystem) {
+                mintModalSystem.close(false);
+            }
+        }
+
+        const agencyForm = document.getElementById('agencyForm');
+        if (agencyForm) {
+            agencyForm.addEventListener('submit', async function(e) {
+                e.preventDefault(); 
+                
+                const form = e.target;
+                const btn = form.querySelector('button');
+                const msg = document.getElementById('form-message');
+                const err = document.getElementById('form-error');
+                
+                btn.innerText = 'sending...';
+                btn.style.opacity = '0.5';
+                btn.style.pointerEvents = 'none';
+
+                try {
+                    const response = await fetch(form.action, {
+                        method: form.method,
+                        body: new FormData(form),
+                        headers: { 'Accept': 'application/json' }
+                    });
+
+                    if (response.ok) {
+                        btn.style.display = 'none';
+                        if (err) err.style.display = 'none';
+                        msg.style.display = 'block';
+                        form.reset(); 
+                    } else {
+                        throw new Error('Network response was not ok.');
+                    }
+                } catch (error) {
+                    btn.innerText = 'submit inquiry';
+                    btn.style.opacity = '1';
+                    btn.style.pointerEvents = 'auto';
+                    if (err) err.style.display = 'block';
+                }
+            });
+        }
     </script>
 </body>
 </html>
