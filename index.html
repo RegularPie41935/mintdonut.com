@@ -82,6 +82,7 @@
             scrollbar-gutter: stable;
             -webkit-text-size-adjust: 100%;
             text-size-adjust: 100%;
+            scroll-behavior: smooth;
             overflow-x: hidden;
             width: 100%;
         }
@@ -1762,12 +1763,20 @@
                 const targetId = this.getAttribute('href');
                 if (targetId === '#') return;
                 const targetElement = document.querySelector(targetId);
-                if (targetElement && window.lenis) {
+                if (targetElement) {
                     e.preventDefault();
-                    window.lenis.scrollTo(targetElement, {
-                        offset: 0,
-                        duration: 1.2
-                    });
+                    if (window.lenis) {
+                        window.lenis.scrollTo(targetElement, {
+                            offset: 0,
+                            duration: 1.2
+                        });
+                    } else {
+                        /* Native Smooth Scroll Fallback for Mobile Touch Devices */
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
                 }
             });
         });
@@ -1783,7 +1792,7 @@
                     duration: 1.2
                 });
             } else if (retainersSection) {
-                retainersSection.scrollIntoView({ behavior: 'smooth' });
+                retainersSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
             
             if (ecosystemCard) {
@@ -2078,16 +2087,21 @@
                             e.preventDefault();
                             const target = document.querySelector(href);
                             
-                            if (window.lenis) {
-                                window.lenis.start();
-                                if (target) {
-                                    window.lenis.scrollTo(target, { offset: 0, duration: 1.0 });
-                                }
-                            } else if (target) {
-                                target.scrollIntoView({ behavior: 'smooth' });
-                            }
-
                             this.close(true);
+
+                            if (target) {
+                                if (window.lenis) {
+                                    window.lenis.start();
+                                    window.lenis.scrollTo(target, { offset: 0, duration: 1.0 });
+                                } else {
+                                    /* Mobile / Touch Fallback */
+                                    document.body.classList.remove('modal-open');
+                                    target.scrollIntoView({
+                                        behavior: 'smooth',
+                                        block: 'start'
+                                    });
+                                }
+                            }
                         }
                     });
                 }
