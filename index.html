@@ -127,7 +127,8 @@
             color: var(--gr-obsidian);
             -webkit-font-smoothing: antialiased;
             position: relative;
-            min-height: 100dvh;
+            min-height: 100vh;
+            min-height: 100svh;
             padding-top: max(0px, env(safe-area-inset-top));
             padding-bottom: max(0px, env(safe-area-inset-bottom));
             overflow-x: hidden;
@@ -214,8 +215,9 @@
         /* --- HERO CANVAS --- */
         .hero-container {
             width: 100%;
-            height: 100dvh;
-            min-height: 560px;
+            height: 100vh;
+            height: 100svh;
+            min-height: 520px;
             position: relative;
             overflow: hidden;
             background-color: var(--gr-obsidian);
@@ -289,6 +291,8 @@
             border-radius: 0;
             backface-visibility: hidden;
             -webkit-backface-visibility: hidden;
+            -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
         }
 
         .hero-slide.active {
@@ -306,10 +310,14 @@
             transform: translateY(20px);
             opacity: 0;
             transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1) 0.2s, opacity 0.8s ease 0.2s;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            will-change: transform, opacity;
         }
 
         .hero-slide.active .slide-content {
-            transform: translateY(0);
+            transform: translate3d(0, 0, 0);
+            -webkit-transform: translate3d(0, 0, 0);
             opacity: 1;
         }
 
@@ -361,6 +369,7 @@
         .carousel-controls {
             position: absolute;
             bottom: clamp(20px, 4vh, 35px);
+            bottom: max(20px, env(safe-area-inset-bottom));
             right: var(--safe-area-right);
             z-index: 50;
             display: flex;
@@ -980,7 +989,8 @@
             position: fixed;
             inset: 0;
             width: 100%;
-            height: 100dvh; 
+            height: 100vh; 
+            height: 100svh; 
             background: rgba(44, 30, 22, 0.52); 
             backdrop-filter: blur(0px);
             -webkit-backdrop-filter: blur(0px);
@@ -1251,7 +1261,7 @@
 
         /* --- PORTRAIT MOBILE BREAKPOINTS --- */
         @media (max-width: 768px) and (orientation: portrait) {
-            .hero-container { height: 100svh; min-height: 520px; }
+            .hero-container { height: 100vh; height: 100svh; min-height: 520px; }
 
             .hero-index { top: max(16px, env(safe-area-inset-top)); }
 
@@ -1330,7 +1340,7 @@
             .header-logo { top: max(12px, env(safe-area-inset-top)); width: auto; max-height: clamp(28px, 9vh, 42px); z-index: 500; }
             .header-logo img { width: auto; height: auto; max-height: clamp(28px, 9vh, 42px); object-fit: contain; }
 
-            .hero-container { height: 100dvh; min-height: 100vh; }
+            .hero-container { height: 100vh; height: 100svh; min-height: 100vh; }
             .hero-index { display: none; }
 
             .hero-slide {
