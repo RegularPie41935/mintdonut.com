@@ -82,6 +82,7 @@
             scrollbar-gutter: stable;
             -webkit-text-size-adjust: 100%;
             text-size-adjust: 100%;
+            scroll-behavior: smooth;
             overflow-x: hidden;
             width: 100%;
         }
@@ -597,6 +598,19 @@
                 transform: none !important;
                 box-shadow: none !important;
             }
+            .slide-content {
+                will-change: auto !important;
+                transition: none !important;
+            }
+            .hero-slide.active .slide-content {
+                opacity: 1 !important;
+                transform: none !important;
+                -webkit-transform: none !important;
+            }
+            .hero-slide.active {
+                opacity: 1 !important;
+                visibility: visible !important;
+            }
         }
 
         /* --- CONTENT SECTIONS --- */
@@ -1033,14 +1047,14 @@
             background: rgba(237, 229, 211, 0.97);
             backdrop-filter: blur(24px);
             -webkit-backdrop-filter: blur(24px);
-            padding: clamp(40px, 5vw, 60px) clamp(28px, 4vw, 48px);
+            padding: clamp(32px, 4vw, 50px) clamp(24px, 4vw, 44px);
             width: min(580px, 92vw); 
             max-width: 92vw;
             height: auto;
-            max-height: 85dvh;
-            overflow-y: auto; 
-            -webkit-overflow-scrolling: touch;
-            touch-action: pan-y;
+            max-height: 80dvh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
             position: relative;
             border: 1px solid var(--gr-obsidian);
             border-radius: 0;
@@ -1059,9 +1073,6 @@
             outline: none;
         }
 
-        .modal-content::-webkit-scrollbar { width: 4px; }
-        .modal-content::-webkit-scrollbar-thumb { background: var(--grid-line); }
-
         .modal-overlay.active .modal-content { 
             opacity: 1;
             filter: blur(0px);
@@ -1076,8 +1087,9 @@
             letter-spacing: var(--tracking-massive);
             color: var(--gr-mint);
             font-weight: 500;
-            margin-bottom: 18px;
+            margin-bottom: 14px;
             display: block;
+            flex-shrink: 0;
         }
 
         .modal-close {
@@ -1099,23 +1111,32 @@
             background: transparent;
             border: 1px solid transparent;
             border-radius: 0;
+            z-index: 10;
         }
 
         .modal-title {
-            font-size: clamp(26px, 3vw, 34px); 
+            font-size: clamp(24px, 3vw, 32px); 
             font-weight: 700;
-            margin-bottom: 24px;
+            margin-bottom: 18px;
             letter-spacing: -0.02em;
             color: var(--gr-obsidian);
             padding-right: 20px;
+            flex-shrink: 0;
         }
 
         .modal-body {
             font-size: 14px; 
             line-height: 1.65;
             color: var(--gr-obsidian);
-            margin-bottom: 25px;
+            margin-bottom: 16px;
+            flex: 1 1 auto;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding-right: 4px;
         }
+
+        .modal-body::-webkit-scrollbar { width: 4px; }
+        .modal-body::-webkit-scrollbar-thumb { background: var(--grid-line); }
 
         .modal-body p { 
             margin-bottom: 16px;
@@ -1126,7 +1147,7 @@
         .modal-body table {
             width: 100%;
             border-collapse: collapse;
-            margin: 20px 0;
+            margin: 16px 0;
             font-size: 13.5px;
         }
 
@@ -1134,14 +1155,14 @@
         .modal-body tr:last-child { border-bottom: none; }
 
         .modal-body td {
-            padding: 14px 0;
+            padding: 12px 0;
             vertical-align: top;
             line-height: 1.5;
         }
 
         .modal-body td:first-child {
-            width: 120px;
-            padding-right: 16px;
+            width: 110px;
+            padding-right: 14px;
             color: var(--gr-mint);
             font-weight: 500;
             letter-spacing: var(--tracking-standard);
@@ -1156,7 +1177,8 @@
         .modal-cta {
             width: 100%;
             display: flex;
-            margin-top: 10px;
+            margin-top: auto;
+            flex-shrink: 0;
             background: var(--gr-obsidian) !important;
             color: var(--gr-bone) !important;
             border: 1px solid var(--gr-obsidian) !important;
@@ -1170,15 +1192,18 @@
                 transition: opacity 0.3s ease !important;
             }
 
-            .modal-overlay { align-items: center; }
+            .modal-overlay { 
+                align-items: center; 
+                padding: 16px 0;
+            }
 
             .modal-content {
                 width: min(580px, 92vw);
                 max-width: 92vw;
                 height: auto;
-                max-height: 85dvh;
+                max-height: 78dvh;
                 border: 1px solid var(--gr-obsidian);
-                padding: 32px var(--site-gutter);
+                padding: 28px var(--site-gutter);
                 box-shadow: 0 30px 60px rgba(44, 30, 22, 0.35);
             }
         }
@@ -1717,24 +1742,32 @@
 
     <script src="https://unpkg.com/lenis@1.1.9/dist/lenis.min.js"></script>
     <script>
-        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 
-        const lenis = new Lenis({
-            duration: 1.2,
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-            smoothWheel: true,
-            smoothTouch: false,
-            syncTouch: false,
-            touchMultiplier: 1.0
-        });
+        let lenis = null;
+        if (!isTouchDevice) {
+            lenis = new Lenis({
+                duration: 1.2,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                smoothWheel: true
+            });
 
-        function raf(time) {
-            lenis.raf(time);
+            function raf(time) {
+                if (lenis) lenis.raf(time);
+                requestAnimationFrame(raf);
+            }
             requestAnimationFrame(raf);
+            window.lenis = lenis;
+        } else {
+            window.lenis = null;
         }
-        requestAnimationFrame(raf);
 
-        window.lenis = lenis;
+        if (isTouchDevice) {
+            const heroEl = document.querySelector('.hero-container');
+            if (heroEl) {
+                heroEl.style.height = window.innerHeight + 'px';
+            }
+        }
 
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -1743,10 +1776,18 @@
                 const targetElement = document.querySelector(targetId);
                 if (targetElement) {
                     e.preventDefault();
-                    lenis.scrollTo(targetElement, {
-                        offset: 0,
-                        duration: 1.2
-                    });
+                    if (window.lenis) {
+                        window.lenis.scrollTo(targetElement, {
+                            offset: 0,
+                            duration: 1.2
+                        });
+                    } else {
+                        /* Native Smooth Scroll Fallback for Mobile Touch Devices */
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
                 }
             });
         });
@@ -1761,6 +1802,8 @@
                     offset: 0,
                     duration: 1.2
                 });
+            } else if (retainersSection) {
+                retainersSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
             
             if (ecosystemCard) {
@@ -2053,30 +2096,38 @@
                         const href = this.primaryCta.getAttribute('href');
                         if (href && href.startsWith('#')) {
                             e.preventDefault();
+                            const target = document.querySelector(href);
                             
-                            if (window.lenis) {
-                                window.lenis.start();
-                                const target = document.querySelector(href);
-                                if (target) {
+                            this.close(true);
+
+                            if (target) {
+                                if (window.lenis) {
+                                    window.lenis.start();
                                     window.lenis.scrollTo(target, { offset: 0, duration: 1.0 });
+                                } else {
+                                    /* Mobile / Touch Fallback */
+                                    document.body.classList.remove('modal-open');
+                                    target.scrollIntoView({
+                                        behavior: 'smooth',
+                                        block: 'start'
+                                    });
                                 }
                             }
-
-                            this.close(true);
                         }
                     });
                 }
 
                 /* WKWebView Gesture Boundary Protection */
                 this.content.addEventListener('touchstart', () => {
-                    const top = this.content.scrollTop;
-                    const total = this.content.scrollHeight;
-                    const current = top + this.content.clientHeight;
+                    if (!this.bodyEl) return;
+                    const top = this.bodyEl.scrollTop;
+                    const total = this.bodyEl.scrollHeight;
+                    const current = top + this.bodyEl.clientHeight;
 
                     if (top <= 0) {
-                        this.content.scrollTop = 1;
+                        this.bodyEl.scrollTop = 1;
                     } else if (current >= total) {
-                        this.content.scrollTop = top - 1;
+                        this.bodyEl.scrollTop = top - 1;
                     }
                 }, { passive: true });
 
@@ -2101,7 +2152,7 @@
                 if (window.lenis) window.lenis.stop();
                 document.body.classList.add('modal-open');
 
-                if (this.content) this.content.scrollTop = 1;
+                if (this.bodyEl) this.bodyEl.scrollTop = 0;
 
                 requestAnimationFrame(() => {
                     requestAnimationFrame(() => {
