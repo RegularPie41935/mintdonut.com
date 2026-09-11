@@ -53,6 +53,10 @@
     <link rel="stylesheet" href="https://unpkg.com/lenis@1.1.9/dist/lenis.css">
 
     <style>
+        /* ==========================================================================
+           DESIGN TOKENS & BRAND SYSTEM
+           mintdonut — refined editorial / minimal architectural system
+           ========================================================================== */
         :root {
             --gr-obsidian: #2c1e16; 
             --gr-bone: #ede5d3; 
@@ -68,6 +72,10 @@
             --header-padding-v: clamp(16px, 3vh, 28px);
             --safe-area-left: max(var(--site-gutter), env(safe-area-inset-left));
             --safe-area-right: max(var(--site-gutter), env(safe-area-inset-right));
+
+            --ease-editorial: cubic-bezier(0.19, 1, 0.22, 1);
+            --ease-snap: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-apple: cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         html {
@@ -91,33 +99,36 @@
             box-sizing: border-box;
             text-transform: lowercase;
             font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        /* RESTORED INTERACTIVE POINTER CURSORS */
-        a, button, .cta-trigger, .pag-bar, .modal-close, .scope-link, .partner-item, .play-pause-btn, .footer-link {
+        a, button, .cta-trigger, .pag-bar, .modal-close, .scope-link, .partner-item, .play-pause-btn, .footer-link, .process-trigger {
             cursor: pointer;
         }
 
         input, textarea, select {
             font-family: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
             cursor: text;
+            border-radius: 0;
         }
 
         html, body {
             min-height: 100%;
             -webkit-text-size-adjust: 100%;
             text-size-adjust: 100%;
+            max-width: 100vw;
         }
 
         body {
             background-color: var(--gr-bone);
             color: var(--gr-obsidian);
-            overflow-x: clip;
             -webkit-font-smoothing: antialiased;
             position: relative;
             animation: frostedLoad 1.2s cubic-bezier(0.19, 1, 0.22, 1);
             min-height: 100dvh;
             padding-top: max(0px, env(safe-area-inset-top));
+            padding-bottom: max(0px, env(safe-area-inset-bottom));
         }
 
         @keyframes frostedLoad {
@@ -127,6 +138,23 @@
 
         body.modal-open {
             touch-action: none;
+        }
+
+        main {
+            position: relative;
+            max-width: 100vw;
+            overflow-x: hidden;
+        }
+
+        a:focus-visible, button:focus-visible,
+        .cta-trigger:focus-visible, .process-trigger:focus-visible, .pag-bar:focus-visible,
+        .footer-link:focus-visible, .modal-close:focus-visible {
+            outline: 2px solid var(--gr-mint);
+            outline-offset: 3px;
+        }
+
+        input:focus-visible, textarea:focus-visible {
+            outline: none;
         }
 
         @keyframes fadeUp {
@@ -142,6 +170,19 @@
         .delay-2 { animation-delay: 0.2s; }
         .delay-3 { animation-delay: 0.3s; }
 
+        .reveal {
+            opacity: 0;
+            transform: translateY(28px);
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.in-view { opacity: 1; transform: translateY(0); }
+        .reveal.d1 { transition-delay: 0.08s; }
+        .reveal.d2 { transition-delay: 0.16s; }
+        .reveal.d3 { transition-delay: 0.24s; }
+        .reveal.d4 { transition-delay: 0.32s; }
+
         /* --- HEADER LOGO --- */
         .header-logo {
             position: absolute;
@@ -153,6 +194,8 @@
             -webkit-user-select: none;
             user-select: none;
             -webkit-user-drag: none;
+            isolation: isolate;
+            transition: width 0.5s var(--ease-editorial), top 0.5s var(--ease-editorial);
         }
 
         .header-logo img {
@@ -161,7 +204,18 @@
             display: block;
         }
 
-        /* --- HERO CAROUSEL --- */
+        .header-logo.is-compact {
+            top: clamp(12px, 2vh, 18px);
+            width: clamp(96px, 10vw, 150px);
+        }
+
+        .editorial-body {
+            position: relative;
+            max-width: 100vw;
+            overflow-x: hidden;
+        }
+
+        /* --- HERO CANVAS --- */
         .hero-container {
             width: 100%;
             height: 100dvh;
@@ -170,6 +224,7 @@
             overflow: hidden;
             background-color: var(--gr-obsidian);
             border-bottom: 1px solid var(--grid-line);
+            border-radius: 0;
             -webkit-user-select: none;
             user-select: none;
         }
@@ -189,6 +244,7 @@
             object-fit: cover;
             object-position: center;
             display: block;
+            filter: saturate(0.92) contrast(1.04);
         }
 
         .hero-bg-overlay {
@@ -196,6 +252,25 @@
             inset: 0;
             background: linear-gradient(180deg, rgba(44, 30, 22, 0.35) 0%, rgba(44, 30, 22, 0.85) 75%, var(--gr-obsidian) 100%);
             z-index: 2;
+        }
+
+        .hero-index {
+            position: absolute;
+            top: clamp(20px, 4vh, 50px);
+            right: var(--safe-area-right);
+            z-index: 20;
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+            font-size: 11px;
+            letter-spacing: var(--tracking-standard);
+            color: rgba(237, 229, 211, 0.65);
+            font-weight: 500;
+        }
+
+        .hero-index #heroCounterCurrent {
+            font-size: 13px;
+            color: var(--gr-mint);
         }
 
         .hero-slider {
@@ -212,8 +287,12 @@
             visibility: hidden;
             transition: opacity 0.8s cubic-bezier(0.19, 1, 0.22, 1), visibility 0.8s ease;
             display: flex;
-            align-items: flex-end;
+            flex-direction: column;
+            justify-content: flex-end;
             padding: clamp(100px, 15vh, 140px) var(--safe-area-right) clamp(110px, 16vh, 140px) var(--safe-area-left);
+            border-radius: 0;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
         }
 
         .hero-slide.active {
@@ -248,17 +327,20 @@
             background: rgba(162, 196, 177, 0.15);
             padding: 6px 14px;
             border: 1px solid rgba(162, 196, 177, 0.3);
+            border-radius: 0;
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
         }
 
         .slide-title {
-            font-size: clamp(2.2rem, 5vw, 5.5rem);
+            font-size: clamp(2rem, 5vw, 5.5rem);
             font-weight: 700;
             line-height: 1.05;
             letter-spacing: -0.03em;
             margin-bottom: 20px;
             color: var(--gr-bone);
+            word-break: break-word;
+            overflow-wrap: break-word;
         }
 
         .slide-desc {
@@ -268,6 +350,8 @@
             color: rgba(237, 229, 211, 0.85);
             margin-bottom: 32px;
             max-width: 600px;
+            word-break: break-word;
+            overflow-wrap: break-word;
         }
 
         .slide-ctas {
@@ -289,6 +373,7 @@
             background: rgba(44, 30, 22, 0.65);
             padding: 12px 24px;
             border: 1px solid rgba(237, 229, 211, 0.18);
+            border-radius: 0;
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
         }
@@ -296,6 +381,7 @@
         .play-pause-btn {
             background: transparent;
             border: none;
+            border-radius: 0;
             color: var(--gr-bone);
             display: flex;
             align-items: center;
@@ -321,15 +407,14 @@
             height: 4px;
             background: rgba(237, 229, 211, 0.2);
             border: none;
+            border-radius: 0;
             width: 35px;
             position: relative;
             overflow: hidden;
             transition: all 0.3s ease;
         }
 
-        .pag-bar.active {
-            width: 70px;
-        }
+        .pag-bar.active { width: 70px; }
 
         .pag-progress {
             position: absolute;
@@ -338,6 +423,7 @@
             height: 100%;
             width: 0%;
             background: var(--gr-mint);
+            border-radius: 0;
         }
 
         .pag-bar.active .pag-progress {
@@ -353,12 +439,13 @@
             to { width: 100%; }
         }
 
-        /* --- BASE BUTTON STYLING --- */
+        /* --- BUTTONS & CLEAN CSS HOVER STATES --- */
         button {
             border: none;
             background: transparent;
             font-family: inherit;
             outline: none;
+            border-radius: 0;
         }
 
         .cta-trigger {
@@ -369,12 +456,12 @@
             padding: 12px 28px; 
             background: var(--gr-bone);
             border: 1px solid var(--gr-obsidian);
+            border-radius: 0;
             text-decoration: none;
             color: var(--gr-obsidian);
             font-size: 11px; 
             letter-spacing: var(--tracking-massive);
             font-weight: 500;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             text-align: center;
             -webkit-user-select: none;
             user-select: none;
@@ -382,6 +469,10 @@
             outline: none;
             box-sizing: border-box;
             max-width: 100%;
+            will-change: transform;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         .cta-trigger.secondary {
@@ -471,18 +562,11 @@
             }
 
             .partner-item:hover { opacity: 1; }
-            .feature-block:hover { background: #e8dfcc; }
-            .tier-card:hover { background: #e8dfcc; }
             .tier-card.featured:hover { filter: brightness(0.97); }
 
             .scope-link:hover {
                 color: var(--gr-obsidian);
                 border-bottom-color: var(--gr-obsidian);
-            }
-
-            .modal-close:hover {
-                opacity: 1;
-                color: var(--gr-mint);
             }
 
             .footer-link:hover {
@@ -495,11 +579,15 @@
         .content-section {
             position: relative;
             scroll-margin-top: 60px;
+            max-width: 100vw;
+            overflow-x: hidden;
         }
 
+        /* --- PARTNERS SECTION (STATIC GRID) --- */
         .partners-section {
             padding: 60px var(--safe-area-left); 
             border-bottom: 1px solid var(--grid-line);
+            border-radius: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -513,41 +601,45 @@
             margin-bottom: 40px;
             -webkit-user-select: none;
             user-select: none;
+            text-align: center;
         }
 
         .partners-grid {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
             align-items: center;
-            gap: 40px 80px; 
+            justify-content: center;
+            gap: clamp(30px, 6vw, 80px);
+            flex-wrap: wrap;
+            width: 100%;
             max-width: 1000px;
-            -webkit-user-select: none;
-            user-select: none;
         }
 
         .partner-item {
             opacity: 0.3;
-            transition: opacity 0.2s ease;
+            transition: opacity 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
+            border-radius: 0;
+            flex-shrink: 0;
         }
 
         .partner-item img {
             max-height: 50px; 
             min-height: 35px;
             width: auto;
+            max-width: 100%;
             filter: invert(12%) sepia(34%) saturate(1469%) hue-rotate(345deg) brightness(91%) contrast(88%); 
         }
 
-        /* STICKY GLASS HEADER */
+        /* STICKY GLASS HEADER (ISOLATED WEBKIT COMPOSITOR POSITIONING) */
         .section-header {
             font-size: 12px;
             letter-spacing: 0.25em;
             padding: var(--header-padding-v) var(--safe-area-left); 
             border-bottom: 1px solid var(--grid-line);
-            background: var(--glass-bg); 
+            border-radius: 0;
+            background: rgba(227, 216, 196, 0.92); 
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             display: flex;
@@ -558,53 +650,129 @@
             position: sticky;
             top: 0;
             z-index: 100;
+            -webkit-transform: translateZ(0);
             transform: translateZ(0);
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
+            -webkit-perspective: 1000;
+            perspective: 1000;
             -webkit-user-select: none;
             user-select: none;
         }
 
+        .section-header span:first-child {
+            font-size: 15px;
+            color: var(--gr-obsidian);
+            font-weight: 700;
+            letter-spacing: 0.08em;
+        }
+
         .section-header span:last-child {
-            color: var(--gr-mint); 
+            color: rgba(44, 30, 22, 0.65);
+            font-weight: 500;
+            letter-spacing: 0.12em;
         }
 
-        .feature-block {
-            padding: 80px var(--safe-area-left); 
+        /* --- 01 / PROCESS (GRID SLIDE & ISOLATED BLUR REVEAL) --- */
+        .process-index {
             border-bottom: 1px solid var(--grid-line);
-            display: grid;
-            grid-template-columns: 180px 1fr;
-            gap: 50px;
-            transition: background 0.2s ease;
         }
 
-        .feature-id {
+        .process-row {
+            border-bottom: 1px solid var(--grid-line);
+            position: relative;
+        }
+        .process-row:last-child { border-bottom: none; }
+
+        .process-trigger {
+            width: 100%;
+            display: grid;
+            grid-template-columns: 180px 1fr 24px;
+            align-items: center;
+            gap: 50px;
+            padding: 46px var(--safe-area-left);
+            text-align: left;
+            background: transparent;
+        }
+
+        .process-id {
             font-size: 11px;
             letter-spacing: var(--tracking-massive);
-            color: var(--gr-mint); 
+            color: var(--gr-mint);
             font-weight: 500;
-            padding-top: 8px;
-            transition: color 0.2s ease;
         }
 
-        .feature-title {
-            font-size: 32px;
+        .process-title {
+            font-size: clamp(22px, 3vw, 32px);
             letter-spacing: -0.02em;
-            margin-bottom: 20px;
-            display: block;
             font-weight: 400;
-            transition: color 0.2s ease;
+            color: var(--gr-obsidian);
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .process-icon {
+            position: relative;
+            width: 16px;
+            height: 16px;
+            justify-self: end;
+        }
+        .process-icon::before,
+        .process-icon::after {
+            content: "";
+            position: absolute;
+            background: var(--gr-obsidian);
+            transition: transform 0.4s var(--ease-editorial), opacity 0.4s var(--ease-editorial);
+        }
+        .process-icon::before { top: 50%; left: 0; width: 100%; height: 1px; transform: translateY(-50%); }
+        .process-icon::after { left: 50%; top: 0; height: 100%; width: 1px; transform: translateX(-50%); }
+        .process-row.is-open .process-icon::after { transform: translateX(-50%) rotate(90deg); opacity: 0; }
+
+        .process-panel {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .process-row.is-open .process-panel { 
+            grid-template-rows: 1fr;
+        }
+
+        .process-panel-inner { 
+            overflow: hidden; 
+            opacity: 0;
+            filter: blur(12px);
+            -webkit-filter: blur(12px);
+            transform: translateY(-8px) translateZ(0);
+            -webkit-transform: translateY(-8px) translateZ(0);
+            transition: opacity 0.5s ease 0.05s, filter 0.5s ease 0.05s, -webkit-filter 0.5s ease 0.05s, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), -webkit-transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+            will-change: opacity, filter, transform;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .process-row.is-open .process-panel-inner {
+            opacity: 1;
+            filter: blur(0px);
+            -webkit-filter: blur(0px);
+            transform: translateY(0) translateZ(0);
+            -webkit-transform: translateY(0) translateZ(0);
         }
 
         .feature-desc {
             font-size: 16px;
             line-height: 1.65;
             font-weight: 300;
-            max-width: 750px;
-            transition: color 0.2s ease;
+            max-width: 1200px;
             color: rgba(44, 30, 22, 0.75);
+            padding: 0 var(--safe-area-right) 46px calc(180px + var(--safe-area-left) + 50px);
+            word-break: break-word;
+            overflow-wrap: break-word;
+            -webkit-font-smoothing: antialiased;
         }
 
+        /* --- 02 / RETAINERS --- */
         .tier-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -619,16 +787,15 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            transition: all 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+            border-radius: 0;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), background 0.4s var(--ease-editorial), filter 0.4s var(--ease-editorial);
         }
 
         @media (min-width: 769px) {
-            .tier-card:first-child {
-                padding-left: var(--safe-area-left);
-            }
-            .tier-card:last-child {
-                padding-right: var(--safe-area-right);
-            }
+            .tier-card:first-child { padding-left: var(--safe-area-left); }
+            .tier-card:last-child { padding-right: var(--safe-area-right); }
         }
 
         .tier-card.featured {
@@ -641,18 +808,19 @@
         }
 
         .tier-label {
-            font-size: 11px;
+            font-size: 12px;
             letter-spacing: var(--tracking-massive);
             margin-bottom: 30px;
             display: block;
-            font-weight: 500;
+            font-weight: 700;
         }
 
         .price {
-            font-size: clamp(40px, 4vw, 56px);
+            font-size: clamp(36px, 4vw, 56px);
             font-weight: 400;
             margin-bottom: 40px;
             letter-spacing: -0.03em;
+            word-break: break-word;
         }
 
         .tier-features {
@@ -666,6 +834,7 @@
             display: flex;
             align-items: center;
             font-weight: 300;
+            word-break: break-word;
         }
 
         .tier-features li::before {
@@ -675,15 +844,48 @@
             background: var(--gr-obsidian);
             margin-right: 12px;
             flex-shrink: 0;
+            border-radius: 0;
         }
         
         .tier-card:not(.featured) .tier-features li::before {
             background: var(--gr-mint);
         }
 
+        .custom-scope-block {
+            padding: 40px var(--safe-area-left); 
+            background: var(--gr-bone);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--grid-line); 
+            border-radius: 0;
+            gap: 20px;
+        }
+
+        .scope-text {
+            font-size: 12px;
+            letter-spacing: 0.05em;
+            color: rgba(44, 30, 22, 0.6);
+            font-weight: 300;
+        }
+
+        .scope-link {
+            font-size: 11px;
+            letter-spacing: var(--tracking-massive);
+            color: var(--gr-mint);
+            text-decoration: none;
+            border-bottom: 1px solid var(--gr-mint);
+            padding-bottom: 4px;
+            transition: all 0.3s ease;
+            display: inline-block; 
+            white-space: nowrap;
+        }
+
+        /* --- 03 / INITIATE --- */
         .contact-section {
             padding: clamp(60px, 8vw, 100px) var(--safe-area-left); 
             border-bottom: 1px solid var(--grid-line);
+            border-radius: 0;
             scroll-margin-top: 60px;
         }
 
@@ -692,34 +894,53 @@
             display: flex;
             flex-direction: column;
             margin: 0 auto;
-            gap: 30px;
+            gap: 34px;
+            width: 100%;
         }
 
         .form-group {
+            position: relative;
             display: flex;
             flex-direction: column;
             gap: 10px;
+            width: 100%;
         }
 
         .form-label {
             font-size: 11px;
             letter-spacing: var(--tracking-standard);
             font-weight: 500;
+            color: var(--gr-obsidian);
+            transition: letter-spacing 0.3s ease, transform 0.3s var(--ease-snap);
+            transform-origin: left center;
+        }
+
+        .form-group:focus-within .form-label {
+            color: var(--gr-obsidian);
+            letter-spacing: 0.16em;
+            transform: translateY(-2px);
         }
 
         .form-input {
             padding: 16px; 
             background: var(--gr-bone);
             border: 1px solid var(--grid-line);
+            border-radius: 0;
             color: var(--gr-obsidian);
             font-family: inherit;
             font-size: 15px;
             outline: none;
-            transition: border-color 0.2s ease;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            width: 100%;
+            box-sizing: border-box;
+            -webkit-appearance: none;
+            appearance: none;
         }
 
         .form-input:focus {
-            border-color: var(--gr-mint);
+            outline: none;
+            border-color: var(--gr-obsidian);
+            border-bottom-color: var(--gr-obsidian);
         }
 
         .form-input::-webkit-input-placeholder { color: #bdaea1; }
@@ -740,146 +961,204 @@
             font-weight: 500;
         }
 
-        .custom-scope-block {
-            padding: 40px var(--safe-area-left); 
-            background: var(--gr-bone);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--grid-line); 
-        }
-
-        .scope-text {
-            font-size: 12px;
-            letter-spacing: 0.05em;
-            color: rgba(44, 30, 22, 0.6);
-            font-weight: 300;
-        }
-
-        .scope-link {
-            font-size: 11px;
-            letter-spacing: var(--tracking-massive);
-            color: var(--gr-mint);
-            text-decoration: none;
-            border-bottom: 1px solid var(--gr-mint);
-            padding-bottom: 4px;
-            transition: all 0.3s ease;
-            display: inline-block; 
-        }
-
-        /* --- MODAL OVERLAY --- */
+        /* ==========================================================================
+           APPLE-STYLE BLUR & DISSOLVE MODAL TRANSITION (NO SLIDING/ROLLING)
+           ========================================================================== */
         .modal-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
+            inset: 0;
             width: 100%;
             height: 100dvh; 
-            background: rgba(44, 30, 22, 0.45); 
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            background: rgba(44, 30, 22, 0.52); 
+            backdrop-filter: blur(0px);
+            -webkit-backdrop-filter: blur(0px);
             z-index: 2000;
-            display: none; 
+            display: flex; 
             justify-content: center;
             align-items: center;
             opacity: 0;
-            transition: opacity 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+            visibility: hidden;
+            pointer-events: none;
+            border-radius: 0;
+            
+            will-change: opacity, backdrop-filter, -webkit-backdrop-filter;
+            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                        backdrop-filter 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                        -webkit-backdrop-filter 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                        visibility 0.6s cubic-bezier(0.16, 1, 0.3, 1);
             overscroll-behavior: contain;
             isolation: isolate;
-            touch-action: pan-y;
         }
 
         .modal-overlay.active {
-            display: flex;
             opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .modal-overlay.fast-dissolve {
+            transition: opacity 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+                        backdrop-filter 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+                        -webkit-backdrop-filter 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+                        visibility 0.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .modal-content {
-            background: rgba(237, 229, 211, 0.96);
-            padding: clamp(24px, 4vw, 40px) clamp(20px, 4vw, 32px);
-            max-width: 620px; 
-            width: 90%;
-            max-height: 80dvh; 
+            background: rgba(237, 229, 211, 0.97);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            padding: clamp(40px, 5vw, 60px) clamp(28px, 4vw, 48px);
+            width: min(580px, 92vw); 
+            max-width: 92vw;
+            height: auto;
+            max-height: 85dvh;
             overflow-y: auto; 
             -webkit-overflow-scrolling: touch;
             touch-action: pan-y;
             position: relative;
             border: 1px solid var(--gr-obsidian);
-            transform: scale(0.98); 
-            transition: transform 0.3s cubic-bezier(0.19, 1, 0.22, 1); 
-            box-shadow: 0 30px 60px rgba(44, 30, 22, 0.3);
+            border-radius: 0;
+
+            opacity: 0;
+            filter: blur(12px);
+            -webkit-filter: blur(12px);
+            transform: scale(0.97);
+            will-change: opacity, filter, transform;
+
+            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                        filter 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                        -webkit-filter 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 30px 60px rgba(44, 30, 22, 0.25);
             overscroll-behavior-y: contain;
+            outline: none;
         }
 
         .modal-content::-webkit-scrollbar { width: 4px; }
         .modal-content::-webkit-scrollbar-thumb { background: var(--grid-line); }
 
-        .modal-overlay.active .modal-content { transform: scale(1); }
+        .modal-overlay.active .modal-content { 
+            opacity: 1;
+            filter: blur(0px);
+            -webkit-filter: blur(0px);
+            transform: scale(1);
+        }
+
+        .modal-sheet-handle-area { display: none; }
+
+        .modal-eyebrow {
+            font-size: 11px;
+            letter-spacing: var(--tracking-massive);
+            color: var(--gr-mint);
+            font-weight: 500;
+            margin-bottom: 18px;
+            display: block;
+        }
 
         .modal-close {
             position: absolute;
             top: 18px;
             right: 20px;
-            font-size: 26px;
+            font-size: 24px;
             font-weight: 300;
-            opacity: 0.6;
-            transition: all 0.3s ease;
+            line-height: 1;
+            opacity: 0.7;
+            transition: all 0.2s var(--ease-apple);
             text-decoration: none;
             color: var(--gr-obsidian);
-            width: 38px;
-            height: 38px;
+            width: 36px;
+            height: 36px;
             display: flex;
             align-items: center;
             justify-content: center;
             background: transparent;
-            border: none;
+            border: 1px solid transparent;
+            border-radius: 0;
+        }
+
+        .modal-close:hover {
+            opacity: 1;
+            background: var(--gr-obsidian);
+            color: var(--gr-bone);
+            border-color: var(--gr-obsidian);
         }
 
         .modal-title {
-            font-size: 24px; 
-            margin-bottom: 20px;
+            font-size: clamp(26px, 3vw, 34px); 
+            font-weight: 700;
+            margin-bottom: 24px;
             letter-spacing: -0.02em;
+            color: var(--gr-obsidian);
+            padding-right: 20px;
         }
 
         .modal-body {
             font-size: 14px; 
             line-height: 1.65;
-            opacity: 0.85;
+            color: var(--gr-obsidian);
             margin-bottom: 25px;
         }
 
-        .modal-body strong {
-            font-weight: 500;
-            color: var(--gr-obsidian);
+        .modal-body p { 
+            margin-bottom: 16px;
+            font-weight: 300;
+            color: rgba(44, 30, 22, 0.85);
         }
-
-        .modal-body p { margin-bottom: 12px; }
 
         .modal-body table {
             width: 100%;
             border-collapse: collapse;
-            margin: 25px 0;
+            margin: 20px 0;
+            font-size: 13.5px;
         }
 
         .modal-body tr { border-bottom: 1px solid var(--grid-line); }
         .modal-body tr:last-child { border-bottom: none; }
 
         .modal-body td {
-            padding: 16px 0;
+            padding: 14px 0;
             vertical-align: top;
+            line-height: 1.5;
         }
 
         .modal-body td:first-child {
-            width: 110px;
-            padding-right: 20px;
+            width: 120px;
+            padding-right: 16px;
             color: var(--gr-mint);
             font-weight: 500;
-            letter-spacing: 0.05em;
+            letter-spacing: var(--tracking-standard);
+            text-transform: lowercase;
         }
 
-        .modal-content .cta-trigger {
+        .modal-body td:last-child {
+            color: var(--gr-obsidian);
+            font-weight: 300;
+        }
+
+        .modal-cta {
             width: 100%;
             display: flex;
-            margin-top: 20px;
+            margin-top: 10px;
+            background: var(--gr-obsidian) !important;
+            color: var(--gr-bone) !important;
+            border: 1px solid var(--gr-obsidian) !important;
+            border-radius: 0;
+        }
+
+        @media (max-width: 768px) {
+            .modal-overlay { align-items: center; }
+
+            .modal-content {
+                width: min(580px, 92vw);
+                max-width: 92vw;
+                height: auto;
+                max-height: 85dvh;
+                border: 1px solid var(--gr-obsidian);
+                padding: 32px var(--site-gutter);
+                box-shadow: 0 30px 60px rgba(44, 30, 22, 0.35);
+            }
         }
 
         /* --- FOOTER --- */
@@ -891,8 +1170,12 @@
             gap: 60px;
             position: relative;
             z-index: 10;
+            border-radius: 0;
+            border: none;
             -webkit-user-select: none;
             user-select: none;
+            overflow: hidden;
+            max-width: 100vw;
         }
 
         .footer-grid {
@@ -900,12 +1183,16 @@
             grid-template-columns: repeat(3, 1fr);
             gap: 50px;
             max-width: 1000px;
+            border: none;
+            padding-top: 0;
         }
 
         .footer-col {
             display: flex;
             flex-direction: column;
             gap: 18px;
+            padding-left: 0;
+            border: none;
         }
 
         .footer-col h4 {
@@ -936,41 +1223,48 @@
             white-space: nowrap; 
             opacity: 0.3; 
             pointer-events: none;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
         }
 
         .footer-bottom {
             display: flex;
             justify-content: space-between;
-            border-top: 1px solid var(--grid-line);
-            padding-top: 30px;
+            border: none;
+            padding-top: 0;
             font-size: 11px;
             letter-spacing: var(--tracking-massive);
             color: rgba(44, 30, 22, 0.5);
         }
 
+        /* --- FOLDABLES & SMALL TABLETS (769px to 1024px) --- */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .hero-slide { padding-top: clamp(120px, 16vh, 160px); }
+            .slide-title { font-size: clamp(2.4rem, 5.5vw, 4rem); }
+            .tier-grid { grid-template-columns: repeat(3, 1fr); }
+            .tier-card { padding: 40px 24px; }
+            .price { font-size: clamp(32px, 3.5vw, 44px); }
+            .footer-grid { gap: 30px; }
+        }
+
         /* --- PORTRAIT MOBILE BREAKPOINTS --- */
         @media (max-width: 768px) and (orientation: portrait) {
-            .hero-container {
-                height: 100svh;
-                min-height: 520px;
-            }
+            .hero-container { height: 100svh; min-height: 520px; }
+
+            .hero-index { top: max(16px, env(safe-area-inset-top)); }
 
             .tier-card {
                 padding-left: var(--safe-area-left);
                 padding-right: var(--safe-area-right);
             }
 
-            .hero-slide {
-                padding: 100px var(--site-gutter) 115px var(--site-gutter);
-            }
+            .hero-slide { padding: 100px var(--site-gutter) 115px var(--site-gutter); }
+            .slide-content { max-width: 100%; }
 
-            .slide-title {
-                font-size: clamp(2rem, 7.5vw, 3rem) !important;
-                margin-bottom: 14px;
-            }
+            .slide-title { font-size: clamp(1.8rem, 7.5vw, 3rem) !important; margin-bottom: 14px; }
 
             .slide-desc {
-                font-size: 14px !important;
+                font-size: clamp(13px, 3.5vw, 15px) !important;
                 margin-bottom: 24px;
                 display: -webkit-box;
                 -webkit-line-clamp: 3;
@@ -979,15 +1273,20 @@
                 overflow: hidden;
             }
 
+            .slide-ctas {
+                gap: 12px;
+            }
+
             .slide-ctas .cta-trigger {
-                flex: 1 1 calc(50% - 8px);
-                min-width: 125px;
+                flex: 1 1 auto;
+                min-width: 130px;
                 padding: 12px 16px;
                 font-size: 10px;
+                white-space: nowrap;
             }
 
             .carousel-controls {
-                bottom: 20px;
+                bottom: max(20px, env(safe-area-inset-bottom));
                 left: var(--site-gutter);
                 right: var(--site-gutter);
                 justify-content: space-between;
@@ -997,83 +1296,54 @@
             .pag-bar { width: 25px; }
             .pag-bar.active { width: 45px; }
 
-            .section-header { 
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 4px;
-                font-size: 11px;
-            } 
+            .section-header { flex-direction: column; align-items: flex-start; gap: 4px; font-size: 11px; } 
 
-            .partners-grid { gap: 25px 45px; }
+            .partners-grid { gap: 24px; }
             .partner-item img { max-height: 38px; }
 
-            .feature-block { 
-                grid-template-columns: 1fr; 
-                gap: 16px; 
-                padding: 50px var(--site-gutter); 
-            }
-            .feature-id { padding-top: 0; }
-            .feature-title { font-size: 26px; margin-bottom: 10px; }
+            .process-trigger { grid-template-columns: 1fr 20px; gap: 12px; padding: 32px var(--site-gutter); }
+            .process-id { grid-column: 1; }
+            .process-title { grid-column: 1; font-size: 22px; }
+            .process-icon { grid-row: 1 / span 2; }
+            .feature-desc { max-width: 100%; padding: 0 var(--site-gutter) 32px var(--site-gutter); }
 
             .tier-grid { grid-template-columns: 1fr; }
 
-            .custom-scope-block { 
-                flex-direction: column; 
-                padding: 40px var(--site-gutter); 
-                gap: 18px; 
-                text-align: center; 
-            }
+            .custom-scope-block { flex-direction: column; padding: 40px var(--site-gutter); gap: 18px; text-align: center; }
 
-            .footer-grid { 
-                grid-template-columns: 1fr 1fr; 
-                gap: 35px 24px; 
-            }
+            .contact-section { padding: 40px var(--site-gutter); }
+            .contact-form { gap: 24px; }
+            .form-input { padding: 14px; font-size: 14px; }
+
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 35px 24px; }
             .footer-col:nth-child(1) { grid-column: 1; grid-row: 1; }
-            .footer-col:nth-child(2) { grid-column: 1; grid-row: 2; }
+            .footer-col:nth-child(2) { grid-column: 1; grid-row: 2; padding-left: 0; border: none; }
             .footer-col:nth-child(3) { grid-column: 2; grid-row: 1 / span 2; }
             .footer-massive-brand { font-size: 16vw; } 
             .footer-bottom { flex-direction: column; align-items: center; gap: 12px; text-align: center; }
-            
-            .modal-content { width: 92%; }
         }
 
-        /* --- ROCKSTAR-GRADE MOBILE LANDSCAPE OVERRIDES --- */
+        /* --- MOBILE LANDSCAPE OVERRIDES --- */
         @media screen and (orientation: landscape) and (max-height: 520px) {
-            .header-logo {
-                top: 12px;
-                width: clamp(110px, 14vw, 150px);
-            }
+            .header-logo { top: max(12px, env(safe-area-inset-top)); width: auto; max-height: clamp(28px, 9vh, 42px); z-index: 500; }
+            .header-logo img { width: auto; height: auto; max-height: clamp(28px, 9vh, 42px); object-fit: contain; }
 
-            .hero-container {
-                height: 100dvh;
-                min-height: 100vh;
-            }
+            .hero-container { height: 100dvh; min-height: 100vh; }
+            .hero-index { display: none; }
 
             .hero-slide {
-                padding-top: clamp(40px, 8vh, 55px);
-                padding-bottom: clamp(35px, 8vh, 50px);
+                padding-top: max(clamp(58px, 14vh, 76px), env(safe-area-inset-top));
+                padding-bottom: max(clamp(35px, 8vh, 50px), env(safe-area-inset-bottom));
                 padding-left: var(--safe-area-left);
                 padding-right: var(--safe-area-right);
                 align-items: center;
             }
 
-            .slide-content {
-                max-width: 85%;
-                margin-top: 0;
-            }
+            .slide-content { max-width: 80%; margin-top: 0; }
 
-            .slide-badge {
-                font-size: 9px;
-                padding: 3px 10px;
-                margin-bottom: 6px;
-                letter-spacing: 0.25em;
-            }
+            .slide-badge { font-size: 9px; padding: 3px 10px; margin-bottom: 6px; letter-spacing: 0.25em; }
 
-            .slide-title {
-                font-size: clamp(1.2rem, 5vh, 1.8rem) !important;
-                margin-bottom: 6px;
-                line-height: 1.1;
-            }
+            .slide-title { font-size: clamp(1.1rem, 4.5vh, 1.6rem) !important; margin-bottom: 6px; line-height: 1.1; }
 
             .slide-desc {
                 font-size: clamp(11px, 2.2vh, 13px) !important;
@@ -1087,102 +1357,56 @@
                 overflow: hidden;
             }
 
-            .slide-ctas {
-                gap: 10px;
-                flex-wrap: nowrap;
-            }
+            .slide-ctas { gap: 10px; flex-wrap: nowrap; }
+            .slide-ctas .cta-trigger { min-height: 36px; padding: 6px 16px; font-size: 9px; flex: none; white-space: nowrap; }
 
-            .slide-ctas .cta-trigger {
-                min-height: 36px;
-                padding: 6px 16px;
-                font-size: 9px;
-                flex: none;
-            }
-
-            .carousel-controls {
-                bottom: 10px;
-                right: var(--safe-area-right);
-                padding: 6px 14px;
-                gap: 12px;
-            }
+            .carousel-controls { bottom: max(10px, env(safe-area-inset-bottom)); right: var(--safe-area-right); padding: 6px 14px; gap: 12px; }
 
             .pag-bar { width: 18px; }
             .pag-bar.active { width: 32px; }
 
-            .section-header { 
-                padding: 10px var(--safe-area-left);
-                font-size: 10px;
-            }
+            .section-header { padding: 10px var(--safe-area-left); font-size: 10px; }
 
-            .feature-block { 
-                padding: 35px var(--safe-area-left); 
-                grid-template-columns: 140px 1fr;
-                gap: 24px;
-            }
-            .feature-title { font-size: 22px; margin-bottom: 8px; }
-            .feature-desc { font-size: 13px; line-height: 1.5; }
+            .process-trigger { padding: 26px var(--safe-area-left); grid-template-columns: 140px 1fr 20px; gap: 24px; }
+            .process-title { font-size: 20px; }
+            .feature-desc { font-size: 13px; line-height: 1.5; padding: 0 var(--safe-area-right) 26px calc(140px + var(--safe-area-left) + 24px); }
 
-            .tier-grid {
-                grid-template-columns: 1fr !important;
-                background: transparent;
-            }
-            .tier-card { 
-                padding: 40px var(--safe-area-right) 40px var(--safe-area-left); 
-                border-bottom: 1px solid var(--grid-line);
-            }
-            .tier-card .cta-trigger {
-                width: fit-content;
-                min-width: 180px;
-            }
-            .price { font-size: clamp(36px, 8vh, 48px); margin-bottom: 24px; }
+            .tier-grid { grid-template-columns: 1fr !important; background: transparent; }
+            .tier-card { padding: 40px var(--safe-area-right) 40px var(--safe-area-left); border-bottom: 1px solid var(--grid-line); }
+            .tier-card .cta-trigger { width: fit-content; min-width: 180px; }
+            .price { font-size: clamp(32px, 8vh, 44px); margin-bottom: 24px; }
             .tier-features { margin-bottom: 30px; }
             .tier-features li { font-size: 14px; margin-bottom: 10px; }
 
             .contact-section { padding: 30px var(--safe-area-left); }
-            .contact-section p {
-                font-size: 10px !important;
-                margin-bottom: 24px !important;
-                line-height: 1.4 !important;
-            }
-            .contact-form {
-                gap: 18px;
-                max-width: 500px;
-            }
+            .contact-section p { font-size: 10px !important; margin-bottom: 24px !important; line-height: 1.4 !important; }
+            .contact-form { gap: 18px; max-width: 500px; }
             .form-group { gap: 6px; }
             .form-label { font-size: 10px; }
-            .form-input { padding: 10px 12px; font-size: 13px; }
+            .form-input { padding: 12px 14px; font-size: 13px; }
             textarea.form-input { min-height: 80px; }
 
-            .modal-content { 
-                max-height: 88dvh; 
-                padding: 24px var(--safe-area-left); 
-            }
-            .modal-title { font-size: 20px; margin-bottom: 12px; }
-            .modal-body { font-size: 13px; margin-bottom: 16px; }
-            .modal-body td { padding: 8px 0; }
-
-            .site-footer { 
-                padding: 35px var(--safe-area-left) 25px var(--safe-area-right);
-                gap: 28px; 
-            }
-            .footer-grid {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 20px;
-            }
-            .footer-col { gap: 10px; }
+            .site-footer { padding: 35px var(--safe-area-left) max(25px, env(safe-area-inset-bottom)) var(--safe-area-right); gap: 28px; }
+            .footer-grid { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+            .footer-col { gap: 10px; padding-left: 0; }
             .footer-col h4 { font-size: 10px; margin-bottom: 4px; }
             .footer-link { font-size: 12px; }
             .footer-massive-brand { font-size: clamp(2rem, 8vw, 4.5rem); opacity: 0.25; }
-            .footer-bottom { 
-                flex-direction: row; 
-                flex-wrap: wrap;
-                justify-content: space-between; 
-                align-items: center;
-                gap: 12px;
-                padding-top: 18px; 
-                font-size: 10px; 
-                letter-spacing: var(--tracking-massive);
+            .footer-bottom {
+                flex-direction: row; flex-wrap: wrap; justify-content: space-between; align-items: center;
+                gap: 12px; padding-top: 0; font-size: 10px; letter-spacing: var(--tracking-massive);
             }
+        }
+
+        /* --- MOTION SAFETY --- */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+            .reveal { opacity: 1; transform: none; }
         }
     </style>
 
@@ -1212,6 +1436,10 @@
             <div class="hero-static-bg">
                 <img src="hero-image.webp" alt="mintdonut visual agency background" class="hero-bg-img" width="1920" height="1080" fetchpriority="high">
                 <div class="hero-bg-overlay"></div>
+            </div>
+
+            <div class="hero-index" aria-hidden="true">
+                <span id="heroCounterCurrent">01</span><span>/</span><span>03</span>
             </div>
 
             <div class="hero-slider">
@@ -1268,174 +1496,197 @@
             </div>
         </div>
 
-        <div class="partners-section animate-up delay-1">
-            <div class="partners-label">businesses we've glazed</div>
-            <div class="partners-grid">
-                <div class="partner-item"><img src="thetreatkyalami-logo.webp" alt="The Treat Kyalami" width="160" height="50" loading="lazy"></div>
-                <div class="partner-item"><img src="arcadiadesignz-logo.webp" alt="Arcadia Designz" width="160" height="50" loading="lazy"></div>
-                <div class="partner-item"><img src="kglushious-logo.webp" alt="KG Lushious" width="160" height="50" loading="lazy"></div>
-            </div>
-        </div>
-
-        <div class="content-section" id="process-section">
-            <div id="architecture" class="section-header">
-                <span>01 / the process</span>
-                <span>[ how we glaze your brand ]</span>
-            </div>
-            
-            <div class="feature-block animate-up delay-3">
-                <div class="feature-id">001 / capture</div>
-                <div class="feature-text">
-                    <span class="feature-title">on-site production</span>
-                    <p class="feature-desc">we step into your business to capture clean, scroll-stopping footage. we handle the visual framing to ensure a professional, modern aesthetic that represents your brand authentically and gives it the glaze it deserves.</p>
+        <div class="editorial-body">
+            <div class="partners-section animate-up delay-1">
+                <div class="partners-label">businesses we've glazed</div>
+                <div class="partners-grid">
+                    <div class="partner-item"><img src="thetreatkyalami-logo.webp" alt="The Treat Kyalami" width="160" height="50" loading="lazy"></div>
+                    <div class="partner-item"><img src="arcadiadesignz-logo.webp" alt="Arcadia Designz" width="160" height="50" loading="lazy"></div>
+                    <div class="partner-item"><img src="kglushious-logo.webp" alt="KG Lushious" width="160" height="50" loading="lazy"></div>
                 </div>
             </div>
 
-            <div class="feature-block animate-up delay-3">
-                <div class="feature-id">002 / construct</div>
-                <div class="feature-text">
-                    <span class="feature-title">dynamic editing</span>
-                    <p class="feature-desc">we transform raw footage into engaging 15-90-second video assets and production-ready photos. by utilising modern audience retention tactics, crystal-clear audio, and crisp editing, we ensure your business shines in your local market.</p>
+            <div class="content-section" id="process-section">
+                <div id="architecture" class="section-header reveal">
+                    <span>01 / the process</span>
+                    <span>[ how we glaze your brand ]</span>
+                </div>
+
+                <div class="process-index">
+                    <div class="process-row reveal">
+                        <button class="process-trigger" id="proc-1-trigger" aria-expanded="false" aria-controls="proc-1-panel" onclick="toggleProcess(this)">
+                            <span class="process-id">001 / capture</span>
+                            <span class="process-title">on-site production</span>
+                            <span class="process-icon" aria-hidden="true"></span>
+                        </button>
+                        <div class="process-panel" id="proc-1-panel" role="region" aria-labelledby="proc-1-trigger">
+                            <div class="process-panel-inner">
+                                <p class="feature-desc">we step directly into your local business environment equipped with high-end shooting and stabilising gear. our team works quietly and efficiently around your daily operations to capture dynamic, authentic footage of your team, products, and customer interactions. by focusing on natural lighting, organic moments, and scroll-stopping visual composition, we build a comprehensive, high-resolution media asset library tailored specifically to capture the real essence of your business and command attention in crowded feeds.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="process-row reveal d1">
+                        <button class="process-trigger" id="proc-2-trigger" aria-expanded="false" aria-controls="proc-2-panel" onclick="toggleProcess(this)">
+                            <span class="process-id">002 / construct</span>
+                            <span class="process-title">dynamic editing</span>
+                            <span class="process-icon" aria-hidden="true"></span>
+                        </button>
+                        <div class="process-panel" id="proc-2-panel" role="region" aria-labelledby="proc-2-trigger">
+                            <div class="process-panel-inner">
+                                <p class="feature-desc">raw footage is meticulously crafted into high-retention 15-to-90-second video assets and production-ready social photography. we implement psychological hook framing, custom colour grading matched to your brand identity, seamless pacing transitions, and sound design with crystal-clear audio cleanup. every frame is engineered using modern retention architecture—including subtle kinetic typography and contextual captions—to keep local viewers watching past the critical three-second mark and converting passive scrollers into paying customers.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="process-row reveal d2">
+                        <button class="process-trigger" id="proc-3-trigger" aria-expanded="false" aria-controls="proc-3-panel" onclick="toggleProcess(this)">
+                            <span class="process-id">003 / deploy</span>
+                            <span class="process-title">consistent posting</span>
+                            <span class="process-icon" aria-hidden="true"></span>
+                        </button>
+                        <div class="process-panel" id="proc-3-panel" role="region" aria-labelledby="proc-3-trigger">
+                            <div class="process-panel-inner">
+                                <p class="feature-desc">we take the complete operational burden of social media management entirely off your hands. from writing compelling, conversion-focused captions to conducting hyper-local hashtag and keyword research for search engine optimisation, we curate and schedule your digital presence across all primary platforms. we ensure a continuous, perfectly timed publishing schedule that builds long-term algorithmic momentum, strengthens local brand awareness, and keeps your digital storefront active, professional, and flawlessly frosted.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="feature-block animate-up delay-3">
-                <div class="feature-id">003 / deploy</div>
-                <div class="feature-text">
-                    <span class="feature-title">consistent posting</span>
-                    <p class="feature-desc">we take the burden of social media off your shoulders. from writing captions to researching the sweetest hashtags and scheduling posts, we keep your digital footprint active, growing, and perfectly frosted.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="content-section" id="retainers-section">
-            <div id="investment" class="section-header">
-                <span>02 / retainers</span>
-                <span>[ select your flavour ]</span>
-            </div>
-
-            <div class="tier-grid">
-                <div class="tier-card">
-                    <div>
-                        <span class="tier-label">01 / presence</span>
-                        <div class="price"><span style="text-transform: uppercase;">R</span>4,500<span style="font-size: 16px; color: var(--gr-mint);"> / mo</span></div>
-                        <ul class="tier-features">
-                            <li>1x monthly shoot day</li>
-                            <li>15 ig posts & 15 ig stories / mo</li>
-                            <li>2 tiktoks/reels / week</li>
-                            <li>platforms: instagram & tiktok</li>
-                        </ul>
-                    </div>
-                    <button class="cta-trigger secondary" onclick="openModal('presence')">learn more</button>
+            <div class="content-section" id="retainers-section">
+                <div id="investment" class="section-header reveal">
+                    <span>02 / retainers</span>
+                    <span>[ select your flavour ]</span>
                 </div>
 
-                <div class="tier-card featured">
-                    <div>
-                        <span class="tier-label" style="color: var(--gr-obsidian);">02 / momentum (recommended)</span>
-                        <div class="price"><span style="text-transform: uppercase;">R</span>8,500<span style="font-size: 16px; color: var(--gr-obsidian);"> / mo</span></div>
-                        <ul class="tier-features">
-                            <li>2x monthly shoot days</li>
-                            <li>30 posts & 30 stories / mo</li>
-                            <li>4 tiktoks/reels / week</li>
-                            <li>platforms: instagram, tiktok & facebook</li>
-                            <li>community management & paid ads</li>
-                        </ul>
+                <div class="tier-grid">
+                    <div class="tier-card reveal">
+                        <div>
+                            <span class="tier-label">01 / presence</span>
+                            <div class="price"><span style="text-transform: uppercase;">R</span>4,500<span style="font-size: 16px; color: var(--gr-mint);"> / mo</span></div>
+                            <ul class="tier-features">
+                                <li>1x monthly shoot day</li>
+                                <li>15 ig posts & 15 ig stories / mo</li>
+                                <li>2 tiktoks/reels / week</li>
+                                <li>platforms: instagram & tiktok</li>
+                            </ul>
+                        </div>
+                        <button class="cta-trigger secondary" onclick="openModal('presence')">learn more</button>
                     </div>
-                    <button class="cta-trigger featured-btn" onclick="openModal('momentum')">learn more</button>
+
+                    <div class="tier-card featured reveal d1">
+                        <div>
+                            <span class="tier-label" style="color: var(--gr-obsidian);">02 / momentum (recommended)</span>
+                            <div class="price"><span style="text-transform: uppercase;">R</span>8,500<span style="font-size: 16px; color: var(--gr-obsidian);"> / mo</span></div>
+                            <ul class="tier-features">
+                                <li>2x monthly shoot days</li>
+                                <li>30 posts & 30 stories / mo</li>
+                                <li>4 tiktoks/reels / week</li>
+                                <li>platforms: instagram, tiktok & facebook</li>
+                                <li>community management & paid ads</li>
+                            </ul>
+                        </div>
+                        <button class="cta-trigger featured-btn" onclick="openModal('momentum')">learn more</button>
+                    </div>
+
+                    <div class="tier-card reveal d2" id="tier-ecosystem">
+                        <div>
+                            <span class="tier-label">03 / ecosystem</span>
+                            <div class="price"><span style="text-transform: uppercase;">R</span>15,000<span style="font-size: 16px; color: var(--gr-mint);"> / mo</span></div>
+                            <ul class="tier-features">
+                                <li>everything in momentum tier</li>
+                                <li>platforms: instagram, tiktok & facebook</li>
+                                <li>custom website design</li>
+                                <li>ongoing web maintenance</li>
+                                <li>brand identity updates</li>
+                            </ul>
+                        </div>
+                        <button class="cta-trigger secondary" onclick="openModal('ecosystem')">learn more</button>
+                    </div>
+                </div>
+                
+                <div class="custom-scope-block reveal">
+                    <span class="scope-text">* craving something unique? custom scopes and exclusive packages available upon request.</span>
+                    <a href="#inquiry-section" class="scope-link">submit an inquiry</a>
+                </div>
+            </div> 
+
+            <div class="content-section" id="inquiry-section">
+                <div id="contact" class="section-header reveal">
+                    <span>03 / initiate</span>
+                    <span>[ project inquiry ]</span>
                 </div>
 
-                <div class="tier-card" id="tier-ecosystem">
-                    <div>
-                        <span class="tier-label">03 / ecosystem</span>
-                        <div class="price"><span style="text-transform: uppercase;">R</span>15,000<span style="font-size: 16px; color: var(--gr-mint);"> / mo</span></div>
-                        <ul class="tier-features">
-                            <li>everything in momentum tier</li>
-                            <li>platforms: instagram, tiktok & facebook</li>
-                            <li>custom website design</li>
-                            <li>ongoing web maintenance</li>
-                            <li>brand identity updates</li>
-                        </ul>
-                    </div>
-                    <button class="cta-trigger secondary" onclick="openModal('ecosystem')">learn more</button>
+                <div class="contact-section">
+                    <p class="reveal" style="font-size: 11px; letter-spacing: 0.1em; color: var(--gr-mint); text-align: center; margin-bottom: 40px; text-transform: lowercase;">* please note: standard on-site production is based within a 15km radius of sandton, gauteng. travel fees will apply for locations outside this area.</p>
+                    <form class="contact-form reveal" id="agencyForm" action="https://formspree.io/f/xzdqbnkv" method="POST">
+                        <div class="form-group">
+                            <label class="form-label" for="name">your name</label>
+                            <input class="form-input" type="text" id="name" name="name" required placeholder="john doe">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="business">business name</label>
+                            <input class="form-input" type="text" id="business" name="business" required placeholder="e.g. john doe car dealership">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="email">email address</label>
+                            <input class="form-input" type="email" id="email" name="email" required placeholder="john@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="location">business location</label>
+                            <input class="form-input" type="text" id="location" name="location" required placeholder="e.g. sandton, gauteng">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="message">project details</label>
+                            <textarea class="form-input" id="message" name="message" required placeholder="please share details about your current digital presence, business goals, and any specific inquiries..."></textarea>
+                        </div>
+                        <button type="submit" class="cta-trigger" style="background: var(--gr-obsidian); color: var(--gr-bone);">submit inquiry</button>
+                        <div id="form-message">inquiry received. we will be in touch before the glaze sets.</div>
+                        <div id="form-error" style="display:none; color: red; font-size: 12px; margin-top: 15px; text-align: center;">oops, we dropped the donut. there was an error sending your inquiry. please try again.</div>
+                    </form>
                 </div>
-            </div>
-            
-            <div class="custom-scope-block">
-                <span class="scope-text">* craving something unique? custom scopes and exclusive packages available upon request.</span>
-                <a href="#inquiry-section" class="scope-link">submit an inquiry</a>
-            </div>
-        </div> 
-
-        <div class="content-section" id="inquiry-section">
-            <div id="contact" class="section-header">
-                <span>03 / initiate</span>
-                <span>[ project inquiry ]</span>
-            </div>
-
-            <div class="contact-section">
-                <p style="font-size: 11px; letter-spacing: 0.1em; color: var(--gr-mint); text-align: center; margin-bottom: 40px; text-transform: lowercase;">* please note: standard on-site production is based within a 15km radius of sandton, gauteng. travel fees will apply for locations outside this area.</p>
-                <form class="contact-form" id="agencyForm" action="https://formspree.io/f/xzdqbnkv" method="POST">
-                    <div class="form-group">
-                        <label class="form-label" for="name">your name</label>
-                        <input class="form-input" type="text" id="name" name="name" required placeholder="john doe">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="business">business name</label>
-                        <input class="form-input" type="text" id="business" name="business" required placeholder="e.g. john doe car dealership">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="email">email address</label>
-                        <input class="form-input" type="email" id="email" name="email" required placeholder="john@example.com">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="location">business location</label>
-                        <input class="form-input" type="text" id="location" name="location" required placeholder="e.g. sandton, gauteng">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="message">project details</label>
-                        <textarea class="form-input" id="message" name="message" required placeholder="please share details about your current digital presence, business goals, and any specific inquiries..."></textarea>
-                    </div>
-                    <button type="submit" class="cta-trigger" style="background: var(--gr-obsidian); color: var(--gr-bone);">submit inquiry</button>
-                    <div id="form-message">inquiry received. we will be in touch before the glaze sets.</div>
-                    <div id="form-error" style="display:none; color: red; font-size: 12px; margin-top: 15px; text-align: center;">oops, we dropped the donut. there was an error sending your inquiry. please try again.</div>
-                </form>
             </div>
         </div>
     </main>
 
-    <!-- ACCESSIBLE MODAL DIALOG -->
-    <div class="modal-overlay" id="tierModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalBody" onclick="closeModal(event)">
-        <div class="modal-content" id="modalContent" data-lenis-prevent onclick="event.stopPropagation()">
-            <button class="modal-close" aria-label="Close modal" onclick="closeModal(event, true)">×</button>
+    <!-- ACCESSIBLE MODAL DIALOG (APPLE-STYLE BLUR & DISSOLVE) -->
+    <div class="modal-overlay" id="tierModal" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="modalTitle">
+        <div class="modal-content" id="modalContent" tabindex="-1" data-lenis-prevent>
+            <div class="modal-sheet-handle-area" id="modalHandle" aria-hidden="true">
+                <div class="modal-sheet-handle"></div>
+            </div>
+            <button class="modal-close" id="modalCloseBtn" aria-label="Close modal">×</button>
+            <span class="modal-eyebrow">retainer breakdown</span>
             <h3 class="modal-title" id="modalTitle">tier title</h3>
             <div class="modal-body" id="modalBody"></div>
-            <a href="#inquiry-section" class="cta-trigger" style="background: var(--gr-obsidian); color: var(--gr-bone);" onclick="closeModal(event, true)">secure retainer</a>
+            <a href="#inquiry-section" class="cta-trigger modal-cta" id="modalPrimaryCta">secure retainer</a>
         </div>
     </div>
 
     <footer class="site-footer">
         <div class="footer-grid">
-            <div class="footer-col">
+            <div class="footer-col reveal">
                 <h4>explore</h4>
                 <a href="#process-section" class="footer-link">process</a>
                 <a href="#retainers-section" class="footer-link">retainers</a>
                 <a href="#inquiry-section" class="footer-link">initiate</a>
             </div>
-            <div class="footer-col">
+            <div class="footer-col reveal d1">
                 <h4>socials</h4>
                 <a href="https://www.instagram.com/hellomintdonut/?utm_source=ig_web_button_share_sheet" class="footer-link">instagram</a>
                 <a href="https://www.tiktok.com/@hellomintdonut?_r=1&_t=ZS-96pKU1hGBHw" class="footer-link">tiktok</a>
                 <a href="https://www.linkedin.com/company/mintdonut/" class="footer-link">linkedin</a>
                 <a href="https://www.facebook.com/hellomintdonut" class="footer-link">facebook</a>
             </div>
-            <div class="footer-col">
+            <div class="footer-col reveal d2">
                 <h4>legal</h4>
                 <a href="terms.html" class="footer-link">terms & conditions</a>
                 <a href="terms.html" class="footer-link">privacy policy</a>
             </div>
         </div>
 
-        <div class="footer-massive-brand">mintdonut</div>
+        <div class="footer-massive-brand" id="footerBrand">mintdonut</div>
 
         <div class="footer-bottom">
             <span>info@mintdonut.com</span>
@@ -1449,6 +1700,7 @@
             duration: 1.2,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
             smoothWheel: true,
+            smoothTouch: false,
             touchMultiplier: 1.5
         });
 
@@ -1497,6 +1749,9 @@
             }
         }
 
+        /* --- HERO CAROUSEL --- */
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
         let currentSlide = 0;
         let isPlaying = true;
         let slideTimer;
@@ -1505,6 +1760,7 @@
         const playPauseBtn = document.getElementById('playPauseBtn');
         const playIcon = document.getElementById('playIcon');
         const pauseIcon = document.getElementById('pauseIcon');
+        const heroCounterCurrent = document.getElementById('heroCounterCurrent');
 
         function goToSlide(index) {
             slides[currentSlide].classList.remove('active');
@@ -1516,6 +1772,10 @@
             pagBars[currentSlide].classList.add('active');
             if (!isPlaying) {
                 pagBars[currentSlide].classList.add('paused');
+            }
+
+            if (heroCounterCurrent) {
+                heroCounterCurrent.textContent = String(currentSlide + 1).padStart(2, '0');
             }
 
             resetTimer();
@@ -1533,23 +1793,99 @@
             }
         }
 
-        playPauseBtn.addEventListener('click', () => {
-            isPlaying = !isPlaying;
-            if (isPlaying) {
-                pauseIcon.style.display = 'block';
-                playIcon.style.display = 'none';
-                pagBars[currentSlide].classList.remove('paused');
-                resetTimer();
-            } else {
-                pauseIcon.style.display = 'none';
-                playIcon.style.display = 'block';
-                pagBars[currentSlide].classList.add('paused');
-                clearInterval(slideTimer);
-            }
-        });
+        if (playPauseBtn) {
+            playPauseBtn.addEventListener('click', () => {
+                isPlaying = !isPlaying;
+                if (isPlaying) {
+                    pauseIcon.style.display = 'block';
+                    playIcon.style.display = 'none';
+                    pagBars[currentSlide].classList.remove('paused');
+                    resetTimer();
+                } else {
+                    pauseIcon.style.display = 'none';
+                    playIcon.style.display = 'block';
+                    pagBars[currentSlide].classList.add('paused');
+                    clearInterval(slideTimer);
+                }
+            });
+        }
 
         resetTimer();
 
+        /* --- 01 / PROCESS ACCORDION --- */
+        function toggleProcess(btn) {
+            const panelId = btn.getAttribute('aria-controls');
+            const panel = document.getElementById(panelId);
+            const row = btn.closest('.process-row');
+            const isOpen = btn.getAttribute('aria-expanded') === 'true';
+
+            document.querySelectorAll('.process-trigger').forEach((otherBtn) => {
+                if (otherBtn !== btn) {
+                    otherBtn.setAttribute('aria-expanded', 'false');
+                    const otherRow = otherBtn.closest('.process-row');
+                    if (otherRow) otherRow.classList.remove('is-open');
+                }
+            });
+
+            btn.setAttribute('aria-expanded', String(!isOpen));
+            if (row) row.classList.toggle('is-open', !isOpen);
+        }
+
+        /* --- KINETIC SCROLL REVEAL --- */
+        function initReveal() {
+            const items = document.querySelectorAll('.reveal');
+            if (reduceMotion || !('IntersectionObserver' in window)) {
+                items.forEach(el => el.classList.add('in-view'));
+                return;
+            }
+            const io = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('in-view');
+                        io.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+            items.forEach(el => io.observe(el));
+        }
+        initReveal();
+
+        /* --- COMPACT HEADER LOGO --- */
+        function initHeaderShrink() {
+            const logo = document.querySelector('.header-logo');
+            const hero = document.querySelector('.hero-container');
+            if (!logo || !hero || !('IntersectionObserver' in window)) return;
+            const io = new IntersectionObserver(([entry]) => {
+                const scrolledPast = !entry.isIntersecting && entry.boundingClientRect.top < 0;
+                logo.classList.toggle('is-compact', scrolledPast);
+            }, { threshold: 0 });
+            io.observe(hero);
+        }
+        initHeaderShrink();
+
+        /* --- FOOTER PARALLAX --- */
+        function initFooterParallax() {
+            const el = document.getElementById('footerBrand');
+            if (!el || reduceMotion) return;
+            let ticking = false;
+            function update() {
+                const r = el.getBoundingClientRect();
+                const vh = window.innerHeight || document.documentElement.clientHeight;
+                const progress = Math.min(1, Math.max(0, (vh - r.top) / (vh + r.height)));
+                el.style.transform = `translateY(${(1 - progress) * 36}px)`;
+                ticking = false;
+            }
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    requestAnimationFrame(update);
+                    ticking = true;
+                }
+            }, { passive: true });
+            update();
+        }
+        initFooterParallax();
+
+        /* --- TIER DATA STRUCTURE --- */
         const tierData = {
             presence: {
                 title: "01 / presence",
@@ -1657,111 +1993,207 @@
             }
         };
 
-        const modal = document.getElementById('tierModal');
-        const modalTitle = document.getElementById('modalTitle');
-        const modalBody = document.getElementById('modalBody');
-        const modalContentEl = document.getElementById('modalContent');
+        /* --- APPLE-STYLE BLUR & DISSOLVE MINTMODAL ENGINE --- */
+        class MintModal {
+            constructor(options = {}) {
+                this.overlay = document.getElementById(options.overlayId || 'tierModal');
+                this.content = document.getElementById(options.contentId || 'modalContent');
+                this.closeBtn = document.getElementById(options.closeBtnId || 'modalCloseBtn');
+                this.titleEl = document.getElementById(options.titleId || 'modalTitle');
+                this.bodyEl = document.getElementById(options.bodyId || 'modalBody');
+                this.primaryCta = document.getElementById(options.ctaId || 'modalPrimaryCta');
 
-        if (modalContentEl) {
-            modalContentEl.addEventListener('touchstart', function() {
-                const top = modalContentEl.scrollTop;
-                const totalScroll = modalContentEl.scrollHeight;
-                const currentScroll = top + modalContentEl.offsetHeight;
+                this.isOpen = false;
+                this.isAnimating = false;
+                this.triggerElement = null;
 
-                if (top <= 0) {
-                    modalContentEl.scrollTop = 1;
-                } else if (currentScroll >= totalScroll) {
-                    modalContentEl.scrollTop = totalScroll - modalContentEl.offsetHeight - 1;
-                }
-            }, { passive: true });
-        }
-
-        function openModal(tier) {
-            modalTitle.innerText = tierData[tier].title;
-            modalBody.innerHTML = tierData[tier].body; 
-            
-            modal.style.display = 'flex';
-            document.body.classList.add('modal-open'); 
-            
-            if (window.lenis) window.lenis.stop();
-            if (modalContentEl) modalContentEl.scrollTop = 1;
-
-            setTimeout(() => {
-                modal.classList.add('active');
-            }, 30);
-        }
-
-        function closeModal(event, forceClose = false) {
-            if (event) {
-                const link = event.target.closest('a');
-                if (link && link.getAttribute('href') === '#inquiry-section') {
-                    event.preventDefault();
-                    document.body.classList.remove('modal-open');
-                    modal.classList.remove('active');
-                    if (window.lenis) {
-                        window.lenis.start();
-                        const inquiryTarget = document.getElementById('inquiry-section');
-                        if (inquiryTarget) {
-                            window.lenis.scrollTo(inquiryTarget, { offset: 0, duration: 1.2 });
-                        }
-                    }
-                    setTimeout(() => { modal.style.display = 'none'; }, 200);
-                    return;
-                }
+                this.init();
             }
 
-            if (event.target === modal || forceClose) {
-                if (event) event.preventDefault();
-                modal.classList.remove('active');
-                document.body.classList.remove('modal-open'); 
-                if (window.lenis) window.lenis.start();
-                setTimeout(() => {
-                    modal.style.display = 'none';
-                }, 200); 
-            }
-        }
+            init() {
+                if (!this.overlay || !this.content) return;
 
-        /* KEYBOARD ACCESSIBILITY: CLOSE MODAL ON ESCAPE KEY */
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && modal.classList.contains('active')) {
-                closeModal(e, true);
-            }
-        });
-
-        document.getElementById('agencyForm').addEventListener('submit', async function(e) {
-            e.preventDefault(); 
-            
-            const form = e.target;
-            const btn = form.querySelector('button');
-            const msg = document.getElementById('form-message');
-            const err = document.getElementById('form-error');
-            
-            btn.innerText = 'sending...';
-            btn.style.opacity = '0.5';
-            btn.style.pointerEvents = 'none';
-
-            try {
-                const response = await fetch(form.action, {
-                    method: form.method,
-                    body: new FormData(form),
-                    headers: { 'Accept': 'application/json' }
+                this.overlay.addEventListener('click', (e) => {
+                    if (e.target === this.overlay) this.close(false);
                 });
 
-                if (response.ok) {
-                    btn.style.display = 'none';
-                    if(err) err.style.display = 'none';
-                    msg.style.display = 'block';
-                    form.reset(); 
-                } else {
-                    throw new Error('Network response was not ok.');
+                if (this.closeBtn) {
+                    this.closeBtn.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        this.close(false);
+                    });
                 }
-            } catch (error) {
-                btn.innerText = 'submit inquiry';
-                btn.style.opacity = '1';
-                btn.style.pointerEvents = 'auto';
-                if(err) err.style.display = 'block';
+
+                if (this.primaryCta) {
+                    this.primaryCta.addEventListener('click', (e) => {
+                        const href = this.primaryCta.getAttribute('href');
+                        if (href && href.startsWith('#')) {
+                            e.preventDefault();
+                            
+                            if (window.lenis) {
+                                window.lenis.start();
+                                const target = document.querySelector(href);
+                                if (target) {
+                                    window.lenis.scrollTo(target, { offset: 0, duration: 1.0 });
+                                }
+                            }
+
+                            this.close(true);
+                        }
+                    });
+                }
+
+                document.addEventListener('keydown', (e) => {
+                    if (!this.isOpen) return;
+                    if (e.key === 'Escape') this.close(false);
+                    if (e.key === 'Tab') this.handleFocusTrap(e);
+                });
             }
+
+            open(tierKey, triggerEl = null) {
+                if (this.isOpen || this.isAnimating) return;
+                const data = tierData[tierKey];
+                if (!data) return;
+
+                this.triggerElement = triggerEl || document.activeElement;
+                this.isAnimating = true;
+
+                if (this.titleEl) this.titleEl.innerText = data.title;
+                if (this.bodyEl) this.bodyEl.innerHTML = data.body;
+
+                if (window.lenis) window.lenis.stop();
+                document.body.classList.add('modal-open');
+
+                if (this.content) this.content.scrollTop = 0;
+
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        this.overlay.classList.add('active');
+                        this.overlay.setAttribute('aria-hidden', 'false');
+                        this.isOpen = true;
+                        this.isAnimating = false;
+
+                        if (this.closeBtn) this.closeBtn.focus();
+                    });
+                });
+            }
+
+            close(fast = false, callback = null) {
+                if (!this.isOpen || this.isAnimating) return;
+                this.isAnimating = true;
+
+                if (fast) {
+                    this.overlay.classList.add('fast-dissolve');
+                }
+
+                this.overlay.classList.remove('active');
+
+                if (window.lenis) window.lenis.start();
+                document.body.classList.remove('modal-open');
+
+                const handleTransitionEnd = (e) => {
+                    if (e && e.target !== this.overlay && e.target !== this.content) return;
+
+                    this.overlay.removeEventListener('transitionend', handleTransitionEnd);
+                    clearTimeout(fallbackTimeout);
+
+                    this.overlay.classList.remove('fast-dissolve');
+                    this.overlay.setAttribute('aria-hidden', 'true');
+
+                    this.isOpen = false;
+                    this.isAnimating = false;
+
+                    if (this.triggerElement && typeof this.triggerElement.focus === 'function' && !fast) {
+                        this.triggerElement.focus();
+                    }
+
+                    if (typeof callback === 'function') callback();
+                };
+
+                this.overlay.addEventListener('transitionend', handleTransitionEnd);
+                const fallbackTimeout = setTimeout(() => handleTransitionEnd(), fast ? 220 : 600);
+            }
+
+            handleFocusTrap(e) {
+                const focusables = this.content.querySelectorAll(
+                    'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+                );
+                if (!focusables.length) return;
+
+                const first = focusables[0];
+                const last = focusables[focusables.length - 1];
+
+                if (e.shiftKey && document.activeElement === first) {
+                    e.preventDefault();
+                    last.focus();
+                } else if (!e.shiftKey && document.activeElement === last) {
+                    e.preventDefault();
+                    first.focus();
+                }
+            }
+        }
+
+        let mintModalSystem;
+        document.addEventListener('DOMContentLoaded', () => {
+            mintModalSystem = new MintModal({
+                overlayId: 'tierModal',
+                contentId: 'modalContent',
+                closeBtnId: 'modalCloseBtn',
+                titleId: 'modalTitle',
+                bodyId: 'modalBody',
+                ctaId: 'modalPrimaryCta'
+            });
         });
+
+        function openModal(tierKey) {
+            if (mintModalSystem) {
+                mintModalSystem.open(tierKey, window.event ? window.event.currentTarget : null);
+            }
+        }
+
+        function closeModal(event) {
+            if (mintModalSystem) {
+                mintModalSystem.close(false);
+            }
+        }
+
+        const agencyForm = document.getElementById('agencyForm');
+        if (agencyForm) {
+            agencyForm.addEventListener('submit', async function(e) {
+                e.preventDefault(); 
+                
+                const form = e.target;
+                const btn = form.querySelector('button');
+                const msg = document.getElementById('form-message');
+                const err = document.getElementById('form-error');
+                
+                btn.innerText = 'sending...';
+                btn.style.opacity = '0.5';
+                btn.style.pointerEvents = 'none';
+
+                try {
+                    const response = await fetch(form.action, {
+                        method: form.method,
+                        body: new FormData(form),
+                        headers: { 'Accept': 'application/json' }
+                    });
+
+                    if (response.ok) {
+                        btn.style.display = 'none';
+                        if (err) err.style.display = 'none';
+                        msg.style.display = 'block';
+                        form.reset(); 
+                    } else {
+                        throw new Error('Network response was not ok.');
+                    }
+                } catch (error) {
+                    btn.innerText = 'submit inquiry';
+                    btn.style.opacity = '1';
+                    btn.style.pointerEvents = 'auto';
+                    if (err) err.style.display = 'block';
+                }
+            });
+        }
     </script>
 </body>
 </html>
