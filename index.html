@@ -82,7 +82,6 @@
             scrollbar-gutter: stable;
             -webkit-text-size-adjust: 100%;
             text-size-adjust: 100%;
-            scroll-behavior: smooth;
             overflow-x: hidden;
             width: 100%;
         }
@@ -597,19 +596,6 @@
             .cta-trigger:hover, .footer-link:hover, .partner-item:hover {
                 transform: none !important;
                 box-shadow: none !important;
-            }
-            .slide-content {
-                will-change: auto !important;
-                transition: none !important;
-            }
-            .hero-slide.active .slide-content {
-                opacity: 1 !important;
-                transform: none !important;
-                -webkit-transform: none !important;
-            }
-            .hero-slide.active {
-                opacity: 1 !important;
-                visibility: visible !important;
             }
         }
 
@@ -1731,32 +1717,24 @@
 
     <script src="https://unpkg.com/lenis@1.1.9/dist/lenis.min.js"></script>
     <script>
-        const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
-        let lenis = null;
-        if (!isTouchDevice) {
-            lenis = new Lenis({
-                duration: 1.2,
-                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-                smoothWheel: true
-            });
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            smoothWheel: true,
+            smoothTouch: false,
+            syncTouch: false,
+            touchMultiplier: 1.0
+        });
 
-            function raf(time) {
-                if (lenis) lenis.raf(time);
-                requestAnimationFrame(raf);
-            }
+        function raf(time) {
+            lenis.raf(time);
             requestAnimationFrame(raf);
-            window.lenis = lenis;
-        } else {
-            window.lenis = null;
         }
+        requestAnimationFrame(raf);
 
-        if (isTouchDevice) {
-            const heroEl = document.querySelector('.hero-container');
-            if (heroEl) {
-                heroEl.style.height = window.innerHeight + 'px';
-            }
-        }
+        window.lenis = lenis;
 
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -1765,18 +1743,10 @@
                 const targetElement = document.querySelector(targetId);
                 if (targetElement) {
                     e.preventDefault();
-                    if (window.lenis) {
-                        window.lenis.scrollTo(targetElement, {
-                            offset: 0,
-                            duration: 1.2
-                        });
-                    } else {
-                        /* Native Smooth Scroll Fallback for Mobile Touch Devices */
-                        targetElement.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
+                    lenis.scrollTo(targetElement, {
+                        offset: 0,
+                        duration: 1.2
+                    });
                 }
             });
         });
@@ -1791,8 +1761,6 @@
                     offset: 0,
                     duration: 1.2
                 });
-            } else if (retainersSection) {
-                retainersSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
             
             if (ecosystemCard) {
@@ -2085,23 +2053,16 @@
                         const href = this.primaryCta.getAttribute('href');
                         if (href && href.startsWith('#')) {
                             e.preventDefault();
-                            const target = document.querySelector(href);
                             
-                            this.close(true);
-
-                            if (target) {
-                                if (window.lenis) {
-                                    window.lenis.start();
+                            if (window.lenis) {
+                                window.lenis.start();
+                                const target = document.querySelector(href);
+                                if (target) {
                                     window.lenis.scrollTo(target, { offset: 0, duration: 1.0 });
-                                } else {
-                                    /* Mobile / Touch Fallback */
-                                    document.body.classList.remove('modal-open');
-                                    target.scrollIntoView({
-                                        behavior: 'smooth',
-                                        block: 'start'
-                                    });
                                 }
                             }
+
+                            this.close(true);
                         }
                     });
                 }
