@@ -137,8 +137,11 @@
             width: 100%;
         }
 
+        html.modal-open,
         body.modal-open {
-            overflow: hidden;
+            overflow: hidden !important;
+            touch-action: none;
+            overscroll-behavior: contain;
         }
 
         main {
@@ -1021,6 +1024,8 @@
             visibility: hidden;
             pointer-events: none;
             border-radius: 0;
+            touch-action: none;
+            overscroll-behavior: contain;
             transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
                         visibility 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
@@ -1123,6 +1128,8 @@
             margin-bottom: 16px;
             flex: 1 1 auto;
             overflow-y: auto;
+            overscroll-behavior: contain;
+            touch-action: pan-y;
             -webkit-overflow-scrolling: touch;
             padding-right: 4px;
         }
@@ -1362,22 +1369,23 @@
         }
 
         /* --- MOBILE LANDSCAPE OVERRIDES --- */
-        @media screen and (orientation: landscape) and (max-height: 520px) {
+        @media screen and (orientation: landscape) and (max-height: 650px) {
             .header-logo { top: max(12px, env(safe-area-inset-top)); width: auto; max-height: clamp(28px, 9vh, 42px); z-index: 500; }
             .header-logo img { width: auto; height: auto; max-height: clamp(28px, 9vh, 42px); object-fit: contain; }
 
-            .hero-container { height: 100vh; height: 100dvh; min-height: 100vh; }
+            .hero-container { height: 100vh; height: 100dvh; min-height: 100dvh; }
             .hero-index { display: none; }
 
             .hero-slide {
-                padding-top: max(clamp(58px, 14vh, 76px), env(safe-area-inset-top));
-                padding-bottom: max(clamp(35px, 8vh, 50px), env(safe-area-inset-bottom));
+                padding-top: max(clamp(48px, 12vh, 65px), env(safe-area-inset-top));
+                padding-bottom: max(clamp(45px, 10vh, 60px), env(safe-area-inset-bottom));
                 padding-left: var(--safe-area-left);
                 padding-right: var(--safe-area-right);
-                align-items: center;
+                align-items: flex-start;
+                justify-content: center;
             }
 
-            .slide-content { max-width: 80%; margin-top: 0; }
+            .slide-content { max-width: 80%; margin-top: 0; transform: none; }
 
             .slide-badge { font-size: 9px; padding: 3px 10px; margin-bottom: 6px; letter-spacing: 0.25em; }
 
@@ -1402,6 +1410,11 @@
 
             .pag-bar { width: 18px; }
             .pag-bar.active { width: 32px; }
+
+            .modal-content { padding: 20px var(--site-gutter); max-height: 88dvh; }
+            .modal-title { font-size: clamp(18px, 4.5vh, 24px); margin-bottom: 10px; }
+            .modal-eyebrow { margin-bottom: 6px; }
+            .modal-body { margin-bottom: 12px; }
 
             .section-header { padding: 10px var(--safe-area-left); font-size: 10px; }
 
@@ -1757,7 +1770,16 @@
         if (isTouchDevice) {
             const heroEl = document.querySelector('.hero-container');
             if (heroEl) {
-                heroEl.style.height = window.innerHeight + 'px';
+                const updateHeroHeight = () => {
+                    if (window.matchMedia('(orientation: landscape)').matches) {
+                        heroEl.style.height = '100dvh';
+                    } else {
+                        heroEl.style.height = window.innerHeight + 'px';
+                    }
+                };
+                updateHeroHeight();
+                window.addEventListener('resize', updateHeroHeight);
+                window.addEventListener('orientationchange', updateHeroHeight);
             }
         }
 
@@ -2071,6 +2093,12 @@
 
             init() {
                 if (!this.overlay || !this.content) return;
+
+                this.overlay.addEventListener('touchmove', (e) => {
+                    if (!e.target.closest('.modal-body')) {
+                        e.preventDefault();
+                    }
+                }, { passive: false });
 
                 this.overlay.addEventListener('click', (e) => {
                     if (e.target === this.overlay) this.close(false);
